@@ -97,7 +97,6 @@ We are convinced that this application will not just be a graduation project. It
 | Create an account            | Very doable.                                                                     | Essential function.                          | Perfectly aligned with our skills.                           | High scalability                                              | None                                                       | 10/10      |
 | Create a login               | Very doable.                                                                     | Essential function.                          | Perfectly aligned with our skills.                           | High scalability                                              | None                                                       | 10/10      |
 
-
 ### Deadline and MVP Goal 🗓️
 
 With a deadline set for the end of February, we must remain focused on the essentials: a functional *MVP* (Minimum Viable Product). This means delivering the key features that make the app usable and attractive. But this is just the beginning.  
@@ -124,7 +123,6 @@ To achieve this goal, we plan to develop a website or a mobile application (time
 | Relationship Tracking       | Create a history of meetups for each pet and display statistics such as the number of friends met. | Create a Friendships table: animal_id_1, animal_id_2, date.  | Display relationships in a list or graph form with statistics. |
 | Health Profile              | Add optional health information about pets (vaccinations, sterilization, etc.) to reassure other users. | Add fields such as vaccinated, medical_notes in the Animals table. | Allow filling or editing these fields in the pet's profile. Add indicative icons (e.g., vaccinated OK). |
 | Badges or Rewards           | Gamify the experience by offering badges for first meetups or frequent interactions. | Create a Badges table: animal_id, badge_name, earned_date.   | Display badges on the pet’s profile as colored icons. Add an interface to unlock rewards. |
-
 
 ### The Choice of Name 🐾
 
