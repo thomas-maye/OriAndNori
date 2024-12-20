@@ -77,27 +77,27 @@ We are convinced that this application will not just be a graduation project. It
 
 TABLEAU A INSERER
 
-## Deadline and MVP Goal ⏰
+### Deadline and MVP Goal ⏰
 
 With a deadline set for the end of February, we must remain focused on the essentials: a functional MVP (Minimum Viable Product). This means delivering the key features that make the app usable and attractive. But this is just the beginning.  
 Once this stage is completed, we will continue to enrich the project. Because this adventure doesn't end in February. It’s just the beginning.
 
-## Our Ambition 🌍
+### Our Ambition 🌍
 
 This project is much more than a technical exercise. It’s a mission that reflects our values and our vision of a more connected, more humane, and more respectful world for animals. We are excited to take on this challenge with enthusiasm and determination to provide a solution that will truly make a difference. Because animals, like us, deserve opportunities to meet, share, and grow together.
 
-## MVP Summary 📋
+### MVP Summary 📋
 
 After learning about the concept of the MVP (Minimum Viable Product), we have decided to focus on an MLP (Minimum Lovable Product), an initial version centered around user experience. This choice allows us to better address our initial question: "How can we socialize our pets?"  
 To achieve this goal, we plan to develop a website or a mobile application (time permitting) that offers a smooth and enjoyable user experience. This product will incorporate the essential features outlined in the attached table.
 
 TABLEAU A INSERER
 
-## The Choice of Name 🐾
+### The Choice of Name 🐾
 
 Choosing the name is a crucial step, as it must not only be memorable but also embody the spirit of the project. After considering several options such as PetPals, Playpaws, PawBuddy, HappyPaws, SocialTail, AnimalCircle, PetConnect, Compawny, and MeetMyPet, we ultimately decided on Ori&Nori. This name holds special meaning for us, as it combines the names of our own pets. By choosing Ori&Nori, we wanted to pay tribute to these four-legged companions who inspired our project, illustrating the deep connection between animals and their owners. This choice perfectly embodies the project's philosophy: to create bonds, foster meetups, and share precious moments. Ori&Nori is not just a name; it is an authentic representation of our vision, grounded in values of kindness and friendliness.
 
-## Our Mind Mapping 🧠
+### Our Mind Mapping 🧠
 
 To structure our ideas and ensure the coherence of our project, we also developed a mind map. This diagram allowed us to visually illustrate all the key features, challenges to overcome, and project priorities. It will be an essential tool for planning the development of Ori&Nori, ensuring that each aspect of the app is thoughtfully designed to provide a smooth and enjoyable user experience while meeting the real needs of pets and their owners.
 
