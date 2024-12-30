@@ -1,0 +1,25 @@
+services:
+  node:
+    image: node:23
+    ports:
+      - 3333:3333
+    volumes:
+      - ./:/app/
+    working_dir: /app/
+    command: npm run dev
+    # depends_on:
+    #   - pgsql
+  pgsql:
+    image: postgres:17
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - oriandnori-pgsql:/var/lib/postgresql/data
+volumes:
+  oriandnori-pgsql:
+    name: oriandnori-pgsql
+    driver: local
