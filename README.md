@@ -57,7 +57,7 @@ docker compose run --rm node node ace generate:key
 ### Step 5: Start the development server 🚀
 
 ```bash
-docker compose up
+docker compose up -d
 ```
 
 ### Step 6: Access the application 🌐
@@ -67,5 +67,5 @@ Open your browser and navigate to `http://localhost:3333`.
 ### Step 7: Stop the development server 🛑
 
 ```bash
-docker compose down
+docker-compose down --remove-orphans
 ```
