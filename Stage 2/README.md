@@ -123,9 +123,9 @@ Here are the details of all the risks we have identified :
 | **Technological compatibility issues between different frameworks or libraries** | Unexpected bugs, delays in integration. | Validate the tools and technologies to be used from the start. Allocate time to test the integration of key components before production deployment. |
 | **Underestimated workload for post-launch maintenance** | Difficulties in managing bugs and user requests after deployment. | Plan for minimal support after launch and define a roadmap for fixes. Prioritize critical feedback for quick intervention. |
 
-## Develop a High-Level Plan
+## Develop a High-Level Plan 🗓️
 
-### Timeline
+### Timeline ⏳
 
 The project will be divided into several phases, each with specific objectives and deliverables. 
 On this [Roadmap](https://github.com/users/thomas-maye/projects/1/views/3) you can find the detailed planning of the project that we will follow. To simplify our work, we've decided to create an issue for each feature we're going to create (each feature having a well-defined route). This will make it easier to divide the work between the two of us.
