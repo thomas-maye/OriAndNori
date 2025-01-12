@@ -1,3 +1,7 @@
+<p align="center">
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%202/images/Ori%26Nori%20-%20Logo.png" width="200"/>
+</p>
+
 # PortFolio Project - Development of the project charter (Stage 2) 📝
 
 ## Definition of project objectives 🎯
