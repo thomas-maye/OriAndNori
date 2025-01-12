@@ -148,6 +148,6 @@ To be more concise, here's an outline of the schedule.
 
 *Stage 4 - MVP Development + Testing + Deployment.*
 
-### **Week 11-12: ** 🎤
+### **Week 11-12 (Mars 10 to 20):** 🎤
 
 *Prepare the Final Presentation and closure.*
