@@ -1,5 +1,11 @@
-@include('partials/header')
-<h1 class="text-3xl font-bold underline">
-  It works !! 
-</h1>
-@include('partials/footer')
+@layout.app({ title: "Bienvenue" })
+  @slot('meta')
+    <meta name="description" content="A welcome page made with EdgeJS">
+  @endslot
+
+  @slot('main')
+  <h1 class="text-3xl font-bold underline">
+    It works !! 
+  </h1>
+  @endslot
+@end
