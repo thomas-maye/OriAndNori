@@ -150,4 +150,4 @@ To be more concise, here's an outline of the schedule.
 
 ### **Week 11-12 (Mars 10 to 20):** 🎤
 
-*Prepare the Final Presentation and closure.*
+*Stage 5 -Prepare the Final Presentation and closure.*
