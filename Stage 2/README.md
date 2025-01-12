@@ -125,3 +125,25 @@ Here are the details of all the risks we have identified :
 
 The project will be divided into several phases, each with specific objectives and deliverables. 
 On this [Roadmap](https://github.com/users/thomas-maye/projects/1/views/3) you can find the detailed planning of the project that we will follow. To simplify our work, we've decided to create an issue for each feature we're going to create (each feature having a well-defined route). This will make it easier to divide the work between the two of us.
+
+To be more concise, here's an outline of the schedule.
+
+### **Week 1-2 (December 9 to 20):** 🎯
+
+*Stage 1 - Team formation and idea generation.*
+
+### **Week 3 (January 6 to 10):** 📜
+
+*Stage 2 - Project Charter creation.*
+
+### **Week 4-5 (January 13 to 24):** 📑
+
+*Stage 3 - Technical documentation finalized.*
+
+### **Week 4-10 (January 20 to March 7):** 🚀
+
+*Stage 4 - MVP Development + Testing + Deployment.*
+
+### **Week 11-12: ** 🎤
+
+*Prepare the Final Presentation and closure.*
