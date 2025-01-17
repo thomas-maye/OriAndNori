@@ -11,7 +11,7 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" action="#" method="POST" enctype="multipart/form-data">
 
         @!component('components/input', { name: 'username', label: 'Username' })
         @!component('components/input', { name: 'email', label: 'Email address', type: 'email' })
