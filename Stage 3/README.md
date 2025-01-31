@@ -98,9 +98,9 @@ The choice of these mockups and User Stories is based on a thorough analysis of 
 
 This diagram illustrates the system architecture, highlighting interactions between the Front-End, Back-End, database, and external APIs. The Front-End, built with TailwindCSS and Edge, communicates with a Back-End based on AdonisJs. The Back-End handles user requests and interacts with a PostgreSQL database as well as multiple external APIs (user data, geolocation, messaging, notifications). This schematic provides a clear view of data flows and the overall platform operation.
 
-Insérer Diagramme Architectural diagram.drawio.pdf
-![Architectural Diagram](https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Architectural%20diagram.drawio.pdf)
-
+<p align="center">
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Architectural%20diagram.png" alt="Architecture Diagram">
+</p>
 
 ## Define Components, Classes, and Database Design 🛠️
 
@@ -108,7 +108,9 @@ Insérer Diagramme Architectural diagram.drawio.pdf
 
 This diagram represents the relational model of the database. It defines the system's main entities, such as users, pets, meetings, and reviews. Each entity is connected through logical relationships that illustrate the data structure and its interactions. Primary keys (PK) and foreign keys (FK) ensure the integrity of relationships between tables, ensuring consistent data management.
 
-Insérer le Diagramme ERD.drawio.pdf 📄
+<p align="center">
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/ERD.png" alt="ERD Diagram")>
+</p>
 
 ## Create High-Level Sequence Diagrams 🖥️
 
@@ -116,7 +118,9 @@ Insérer le Diagramme ERD.drawio.pdf 📄
 
 This diagram illustrates the process of creating a pet profile, detailing interactions between the user, Front-End, Back-End, and database. The user fills out a form, which is validated before submission. In case of errors, messages are displayed. Once submitted, the Back-End processes the request, inserts the data into the database, and returns a unique identifier. Finally, a confirmation message is displayed to the user, indicating that the profile has been successfully created.
 
-Insérer Diagramme Sequence Diagram for Pet Profile Creation.drawio.pdf 📄
+<p align="center">
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Sequence%20Diagram%20for%20Pet%20Profile%20Creation.png" alt="Sequence Diagram Pet Creation">
+</p>
 
 ### Sequence Diagram – Meetup Planning 🗓️
 
@@ -124,7 +128,9 @@ This diagram represents the process of creating and managing a meetup, highlight
 
 The diagram also illustrates the process of viewing meetups by another user (User 2). The user can send a request to retrieve a list of available meetups. If they choose to participate in a meetup, a request is sent to update their status, followed by a participation confirmation. This diagram highlights the different steps and interactions required for creating, viewing, and registering for a meetup.
 
-Insérer Diagramme Meetup Schedule.drawio.pdf 📄
+<p align="center">
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Meetup%20Schedule.png" alt="Sequence Diagram Meetup Planning">
+</p>
 
 ## Document External and Internal APIs 🌐
 
