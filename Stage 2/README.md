@@ -103,7 +103,6 @@ Overall solution : Invest in standard security protocols and define clear terms 
 Good team management and tools can prevent many potential complications.
 Overall Solution : Effective project management tools and regular communication are essential.
 
-
 Here are the details of all the risks we have identified :
 
 ### Identified Risks and Mitigation Strategies
@@ -127,7 +126,7 @@ Here are the details of all the risks we have identified :
 
 ### Timeline ⏳
 
-The project will be divided into several phases, each with specific objectives and deliverables. 
+The project will be divided into several phases, each with specific objectives and deliverables.
 On this [Roadmap](https://github.com/users/thomas-maye/projects/1/views/3) you can find the detailed planning of the project that we will follow. To simplify our work, we've decided to create an issue for each feature we're going to create (each feature having a well-defined route). This will make it easier to divide the work between the two of us.
 
 To be more concise, here's an outline of the schedule.
