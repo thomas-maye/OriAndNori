@@ -1,3 +1,7 @@
+<p align="center">
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%202/images/Ori%26Nori%20-%20Logo.png" width="200"/>
+</p>
+
 # Portfolio Project - Technical Documentation (Stage 3)
 
 ## Presentation of Mockups/Wireframes and User Stories 📝
@@ -217,8 +221,6 @@ To maintain a clean and maintainable codebase, we will enforce strict linting an
 
 These measures will be particularly beneficial for Ori&Nori as we expand the codebase. Strict adherence to linting rules will ensure the maintenance of a consistent coding style, which is crucial when multiple contributors are working on different parts of the project.
 
----
-
 ### To summarize… 📋
 
 By applying this structured approach to SCM and QA, we will ensure the stability, maintainability, and high quality of the code.  
@@ -227,7 +229,7 @@ By applying these best practices, Ori&Nori will benefit from an evolving and rel
 
 ## Justification of Technological Choices for Ori&Nori 🚀
 
-### AdonisJS: Un Framework Moderne et Structuré, Idéal pour Ori&Nori 🔧
+### AdonisJS: A Modern, Structured Framework, Ideal for Ori&Nori 🔧
 
 The choice of **AdonisJS** for **Ori&Nori** was made with the goal of exploring a modern technology that is perfectly suited to the project's requirements. With its well-defined structure and robust architecture, AdonisJS facilitates the creation of an efficient and scalable API, essential for managing interactions between pet owners and their companions on the platform. It offers an excellent balance between performance and productivity, which is crucial for a high-growth potential project like Ori&Nori.
 
@@ -250,7 +252,5 @@ The choice of **AdonisJS** for **Ori&Nori** was made with the goal of exploring 
 - **Composability and Speed**: Tailwind allows for the construction of clean, responsive interfaces, ideal for a platform like Ori&Nori, which requires dynamic visual elements and smooth interactions with users and their pets.
 - **Ease of Maintenance**: Using utility classes helps reduce style duplication and maintain clear, manageable code, even as the project grows.
 - **Performance**: By generating only the used styles, Tailwind optimizes the size of CSS files, improving page load speed — a crucial factor for user experience on Ori&Nori.
-
----
 
 The technological choices made for **Ori&Nori** are the result of a thorough analysis of its specific needs. **AdonisJS**, with its MVC architecture and Lucid ORM, provides a solid foundation for a robust and scalable API, perfectly suited to the requirements of Ori&Nori. **PostgreSQL**, with its advanced relationship management, ensures efficient and secure handling of the complex data of users and pets. Finally, **Tailwind CSS** guarantees a modern, responsive, and high-performance user interface, essential for a smooth and enjoyable experience. Together, these technologies form a coherent and optimized stack, perfectly suited for the development and sustainability of **Ori&Nori**.
