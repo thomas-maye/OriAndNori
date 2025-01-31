@@ -138,13 +138,13 @@ The diagram also illustrates the process of viewing meetups by another user (Use
 
 For Ori&Nori, we have selected three external APIs to effectively meet our specific needs. These APIs will cover functionalities that we prefer to delegate to third-party services, either due to a lack of technical expertise or time constraints. One API will be used for geolocation, another for sending transactional emails (notifications), and a third for internal messaging within the Ori&Nori application.
 
-#### OpenCage 🌏
+#### [OpenCage](https://opencagedata.com/) 🌏
 
 For geocoding in our application, we have chosen OpenCage, a reliable and easy-to-integrate API. It stands out for its global coverage and use of open data, primarily sourced from OpenStreetMap. Its clear documentation and practical examples make integration straightforward.
 
 OpenCage offers transparent and affordable pricing, with 2,500 free requests per day, allowing us to conduct initial tests without limitations. Additionally, its flexible architecture ensures that OpenCage will remain a robust and scalable solution for Ori&Nori, regardless of the project's future growth.
 
-#### Pusher ⚡
+#### [Pusher](https://pusher.com/) ⚡
 
 For real-time messaging in our application, we have chosen Pusher, an API specialized in real-time communication via WebSockets. We choose it for its clear and detailed documentation, along with practical examples that simplify integration.
 
@@ -154,7 +154,7 @@ In addition to its ease of implementation, Pusher is cross-platform, ensuring op
 
 Pusher offers a fair pricing model, providing 200,000 messages per day and 100 simultaneous connections, allowing us to conduct our tests effectively. This free plan is ideal for getting started and validating the real-time messaging system. If the project grows, it is possible to upgrade to paid plans for greater capacity, ensuring smooth scalability for Ori&Nori.
 
-#### SendGrid ✉️
+#### [SendGrid](https://sendgrid.com/en-us) ✉️
 
 For transactional email management, we have chosen SendGrid, a reliable and easy-to-integrate API. Its service is used by many organizations, ensuring the reliability and speed of email deliveries. The documentation is clear, with practical examples for Node.js (and thus AdonisJs), as well as detailed guides and tutorials to facilitate integration.
 
