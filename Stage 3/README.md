@@ -21,15 +21,68 @@ Each User Story follows the format:
 - **User-Centered Approach**: All the User Stories were written with a user-centric approach to meet the real needs of users, whether they are pet owners or simply looking for socialization events. For example, "As a dog owner, I want to be able to organize a Meetup in my favorite park to socialize my pet."
 - **Considering Interactions Between Users**: Features like Meetups, pet friend management, and ratings were prioritized to promote user engagement and retention. For example, "As a user, I want to be able to rate a Meetup after my participation to share my experience with the community."
 
-Here is the complete set of User Stories for our project:  Tableau ici: 🗂️
+Here is the complete set of User Stories for our project:
+
+## Features Overview
+
+| **Class**  | **Feature Name**  | **As a**  | **I want to**  | **So that I can**  | **URL**  | **HTTP Method**  |
+|------------|------------------|------------|----------------|----------------|------------------|--------------|
+| **USER**  | User account creation  | Visitor  | Create an account with my email and password  | Access the platform and use its features  | `/register`  | `POST`  |
+| **USER**  | User login  | User  | Log in to my account with my credentials  | Manage my information and access my personal data  | `/login`  | `POST`  |
+| **USER**  | User logout  | Logged-in user  | Log out of my account  | Protect my personal information  | `/logout`  | `POST`  |
+| **USER**  | Password reset  | User  | Reset my password via an email link  | Access my account if I forget my password  | `/password-reset`  | `POST`  |
+| **USER**  | View user profile  | Logged-in user  | See a user’s profile  | View their Meetups and Pets  | `/<ID>/profile`  | `GET`  |
+| **USER**  | Badges and achievements  | User  | Unlock badges and rewards  | Stay motivated to use the app  | `/profile/achievement`  | `GET`  |
+| **USER**  | Profile management  | Logged-in user  | Edit my personal information  | Keep my profile up to date  | `/profile`  | `GET`, `PUT`, `DELETE`  |
+| **USER**  | Upload profile picture  | Logged-in user  | Add a picture to my profile  | Make my profile more engaging  | `/profile/photo`  | `POST`  |
+| **PET**  | Create a Pet profile  | Pet owner  | Add my Pet with details (personality, breed, species)  | Make my Pet visible to other users  | `/pets/create`  | `POST`  |
+| **PET**  | View Pet profile  | User  | Display a Pet’s profile (personality, breed, species, number of meetups, friends list)  | Learn about a Pet  | `/pets/<ID>`  | `GET`  |
+| **PET**  | Edit Personality  | Pet owner  | Edit my Pet’s personality  | Update my Pet’s details  | `/pets/<ID>/personality`  | `PUT`  |
+| **PET**  | Edit Breed  | Pet owner  | Edit my Pet’s breed  | Update my Pet’s details  | `/pets/<ID>/breed`  | `PUT`  |
+| **PET**  | Edit Species  | Pet owner  | Edit my Pet’s species  | Update my Pet’s details  | `/pets/<ID>/species`  | `PUT`  |
+| **PET**  | Upload Pet photos  | Pet owner  | Add photos to my Pet’s profile  | Make my Pet’s profile more attractive and informative  | `/pets/<ID>/photo`  | `POST`  |
+| **PET**  | Delete a Pet  | Pet owner  | Remove a Pet and all its details  | Delete a Pet that is no longer relevant  | `/pets/<ID>/delete`  | `DELETE`  |
+| **PET**  | View Pet profiles  | User  | Browse nearby Pet profiles  | See the list of Pets  | `/pets`  | `GET`  |
+| **PET**  | Advanced Pet search/filtering  | User  | Filter Pets based on criteria (age, species, breed, location, etc.)  | Find a companion for my Pet  | `/pets/search`  | `GET`  |
+| **PET**  | Send friend request  | User  | Send a friend request to another Pet  | Make friends  | `/pets/<ID>/friends`  | `POST`  |
+| **PET**  | Accept friend request  | User  | Accept a friend request  | Choose whether to accept or not  | `/pets/<ID>/friends/accept`  | `POST`  |
+| **PET**  | Propose a Meetup  | Logged-in user  | Suggest an outing to another Pet  | Meet with a chosen Pet  | `/pets/<ID>/meetup`  | `POST`  |
+| **PET**  | Manage my Pets  | Pet owner  | View, edit, or delete my Pets  | Manage all my registered Pets  | `/pets/my-pets`  | `GET`, `PUT`, `DELETE`  |
+| **PET**  | Rate and review Pets  | User  | Rate a Pet and leave a comment (possibly outside of meetups)  | Share my experience to help others choose meetups  | `/pets/<ID>/review`  | `POST`  |
+| **MEETUP**  | Create a Meetup  | Logged-in user  | Create a Meetup proposal  | Socialize Pets and organize gatherings  | `/meetups/create`  | `POST`  |
+| **MEETUP**  | List Meetups  | Logged-in user  | View all created Meetups  | See the list of Meetups  | `/meetups`  | `GET`  |
+| **MEETUP**  | Filter Meetups  | Logged-in user  | Filter Meetups based on criteria (location, Pets, duration, etc.)  | Find a suitable Meetup  | `/meetups/search`  | `GET`  |
+| **MEETUP**  | Join a Meetup  | Logged-in user  | Sign up for a Meetup  | Participate and notify the organizer  | `/meetups/join`  | `POST`  |
+| **MEETUP**  | Leave a Meetup  | Logged-in user  | Unregister from a Meetup  | Cancel participation and notify the organizer  | `/meetups/quit`  | `POST`  |
+| **MEETUP**  | Edit a Meetup  | Logged-in user  | Edit my Meetup  | Update the details and inform participants  | `/meetups/<ID>/edit`  | `PUT`  |
+| **MEETUP**  | Delete a Meetup  | Logged-in user  | Delete my Meetup  | Remove it and inform participants  | `/meetups/<ID>/delete`  | `DELETE`  |
+| **MEETUP**  | Manage my Meetups  | Logged-in user  | View and organize Meetups I created or joined  | Keep track of my Meetup activities  | `/meetups/manage`  | `GET`, `PUT`, `DELETE`  |
+| **MEETUP**  | View a Meetup  | Logged-in user  | Display Meetup details  | Know the characteristics of the Meetup  | `/meetups/<ID>`  | `GET`  |
+| **MEETUP**  | View Meetup Pets  | Logged-in user  | See the list of Pets attending a Meetup  | Check participating Pets’ profiles  | `/meetups/<ID>/pets`  | `GET`  |
+| **MEETUP**  | Rate and review a Meetup  | Logged-in user  | Give a rating and comment on a Meetup  | Share my experience  | `/meetups/<ID>/review`  | `POST`  |
+| **REVIEW**  | List reviews  | Logged-in user  | View all reviews  | Access feedback  | `/reviews`  | `GET`  |
+| **REVIEW**  | Manage my reviews  | Logged-in user  | Edit or delete my reviews  | Update my feedback  | `/reviews/my-reviews`  | `GET`, `PUT`, `DELETE`  |
+| **ALL**  | Dashboard  | Logged-in user  | See an overview of my activities (profiles, meetups, messages)  | Quickly access important information  | `/dashboard`  | `GET`  |
+| **ADMIN**  | Content moderation  | Admin  | Delete or modify inappropriate content  | Maintain a safe platform environment  | `/admin/moderation`  | `DELETE`, `PUT`  |
+| **ADMIN**  | Statistics analysis  | Admin  | View platform usage metrics  | Optimize performance and identify trends  | `/admin/stats`  | `GET`  |
+
 
 ## Presentation of Mockups/Wireframes 🎨
 
 ### Objective of the Mockups 🎯
 
-The wireframes were designed to provide a smooth and intuitive user experience. Each screen was designed to ensure consistent navigation and quick adoption by users.
+The wireframes were designed to provide a smooth and intuitive user experience. Each screen was designed to ensure consistent navigation and quick adoption by users. Below are mockups of the main features. But [here](https://www.figma.com/proto/VCVYHlXwpER6irErylGMik/Figma-basics?node-id=602-3410&p=f&t=LVkjQG0J8tPJfX1Z-1&scaling=scale-down&content-scaling=fixed&page-id=1669%3A162202) are all the mockups for our project. The advantage of this link is that the pages are scrollable. We've decided to present the mobile version of the site, as this is how it will be used most of the time.
 
-Insérez le lien ici + mettre quelques wireframe 🖌️
+<p align="center">
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Home.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Menu.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Register.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Login.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreatePet.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreateMeetup.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/SearchMeetup.png" width="200"/>
+<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/JoinMeetup.png" width="200"/>
+</p>
 
 ### Design Choices ⚙️
 
@@ -39,6 +92,15 @@ Insérez le lien ici + mettre quelques wireframe 🖌️
 - **Use of a Harmonious Color Palette**: To enhance readability and provide a clear visual identity for the platform, we adopted a soft and contrasted color palette, with distinct colors for primary and secondary actions.
 
 The choice of these mockups and User Stories is based on a thorough analysis of user needs and best practices in design and user experience. The modular and progressive approach provides a solid foundation for the MVP while allowing flexibility for future developments of the project.
+
+## Design System Architecture
+### Architecture Overview
+
+This diagram illustrates the system architecture, highlighting interactions between the Front-End, Back-End, database, and external APIs. The Front-End, built with TailwindCSS and Edge, communicates with a Back-End based on AdonisJs. The Back-End handles user requests and interacts with a PostgreSQL database as well as multiple external APIs (user data, geolocation, messaging, notifications). This schematic provides a clear view of data flows and the overall platform operation.
+
+Insérer Diagramme Architectural diagram.drawio.pdf
+![Architectural Diagram](https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Architectural%20diagram.drawio.pdf)
+
 
 ## Define Components, Classes, and Database Design 🛠️
 
