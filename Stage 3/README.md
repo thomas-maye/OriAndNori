@@ -1,6 +1,4 @@
-<p align="center">
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%202/images/Ori%26Nori%20-%20Logo.png" width="200"/>
-</p>
+<p align="center"><img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%202/images/Ori%26Nori%20-%20Logo.png" width="200"/></p>
 
 # Portfolio Project - Technical Documentation (Stage 3)
 
@@ -66,7 +64,6 @@ Here is the complete set of User Stories for our project:
 | **ADMIN**  | Content moderation  | Admin  | Delete or modify inappropriate content  | Maintain a safe platform environment  | `/admin/moderation`  | `DELETE`, `PUT`  |
 | **ADMIN**  | Statistics analysis  | Admin  | View platform usage metrics  | Optimize performance and identify trends  | `/admin/stats`  | `GET`  |
 
-
 ## Presentation of Mockups/Wireframes 🎨
 
 ### Objective of the Mockups 🎯
@@ -74,14 +71,14 @@ Here is the complete set of User Stories for our project:
 The wireframes were designed to provide a smooth and intuitive user experience. Each screen was designed to ensure consistent navigation and quick adoption by users. Below are mockups of the main features. But [here](https://www.figma.com/proto/VCVYHlXwpER6irErylGMik/Figma-basics?node-id=602-3410&p=f&t=LVkjQG0J8tPJfX1Z-1&scaling=scale-down&content-scaling=fixed&page-id=1669%3A162202) are all the mockups for our project. The advantage of this link is that the pages are scrollable. We've decided to present the mobile version of the site, as this is how it will be used most of the time.
 
 <p align="center">
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Home.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Menu.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Register.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Login.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreatePet.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreateMeetup.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/SearchMeetup.png" width="200"/>
-<img  src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/JoinMeetup.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Home.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Menu.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Register.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/Login.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreatePet.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/CreateMeetup.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/SearchMeetup.png" width="200"/>
+<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Wireframes/JoinMeetup.png" width="200"/>
 </p>
 
 ### Design Choices ⚙️
@@ -94,13 +91,12 @@ The wireframes were designed to provide a smooth and intuitive user experience. 
 The choice of these mockups and User Stories is based on a thorough analysis of user needs and best practices in design and user experience. The modular and progressive approach provides a solid foundation for the MVP while allowing flexibility for future developments of the project.
 
 ## Design System Architecture
+
 ### Architecture Overview
 
 This diagram illustrates the system architecture, highlighting interactions between the Front-End, Back-End, database, and external APIs. The Front-End, built with TailwindCSS and Edge, communicates with a Back-End based on AdonisJs. The Back-End handles user requests and interacts with a PostgreSQL database as well as multiple external APIs (user data, geolocation, messaging, notifications). This schematic provides a clear view of data flows and the overall platform operation.
 
-<p align="center">
-<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Architectural%20diagram.png" alt="Architecture Diagram">
-</p>
+<p align="center"><img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Architectural%20diagram.png" alt="Architecture Diagram"/></p>
 
 ## Define Components, Classes, and Database Design 🛠️
 
@@ -108,9 +104,7 @@ This diagram illustrates the system architecture, highlighting interactions betw
 
 This diagram represents the relational model of the database. It defines the system's main entities, such as users, pets, meetings, and reviews. Each entity is connected through logical relationships that illustrate the data structure and its interactions. Primary keys (PK) and foreign keys (FK) ensure the integrity of relationships between tables, ensuring consistent data management.
 
-<p align="center">
-<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/ERD.png" alt="ERD Diagram")>
-</p>
+<p align="center"><img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/ERD.png" alt="ERD Diagram"/></p>
 
 ## Create High-Level Sequence Diagrams 🖥️
 
@@ -118,9 +112,7 @@ This diagram represents the relational model of the database. It defines the sys
 
 This diagram illustrates the process of creating a pet profile, detailing interactions between the user, Front-End, Back-End, and database. The user fills out a form, which is validated before submission. In case of errors, messages are displayed. Once submitted, the Back-End processes the request, inserts the data into the database, and returns a unique identifier. Finally, a confirmation message is displayed to the user, indicating that the profile has been successfully created.
 
-<p align="center">
-<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Sequence%20Diagram%20for%20Pet%20Profile%20Creation.png" alt="Sequence Diagram Pet Creation">
-</p>
+<p align="center"><img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Sequence%20Diagram%20for%20Pet%20Profile%20Creation.png" alt="Sequence Diagram Pet Creation"/></p>
 
 ### Sequence Diagram – Meetup Planning 🗓️
 
@@ -128,9 +120,7 @@ This diagram represents the process of creating and managing a meetup, highlight
 
 The diagram also illustrates the process of viewing meetups by another user (User 2). The user can send a request to retrieve a list of available meetups. If they choose to participate in a meetup, a request is sent to update their status, followed by a participation confirmation. This diagram highlights the different steps and interactions required for creating, viewing, and registering for a meetup.
 
-<p align="center">
-<img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Meetup%20Schedule.png" alt="Sequence Diagram Meetup Planning">
-</p>
+<p align="center"><img src="https://github.com/thomas-maye/OriAndNori/blob/main/Stage%203/Diagrams/Meetup%20Schedule.png" alt="Sequence Diagram Meetup Planning"></p>
 
 ## Document External and Internal APIs 🌐
 
