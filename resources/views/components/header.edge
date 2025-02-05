@@ -30,11 +30,20 @@
         class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center mr-40">
         <a href="{{route('home')}}"
           class="block px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200 dark:hover:text-gray-600 hover:bg-emerald-50 lg:mx-2">Home</a>
-        <a href="{{route('meetups')}}"
-          @if(auth.use('web').isAuthenticated)
-          class="block px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200  dark:hover:text-gray-600 hover:bg-emerald-50 lg:mx-2">Meetups
-          @end
-        </a>
+          <div class="relative group">
+            <a href="{{route('meetups')}}"
+               @if(auth.use('web').isAuthenticated)
+               class="block px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200 dark:hover:text-gray-600 hover:bg-emerald-50 lg:mx-2">
+               Meetups
+               @end
+            </a>
+            <div class="absolute hidden group-hover:block group-hover:visible bg-white dark:bg-gray-800 shadow-lg rounded-lg mt-2 min-w-max">
+                <a href="#" class="block px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Create a Meetup</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Search for a Meetup</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">My Meetups</a>
+                <a href="#" class="block px-4 py-2 text-gray-600 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Invitations received</a>
+            </div>
+        </div>
         <a href="{{route('pets')}}"
           @if(auth.use('web').isAuthenticated)
           class="block px-3 py-2 text-gray-600 rounded-lg dark:text-gray-200  dark:hover:text-gray-600 hover:bg-emerald-50 lg:mx-2">Pets
