@@ -1,0 +1,12 @@
+@eval(await auth.use('web').check())
+@layout.app({ title: "About" })
+@slot('meta')
+<meta name="description" content="A About page made with EdgeJS">
+@endslot
+
+@slot('main')
+<div>
+    About
+</div>
+@endslot
+@end
