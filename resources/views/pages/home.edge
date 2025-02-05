@@ -11,13 +11,14 @@
       <div class="mb-4">
         @!component('components/banner/success')
       </div>
-      <a>
-        @if(auth.use('web').isAuthenticated)
-        @!component('components/badge-identity', { username : auth.use('web').user.username })
-        @end
-      </a>
-      <h2 class="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl mt-4">Welcome to <span
-          class="text-emerald-600 dark:text-emerald-600">Ori&Nori</span></h2>
+      <h2 class="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl mt-4">
+        <div>
+          @if(auth.use('web').isAuthenticated)
+          @!component('components/badge-identity', { username : auth.use('web').user.username })
+          @end
+        </div>
+        Welcome to <span class="text-emerald-600 dark:text-emerald-600">Ori&Nori</span>
+      </h2>
 
       <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 lg:text-base">Ori&Nori is the best socialization site for
         your furry friends! Connect with other pet lovers, organize playdates, share their adventures, and boost your
