@@ -12,13 +12,12 @@ import { middleware } from './kernel.js'
 
 const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
+
 //home routes
 router.on('/').render('pages/home').as('home')
 
 //pets routes
 router.on('pets/create-pet').render('pages/create_pet')
-router.on('pets/:id').render('pages/display_pet_profile')
-router.on('pets').render('pages/display_pet_list')
 
 router.get('pets', [UsersController, 'DisplayPetList']).as('PetList').use(middleware.auth())
 router
