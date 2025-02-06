@@ -13,7 +13,7 @@ export default class Pet extends BaseModel {
   declare name: string
 
   @column()
-  declare birthday: number
+  declare birthday: Date
 
   @column()
   declare personality: string
@@ -36,11 +36,17 @@ export default class Pet extends BaseModel {
   @column()
   declare breedId: number
 
+  @column()
+  declare breedName: string
+
   @belongsTo(() => Breed)
   declare breed: BelongsTo<typeof Breed>
 
   @column()
   declare speciesId: number
+
+  @column()
+  declare speciesName: string
 
   @belongsTo(() => Species)
   declare species: BelongsTo<typeof Species>

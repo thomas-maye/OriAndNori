@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Pet</title>
+</head>
+<body>
+    <form action="{{ route('createPet') }}" method="POST">
+        {{ csrfField() }}
+        
+        <div>
+            <label>Name:</label>
+            <input type="text" name="name" required>
+        </div>
+
+        <div>
+            <label>User ID:</label>
+            <input type="number" name="user_id" required>
+        </div>
+
+        <div>
+            <label>Birthday:</label>
+            <input type="date" name="birthday" required>
+        </div>
+
+        <div>
+            <label>Personality:</label>
+            <input type="text" name="personality">
+        </div>
+
+        <div>
+            <label>Gender:</label>
+            <select name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Vaccined:</label>
+            <input type="checkbox" name="vaccined">
+        </div>
+
+        <div>
+            <label>Description:</label>
+            <textarea name="description"></textarea>
+        </div>
+
+        <div>
+            <label>Breed:</label>
+            <input type="string" name="breed" required>
+        </div>
+
+        <div>
+            <label>Species:</label>
+            <input type="string" name="species" required>
+        </div>
+
+        <button type="submit">Create Pet</button>
+    </form>
+</body>
+</html>
