@@ -1,0 +1,36 @@
+@layout.app({ title: "Register" })
+  @slot('meta')
+    <meta name="description" content="A register page made with EdgeJS">
+  @endslot
+
+  @slot('main')
+  <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-25 w-auto" src="resources/images/logo.png" alt="Ori&Nori">
+      <h2 class="mt-10 text-center text-2xl font-bold tracking-tight text-gray-900">Create an Account</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6" action="{{ route('auth.register')}}" method="POST">
+        {{ csrfField() }}
+
+        @!component('components/input', { name: 'username', label: 'Username' })
+        @!component('components/input', { name: 'email', label: 'Email address', type: 'email' })
+        @!component('components/input', { name: 'password', label: 'Password', type: 'password' })
+
+        <div>
+          <div class="flex w-full justify-center">
+            @!component('components/full_button', { text: "Register" })
+        </div>
+        </div>
+      </form>
+
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Already have an account?
+        <a href="{{route('auth.login')}}" class="font-semibold text-indigo-600 hover:text-indigo-500">Sign in</a>
+      </a>
+      </p>
+    </div>
+  </div>
+  @endslot
+@end

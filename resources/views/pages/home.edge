@@ -1,13 +1,11 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+@layout.app({ title: "Bienvenue" })
+  @slot('meta')
+    <meta name="description" content="A welcome page made with EdgeJS">
+  @endslot
+
+  @slot('main')
   <h1 class="text-3xl font-bold underline">
-    Hello world!
+    Bienvenue sur Ori&Nori 
   </h1>
-</body>
-</html>
+  @endslot
+@end
