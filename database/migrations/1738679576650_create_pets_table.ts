@@ -19,6 +19,7 @@ export default class extends BaseSchema {
       table.string('breed_name').notNullable()
       table.integer('species_id').unsigned().references('species.id').onDelete('CASCADE')
       table.string('species_name').notNullable()
+
       // Timestamps
       table.timestamp('created_at').notNullable()
       table.timestamp('updated_at').nullable()
