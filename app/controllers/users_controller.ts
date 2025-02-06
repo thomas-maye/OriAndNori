@@ -36,4 +36,12 @@ export default class UsersController {
       })
     }
   }
+
+  async DisplayPetProfile({ view, params, response }: HttpContext) {
+    const pet = await Pet.find(params.id)
+    if (!pet) {
+      return response.status(404).json({ message: 'Pet not found' })
+    }
+    return view.render('pages/display_pet_profile', { pet })
+  }
 }
