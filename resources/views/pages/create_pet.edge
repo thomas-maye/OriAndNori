@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Create Pet</title>
+    <title>Test Create Pet</title>
 </head>
 <body>
-    <form action="{{ route('createPet') }}" method="POST">
-        {{ csrfField() }}
+    <form action="/pets/create" method="POST">
+        <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         
         <div>
             <label>Name:</label>
             <input type="text" name="name" required>
-        </div>
-
-        <div>
-            <label>User ID:</label>
-            <input type="number" name="user_id" required>
         </div>
 
         <div>
@@ -47,12 +42,12 @@
 
         <div>
             <label>Breed:</label>
-            <input type="string" name="breed" required>
+            <input type="text" name="breed" required>
         </div>
 
         <div>
             <label>Species:</label>
-            <input type="string" name="species" required>
+            <input type="text" name="species" required>
         </div>
 
         <button type="submit">Create Pet</button>

@@ -12,16 +12,16 @@ export default class UsersController {
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })
       }
-      const species = await Species.findByOrFail('name', Species)
-      const breed = await Breed.findByOrFail('name', Breed)
+
+      const { speciesName, breedName } = validatedData
+      const species = await Species.findByOrFail('name', speciesName)
+      const breed = await Breed.findByOrFail('name', breedName)
 
       const pet = await Pet.create({
         ...validatedData,
         userId: user.id,
         speciesId: species.id,
-        speciesName: species.name,
         breedId: breed.id,
-        breedName: breed.name,
       })
 
       return response.status(201).json({
