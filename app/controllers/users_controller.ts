@@ -60,4 +60,18 @@ export default class UsersController {
     }
     return view.render('pages/display_pet_list', { pets })
   }
+
+  async ListMyPet({ auth, view, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const pets = await Pet.query().where('userId', user.id)
+
+    if (!pets) {
+      return response.status(404).json({ message: 'No pets found' })
+    }
+    return view.render('pages/display_my_pet', { pets })
+  }
 }

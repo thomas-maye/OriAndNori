@@ -19,6 +19,15 @@ router.on('/').render('pages/home').as('home')
 //pets routes
 router.on('pets/create-pet').render('pages/create_pet')
 
+router
+  .group(() => {
+    router.get('my-pets', [UsersController, 'ListMyPet']).as('MyPets')
+    router.put('/my-pets/edit/:id', [UsersController, 'updatePet']).as('updatePet')
+    router.delete('/my-pets/delete/:id', [UsersController, 'deletePet']).as('deletePet')
+  })
+  .prefix('pets')
+  .use(middleware.auth())
+
 router.get('pets', [UsersController, 'DisplayPetList']).as('PetList').use(middleware.auth())
 router
   .get('pets/:id', [UsersController, 'DisplayPetProfile'])
