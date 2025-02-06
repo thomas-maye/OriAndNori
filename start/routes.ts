@@ -18,7 +18,13 @@ router.on('/').render('pages/home').as('home')
 //pets routes
 router.on('pets/create-pet').render('pages/create_pet')
 router.on('pets/:id').render('pages/display_pet_profile')
-router.get('pets/:id', [UsersController, 'DisplayPetProfile']).as('DisplayPetProfile')
+router.on('pets').render('pages/display_pet_list')
+
+router.get('pets', [UsersController, 'DisplayPetList']).as('PetList').use(middleware.auth())
+router
+  .get('pets/:id', [UsersController, 'DisplayPetProfile'])
+  .as('PetProfile')
+  .use(middleware.auth())
 router.post('pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
 
 //auth routes

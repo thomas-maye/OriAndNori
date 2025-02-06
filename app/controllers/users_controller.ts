@@ -37,11 +37,27 @@ export default class UsersController {
     }
   }
 
-  async DisplayPetProfile({ view, params, response }: HttpContext) {
+  async DisplayPetProfile({ auth, view, params, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
     const pet = await Pet.find(params.id)
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
     return view.render('pages/display_pet_profile', { pet })
+  }
+
+  async DisplayPetList({ auth, view, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+    const pets = await Pet.all()
+    if (!pets) {
+      return response.status(404).json({ message: 'No pets found' })
+    }
+    return view.render('pages/display_pet_list', { pets })
   }
 }

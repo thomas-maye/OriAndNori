@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pet List</title>
+  <link href="/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Pet List</h1>
+    <div class="bg-white shadow-md rounded p-4">
+      <ul>
+        @each(pet in pets)
+          <li class="mb-2">
+            <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
+            <p><strong>Birthday:</strong> {{ pet.birthday }}</p>
+            <p><strong>Personality:</strong> {{ pet.personality }}</p>
+            <p><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
+            <p><strong>Gender:</strong> {{ pet.gender }}</p>
+            <p><strong>Description:</strong> {{ pet.description }}</p>
+            <p><strong>Breed:</strong> {{ pet.breedName }}</p>
+            <p><strong>Species:</strong> {{ pet.speciesName }}</p>
+          </li>
+        @endeach
+      </ul>
+    </div>
+  </div>
+</body>
+</html>
