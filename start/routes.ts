@@ -29,3 +29,4 @@ router.post('/login', [AuthController, 'handleLogin']).use(middleware.guest())
 router.get('/logout', [AuthController, 'logout']).as("auth.logout").use(middleware.auth())
 
 router.get('/forgot_password', [ResetPasswordController, 'forgotPassword']).as("auth.forgot_password").use(middleware.guest())
+router.post('/forgot_password', [ResetPasswordController, 'handleForgotPassword']).use(middleware.guest())

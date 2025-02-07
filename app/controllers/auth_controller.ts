@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { LoginUserValidator, registerUserValidator } from '#validators/auth'
+import { loginUserValidator, registerUserValidator } from '#validators/auth'
 import User from '#models/user'
 
 export default class AuthController {
@@ -20,7 +20,7 @@ export default class AuthController {
     }
 
     async handleLogin({ request, auth, session, response }: HttpContext) {
-        const { email, password } = await request.validateUsing(LoginUserValidator)
+        const { email, password } = await request.validateUsing(loginUserValidator)
         const user = await User.verifyCredentials(email, password)
         await auth.use('web').login(user)
         session.flash("success", "You have successfully logged in")
