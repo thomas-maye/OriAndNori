@@ -46,9 +46,12 @@
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
           class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center mr-40">
 
-          <a href="{{route('home')}}"
-            class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">Home
-          </a>
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('home')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Home
+            </a>
+          </div>
 
           @if(auth.use('web').isAuthenticated)
 
@@ -195,7 +198,7 @@
 
                 <a href="{{route('profile')}}"
                   class="block px-4 py-2 text-sm text-gray-400 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
-                  Message
+                  Messages
                 </a>
 
                 <a href="{{route('profile')}}"
@@ -208,13 +211,19 @@
           </div>
           @end
 
-          <a href="{{route('about')}}"
-            class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">About
-          </a>
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('about')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              About
+            </a>
+          </div>
 
-          <a href="{{route('contact')}}"
-            class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">Contact
-          </a>
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('contact')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Contact
+            </a>
+          </div>
 
           <form action="{{route('auth.logout')}}" ?_method="DELETE">
             {{ csrfField() }}
@@ -222,7 +231,6 @@
             @!component('components/full_button', { text : 'Logout'})
             @end
           </form>
-
         </div>
       </div>
     </nav>
