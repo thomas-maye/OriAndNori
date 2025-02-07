@@ -26,7 +26,7 @@
           @!component('components/input', { name: 'email', label: 'Email address', type: 'email' })
           @!component('components/input', { name: 'password', label: 'Password', type: 'password' })
           <div class="flex justify-end text-sm/6 font-semibold text-emerald-600 hover:text-emerald-500">
-            <a href="#">Forgot password?</a>
+            <a href="{{route('auth.forgot_password')}}">Forgot password?</a>
           </div>
 
           <div class="flex w-full justify-center">
