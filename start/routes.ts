@@ -21,16 +21,17 @@ router.on('pets/create-pet').render('pages/create_pet')
 
 router
   .group(() => {
-    router.get('my-pets', [UsersController, 'ListMyPet']).as('MyPets')
+    router.get('my-pets', [UsersController, 'listMyPet']).as('MyPets')
     router.put('/my-pets/edit/:id', [UsersController, 'updatePet']).as('updatePet')
     router.delete('/my-pets/delete/:id', [UsersController, 'deletePet']).as('deletePet')
+    router.get('my-pets/edit/:id', [UsersController, 'edit']).as('editPet')
   })
   .prefix('pets')
   .use(middleware.auth())
 
-router.get('pets', [UsersController, 'DisplayPetList']).as('PetList').use(middleware.auth())
+router.get('pets', [UsersController, 'displayPetList']).as('PetList').use(middleware.auth())
 router
-  .get('pets/:id', [UsersController, 'DisplayPetProfile'])
+  .get('pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
   .use(middleware.auth())
 router.post('pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
