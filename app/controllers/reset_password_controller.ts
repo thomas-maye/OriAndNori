@@ -70,6 +70,14 @@ export default class ResetPasswordController {
         }
         await passwordResetToken.merge({ isUsed: true }).save()
         await user.merge({ password }).save()
+
+        await mail.send((message) => {
+            message
+              .to(user.email)
+              .from('no-reply@oriandnori.org')
+              .subject('Reset Password')
+              .htmlView('emails/reset_password', { user })
+        })
         session.flash("success", "Password reset successfully")
         return response.redirect().toRoute("auth.login")
     }
