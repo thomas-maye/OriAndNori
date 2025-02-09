@@ -26,7 +26,7 @@ router.get('/register', [AuthController, 'register']).as("auth.register").use(mi
 router.post('/register', [AuthController, 'handleRegister']).use(middleware.guest())
 router.get('/login', [AuthController, 'login']).as("auth.login").use(middleware.guest())
 router.post('/login', [AuthController, 'handleLogin']).use(middleware.guest())
-router.get('/logout', [AuthController, 'logout']).as("auth.logout").use(middleware.auth())
+router.delete('/login', [AuthController, 'logout']).as("auth.logout").use(middleware.auth())
 
 router.get('/forgot_password', [ResetPasswordController, 'forgotPassword']).as("auth.forgot_password").use(middleware.guest())
 router.post('/forgot_password', [ResetPasswordController, 'handleForgotPassword']).use(middleware.guest())

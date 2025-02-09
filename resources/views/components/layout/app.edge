@@ -20,7 +20,7 @@
     <nav x-data="{ isOpen: false }" class="px-6 py-4 shadow">
       <div class="lg:items-center lg:justify-between lg:flex">
         <div class="flex items-center justify-between">
-          <a href="{{route('home')}}" class="mx-auto ml-40 logo-container">
+          <a href="{{route('home')}}" class="mx-auto logo-container">
             <img class="w-auto h-13 sm:h-13 logo" src="resources/images/Ori&Nori - Logo3.png" alt="Ori&Nori">
           </a>
 
@@ -225,7 +225,7 @@
             </a>
           </div>
 
-          <form action="{{route('auth.logout')}}" ?_method="DELETE">
+          <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
             {{ csrfField() }}
             @if(auth.use('web').isAuthenticated)
             @!component('components/full_button', { text : 'Logout'})
