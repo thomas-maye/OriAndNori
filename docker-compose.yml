@@ -21,6 +21,12 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - oriandnori-pgsql:/var/lib/postgresql/data
+  mailpit:
+    image: axllent/mailpit:latest
+    ports:
+    - 1025:1025
+    - 8025:8025
+
 volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql

@@ -4,6 +4,7 @@ import User from '#models/user'
 import stringHelpers from '@adonisjs/core/helpers/string'
 import Reset_password from '#models/reset_password'
 import { DateTime } from 'luxon'
+import mail from '@adonisjs/mail/services/main'
 
 export default class ResetPasswordController {
 
@@ -26,6 +27,14 @@ export default class ResetPasswordController {
             token,
             email: user.email,
             expiresAt: DateTime.now().plus({ minutes: 20 })
+        })
+
+        await mail.send((message) => {
+            message
+              .to(user.email)
+              .from('no-reply@oriandnori.org')
+              .subject('Reset Password')
+              .htmlView('emails/forgot_password', { user, url })
         })
 
         session.flash("success", "Password reset link sent to your email")
