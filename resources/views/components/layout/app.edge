@@ -21,7 +21,7 @@
       <div class="lg:items-center lg:justify-between lg:flex">
         <div class="flex items-center justify-between">
           <a href="{{route('home')}}" class="mx-auto logo-container">
-            <img class="w-auto h-13 sm:h-13 logo" src="resources/images/Ori&Nori - Logo3.png" alt="Ori&Nori">
+            <img class="w-auto h-13 sm:h-13 logo px-10" src="resources/images/Ori&Nori - Logo3.png" alt="Ori&Nori">
           </a>
 
           <!-- Mobile menu button -->
@@ -44,7 +44,7 @@
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
-          class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center mr-40">
+          class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
           <div x-data="{ isActive: false }" class="relative">
             <a href="{{route('home')}}"
@@ -77,17 +77,20 @@
                 </a>
 
                 <a href="{{route('meetups')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Create a Meetup
                 </a>
 
                 <a href="{{route('meetups')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Search for a Meetup
                 </a>
 
                 <a href="{{route('meetups')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Invitations received
                 </a>
 
@@ -117,17 +120,20 @@
                 </a>
 
                 <a href="{{route('pets')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Add a Pet
                 </a>
 
                 <a href="{{route('pets')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Search for a Pet profile
                 </a>
 
                 <a href="{{route('pets')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   My Pets's friends
                 </a>
 
@@ -157,12 +163,14 @@
                 </a>
 
                 <a href="{{route('reviews')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Post a review
                 </a>
 
                 <a href="{{route('reviews')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Reviews received
                 </a>
 
@@ -192,17 +200,20 @@
                 </a>
 
                 <a href="{{route('profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Search for a Profile
                 </a>
 
                 <a href="{{route('profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Messages
                 </a>
 
                 <a href="{{route('profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700" role="menuitem">
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
                   Settings
                 </a>
 
@@ -231,6 +242,16 @@
             @!component('components/full_button', { text : 'Logout'})
             @end
           </form>
+          <div class="px-1">
+            @if (!auth.use('web').isAuthenticated && request.url() !== '/')
+              <a href="{{ route('auth.login') }}">
+                @!component('components/empty_button', { text: 'Login' })
+              </a>
+              <a href="{{ route('auth.register') }}">
+                @!component('components/full_button', { text: 'Register' })
+              </a>
+            @end
+          </div>
         </div>
       </div>
     </nav>
@@ -238,7 +259,7 @@
 
   <main>
     <div class="dark:bg-gray-900 pt-10 pb-10">
-    {{{ await $slots.main() }}}
+      {{{ await $slots.main() }}}
     </div>
   </main>
   <footer>
