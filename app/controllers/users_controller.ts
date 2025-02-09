@@ -75,7 +75,7 @@ export default class UsersController {
     return view.render('pages/display_my_pet', { pets })
   }
 
-  async edit({ auth, view, params, response }: HttpContext) {
+  async updatePetView({ auth, view, params, response }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
@@ -126,6 +126,23 @@ export default class UsersController {
         error: error.messages,
       })
     }
+  }
+
+  async deletePetView({ auth, view, params, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+    const pet = await Pet.find(params.id)
+    if (!pet) {
+      return response.status(404).json({ message: 'Pet not found' })
+    }
+
+    if (pet.userId !== user.id) {
+      return response.status(403).json({ message: 'You are not authorized to update this pet' })
+    }
+
+    return view.render('pages/delete_pet', { pet })
   }
 
   async deletePet({ auth, response, params }: HttpContext) {

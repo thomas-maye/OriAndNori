@@ -19,22 +19,24 @@ router.on('/').render('pages/home').as('home')
 //pets routes
 router.on('pets/create-pet').render('pages/create_pet')
 
+router.post('pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
+
 router
   .group(() => {
     router.get('my-pets', [UsersController, 'listMyPet']).as('MyPets')
-    router.put('/my-pets/edit/:id', [UsersController, 'updatePet']).as('updatePet')
+    router.put('/my-pets/updatePet/:id', [UsersController, 'updatePet']).as('updatePet')
+    router.get('my-pets/updatePetView/:id', [UsersController, 'updatePetView']).as('updatePetview')
     router.delete('/my-pets/delete/:id', [UsersController, 'deletePet']).as('deletePet')
-    router.get('my-pets/edit/:id', [UsersController, 'edit']).as('editPet')
+    router.get('my-pets/deletePetView/:id', [UsersController, 'deletePet']).as('deletePetview')
   })
   .prefix('pets')
   .use(middleware.auth())
 
-router.get('pets', [UsersController, 'displayPetList']).as('PetList').use(middleware.auth())
+router.get('pets', [UsersController, 'displayPetList']).as('petList').use(middleware.auth())
 router
   .get('pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
   .use(middleware.auth())
-router.post('pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
 
 //auth routes
 router.get('/register', [AuthController, 'register']).as('auth.register').use(middleware.guest())
