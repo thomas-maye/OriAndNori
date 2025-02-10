@@ -1,0 +1,55 @@
+@eval(await auth.use('web').check())
+@layout.app({ title: "My Profile" })
+@slot('meta')
+<meta charset="UTF-8">
+<meta name="description" content="A My Profile page made with EdgeJS">
+@endslot
+
+@slot('main')
+<div class="flex justify-center items-center mb-10">
+    @!component('components/group-button')
+</div>
+
+<form method="POST" action="{{ route('auth.update_my_profile') }}">
+    {{ csrfField() }}
+
+    <div class="flex justify-center items-center">
+        <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+            <img class="object-cover object-center w-full h-56"
+                src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+                alt="avatar">
+
+            <div class="flex items-center px-6 py-3 bg-emerald-800">
+                <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+
+                <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
+            </div>
+
+            @!component('components/input-form', { name: 'first_name', label: 'First Name:', type: 'text', placeholder:
+            'Enter your first name', value: auth.user.first_name, required: true })
+            @!component('components/input-form', { name: 'last_name', label: 'Last Name:', type: 'text', placeholder:
+            'Enter your last name', value: auth.user.last_name, required: true })
+            @!component('components/input-form', { name: 'description', label: 'Description:', type: 'text',
+            placeholder: 'Description', value: auth.user.description, required: true })
+            @!component('components/input-form', { name: 'address_1', label: 'Address:', type: 'text', placeholder:
+            'Enter your address', value: auth.user.address_1, required: true })
+            @!component('components/input-form', { name: 'address_2', label: 'Complement Adress:', type: 'text',
+            placeholder: 'Enter your complement address', value: auth.user.address_2, required: true })
+            @!component('components/input-form', { name: 'postal_code', label: 'Postal Code:', type: 'text',
+            placeholder: 'Enter your postal code', value: auth.user.postal_code, required: true })
+            @!component('components/input-form', { name: 'city', label: 'City:', type: 'text', placeholder: 'Enter your city',
+            value: auth.user.city, required: true })
+            @!component('components/input-form', { name: 'phone', label: 'Phone number:', type: 'tel', placeholder:
+            'Enter your phone number', value: auth.user.phone, required: true })
+        </div>
+        <div class="flex justify-center">
+            @!component('components/full_button', { text: "Submit" })
+        </div>
+    </div>
+</form>
+@endslot
+@end

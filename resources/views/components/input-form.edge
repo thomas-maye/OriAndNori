@@ -1,0 +1,14 @@
+@inputError(name)
+    <div class="block text-sm font-medium text-red-500 dark:text-red-400">
+    @each(message in $messages)
+        <p> {{ message }} </p>
+    @end
+    </div>
+@end
+
+<div class="flex mt-4 text-gray-700 dark:text-gray-200">
+    <label class="px-2 text-sm" for="{{name}}">{{label}}</label>
+    <input {{ html.attrs({ id: name , name: name , type: (type || 'text') ,
+            placeholder: (placeholder || '') , value: old(name || (value || '')), required: (required || ''), class:
+            [ 'text-gray-500' , 'italic' ] }) }}>
+</div>

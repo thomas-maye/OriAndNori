@@ -35,10 +35,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare latitude: number
 
   @column()
-  declare address1: string
+  declare address_1: string
 
   @column()
-  declare address2: string
+  declare address_2: string
 
   @column()
   declare postal_code: string

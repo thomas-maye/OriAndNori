@@ -39,3 +39,6 @@ router.get('/reset_password', [ResetPasswordController, 'resetPassword']).as("au
 router.post('/reset_password', [ResetPasswordController, 'handleResetPassword']).as("auth.handle_reset_password").use(middleware.guest())
 
 router.get('/myprofile', [AuthController, 'displayMyProfile']).as("auth.display_my_profile").use(middleware.auth())
+router.get('/edit_myprofile', [AuthController, 'editMyProfile']).as("auth.edit_my_profile").use(middleware.auth())
+router.post('/edit_myprofile', [AuthController, 'updateMyProfile']).as("auth.update_my_profile").use(middleware.auth())
+

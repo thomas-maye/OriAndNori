@@ -27,7 +27,7 @@
         <div class="px-6 py-4">
             <h1 class="text-xl font-semibold text-gray-800 dark:text-white"></h1>
             <p class="py-2 text-gray-700 dark:text-gray-400">My name is {{ auth.user.first_name }} {{
-                auth.user.last_name_name }}</p>
+                auth.user.last_name }}</p>
 
             <p class="py-2 text-gray-700 dark:text-gray-400">Description: {{ auth.user.description }}</p>
 
@@ -46,12 +46,9 @@
                 </svg>
 
                 <h1 class="px-2 text-sm">
-                    <p>{{ auth.user.address1 }}</p>
-                    <p>{{ auth.user.address2 }}</p>
-                    <p>{{ auth.user.postal_code }}</p>
-                    <p>{{ auth.user.city }}</p>
-                    <p>{{ auth.user.longitude }}</p>
-                    <p>{{ auth.user.latitude }}</p>
+                    <p>{{ auth.user.address_1 }}</p>
+                    <p>{{ auth.user.address_2 }}</p>
+                    <p>{{ auth.user.postal_code }} {{ auth.user.city }}</p>
                 </h1>
             </div>
 
@@ -77,15 +74,6 @@
                 </svg>
 
                 <h1 class="px-2 text-sm">{{ auth.user.email }}</h1>
-            </div>
-
-
-            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                <p>Created At: {{ auth.user.created_at }}</p>
-            </div>
-
-            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                <p>Updated At: {{ auth.user.updated_at }}</p>
             </div>
 
         </div>

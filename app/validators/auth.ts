@@ -34,3 +34,16 @@ export const resetPasswordValidator = vine.compile(
     password: vine.string().minLength(8).confirmed()
   })
 )
+
+export const updateUserValidator = vine.compile(
+  vine.object({
+    first_name: vine.string().trim().minLength(2),
+    last_name: vine.string().trim().minLength(2),
+    address_1: vine.string().trim().minLength(5),
+    address_2: vine.string().trim().minLength(5),
+    postal_code: vine.string().trim().minLength(2),
+    city: vine.string().trim().alpha().minLength(2),
+    phone: vine.string().trim().minLength(10),
+    description: vine.string().trim().minLength(10),
+  })
+)

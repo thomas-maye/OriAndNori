@@ -1,5 +1,5 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { loginUserValidator, registerUserValidator } from '#validators/auth'
+import { loginUserValidator, registerUserValidator, updateUserValidator } from '#validators/auth'
 import User from '#models/user'
 
 export default class AuthController {
@@ -37,9 +37,42 @@ export default class AuthController {
         const user = auth.user
         if (!user) {
             session.flash("error", "You must be logged in to view this page")
-            return view.render('pages/auth/login'   
+            return view.render('pages/auth/login'
             )
         }
         return view.render('pages/auth/myprofile')
+    }
+
+    async editMyProfile({ view, auth, session }: HttpContext) {
+        const user = auth.user
+        if (!user) {
+            session.flash("error", "You must be logged in to view this page")
+            return view.render('pages/auth/login')
+        }
+        return view.render('pages/auth/edit_myprofile')
+    }
+
+    async updateMyProfile({ request, auth, session, response }: HttpContext) {
+        const user = auth.user
+        if (!user) {
+            session.flash("error", "You must be logged in to view this page")
+            return response.redirect().toRoute("auth.login")
+        }
+
+        const updateUser = await request.validateUsing(updateUserValidator)
+
+        user.first_name = updateUser.first_name
+        user.last_name = updateUser.last_name
+        user.address_1 = updateUser.address_1
+        user.address_2 = updateUser.address_2
+        user.postal_code = updateUser.postal_code
+        user.city = updateUser.city
+        user.phone = updateUser.phone
+        user.description = updateUser.description
+
+        await user.save()
+        session.flash("success", "Profile updated successfully")
+
+        return response.redirect().toRoute("auth.display_my_profile")
     }
 }
