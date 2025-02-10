@@ -32,4 +32,14 @@ export default class AuthController {
         session.flash("success", "You have successfully logged out");
         return response.redirect().toRoute("home");
     }
+
+    async displayMyProfile({ view, auth, session }: HttpContext) {
+        const user = auth.user
+        if (!user) {
+            session.flash("error", "You must be logged in to view this page")
+            return view.render('pages/auth/login'   
+            )
+        }
+        return view.render('pages/auth/myprofile')
+    }
 }
