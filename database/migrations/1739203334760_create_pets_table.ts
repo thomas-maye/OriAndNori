@@ -12,6 +12,7 @@ export default class extends BaseSchema {
       table.boolean('vaccined').defaultTo(false)
       table.string('gender').notNullable()
       table.text('description').nullable()
+      table.string('photo').nullable()
 
       // Foreign keys
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')

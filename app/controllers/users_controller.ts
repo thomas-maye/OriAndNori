@@ -1,8 +1,10 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import Pet from '#models/pet'
+import Pet, { traits } from '#models/pet'
 import Species from '#models/species'
 import Breed from '#models/breed'
 import { createPetValidator } from '#validators/create_pet'
+import drive from '@adonisjs/drive/services/main'
+import { cuid } from '@adonisjs/core/helpers'
 
 export default class UsersController {
   async createPet({ auth, request, response }: HttpContext) {
@@ -15,14 +17,38 @@ export default class UsersController {
 
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
+      const personality = traits.map((trait) => ({
+        ...trait,
+        rating:
+          (Array.isArray(validatedData.personality) &&
+            validatedData.personality.find(
+              (personalityTrait) => personalityTrait.trait === trait.trait
+            )?.rating) ||
+          0,
+      }))
 
+      const photo = request.file('photo', {
+        size: '2mb',
+        extnames: ['jpg', 'png', 'jpeg'],
+      })
+
+      if (!photo) {
+        return response.badRequest({ error: 'Image Missing' })
+      }
+
+      const key = `uploads/${cuid()}.${photo.extname}`
+      await photo.moveToDisk(key)
+
+      const photoUrl = await drive.use().getUrl(key)
       const pet = await Pet.create({
         ...validatedData,
+        personality: personality,
         userId: user.id,
         speciesId: species.id,
         speciesName: species.name,
         breedId: breed.id,
         breedName: breed.name,
+        photo: photoUrl,
       })
 
       return response.status(201).json({
@@ -37,6 +63,11 @@ export default class UsersController {
     }
   }
 
+  async showCreatePetForm({ view }: HttpContext) {
+    console.log(traits)
+    return view.render('pages/create_pet', { traits })
+  }
+
   async displayPetProfile({ auth, view, params, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -46,7 +77,8 @@ export default class UsersController {
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
-    return view.render('pages/display_pet_profile', { pet })
+    const photo = pet.photo
+    return view.render('pages/display_pet_profile', { pet, photo })
   }
 
   async displayPetList({ auth, view, response }: HttpContext) {

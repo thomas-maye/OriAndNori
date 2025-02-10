@@ -5,6 +5,13 @@ import User from './user.js'
 import Breed from './breed.js'
 import Species from './species.js'
 
+export const traits = [
+  { trait: 'Friendly', rating: 0 },
+  { trait: 'Aggressive', rating: 0 },
+  { trait: 'Playful', rating: 0 },
+  { trait: 'Lazy', rating: 0 },
+  { trait: 'Curious', rating: 0 },
+]
 export default class Pet extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -16,7 +23,7 @@ export default class Pet extends BaseModel {
   declare birthday: Date
 
   @column()
-  declare personality: string
+  declare personality: { trait: string; rating: number }[]
 
   @column()
   declare vaccined: boolean
@@ -50,6 +57,9 @@ export default class Pet extends BaseModel {
 
   @belongsTo(() => Species)
   declare species: BelongsTo<typeof Species>
+
+  @column()
+  declare photo: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

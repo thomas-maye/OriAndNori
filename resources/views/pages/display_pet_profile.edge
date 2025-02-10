@@ -9,10 +9,17 @@
 <body>
   <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4">Pet Profile</h1>
+    <h1>{{ pet.name }}</h1>
+    <img src="{{ photoUrl }}" alt="Photo of {{ pet.name }}" class="w-64 h-64 object-cover mb-4">
     <div class="bg-white shadow-md rounded p-4">
       <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
       <p><strong>Birthday:</strong> {{ pet.birthday }}</p>
-      <p><strong>Personality:</strong> {{ pet.personality }}</p>
+      <p><strong>Personality:</strong></p>
+      <ul>
+        @each(personality in pet.personality)
+          <li>{{ personality.trait }}: {{ personality.rating }}</li>
+        @endeach
+      </ul>
       <p><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
       <p><strong>Gender:</strong> {{ pet.gender }}</p>
       <p><strong>Description:</strong> {{ pet.description }}</p>

@@ -17,7 +17,10 @@ const AuthController = () => import('#controllers/auth_controller')
 router.on('/').render('pages/home').as('home')
 
 //pets routes
-router.on('pets/create-pet').render('pages/create_pet')
+router
+  .get('pets/create-pet', [UsersController, 'showCreatePetForm'])
+  .as('showCreatePetForm')
+  .use(middleware.auth())
 
 router.post('pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
 
