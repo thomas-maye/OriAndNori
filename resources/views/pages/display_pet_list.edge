@@ -12,15 +12,26 @@
     <div class="bg-white shadow-md rounded p-4">
       <ul>
         @each(pet in pets)
-          <li class="mb-2">
-            <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
-            <p><strong>Birthday:</strong> {{ pet.birthday }}</p>
-            <p><strong>Personality:</strong> {{ pet.personality }}</p>
-            <p><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
-            <p><strong>Gender:</strong> {{ pet.gender }}</p>
-            <p><strong>Description:</strong> {{ pet.description }}</p>
-            <p><strong>Breed:</strong> {{ pet.breedName }}</p>
-            <p><strong>Species:</strong> {{ pet.speciesName }}</p>
+          <li class="mb-4 border-b pb-4">
+            <div class="flex items-center gap-4">
+              <img src="{{ pet.photo }}" alt="Photo of {{ pet.name }}" class="w-16 h-16 object-cover rounded-full">
+              <div>
+                <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
+                <p class="text-gray-600"><strong>Birthday:</strong> {{ pet.birthday }}</p>
+              </div>
+            </div>
+            <div class="mt-2 ml-20">
+              <ul class="mb-2">
+                @each(personality in pet.personality)
+                  <li>{{ personality.trait }}: {{ personality.rating }}</li>
+                @endeach
+              </ul>
+              <p><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
+              <p><strong>Gender:</strong> {{ pet.gender }}</p>
+              <p><strong>Description:</strong> {{ pet.description }}</p>
+              <p><strong>Breed:</strong> {{ pet.breedName }}</p>
+              <p><strong>Species:</strong> {{ pet.speciesName }}</p>
+            </div>
           </li>
         @endeach
       </ul>

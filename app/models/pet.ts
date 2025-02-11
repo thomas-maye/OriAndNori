@@ -1,5 +1,12 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import {
+  BaseModel,
+  column,
+  belongsTo,
+  beforeSave,
+  afterFetch,
+  afterFind,
+} from '@adonisjs/lucid/orm'
 import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import Breed from './breed.js'
@@ -23,7 +30,7 @@ export default class Pet extends BaseModel {
   declare birthday: Date
 
   @column()
-  declare personality: { trait: string; rating: number }[]
+  declare personality: string | { trait: string; rating: number }[]
 
   @column()
   declare vaccined: boolean
@@ -66,4 +73,31 @@ export default class Pet extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @beforeSave()
+  public static async convertPersonalityToJson(pet: Pet) {
+    if (pet.$dirty.personality) {
+      pet.personality = JSON.stringify(pet.personality)
+    }
+  }
+
+  @afterFind()
+  public static async convertPersonalityToObject(pet: Pet) {
+    if (typeof pet.personality === 'string') {
+      pet.personality = JSON.parse(pet.personality)
+    } else if (!Array.isArray(pet.personality)) {
+      pet.personality = []
+    }
+  }
+
+  @afterFetch()
+  public static async convertPersonalityToObjectList(pets: Pet[]) {
+    for (const pet of pets) {
+      if (typeof pet.personality === 'string') {
+        pet.personality = JSON.parse(pet.personality)
+      } else if (!Array.isArray(pet.personality)) {
+        pet.personality = []
+      }
+    }
+  }
 }

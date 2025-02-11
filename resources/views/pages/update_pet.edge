@@ -9,8 +9,11 @@
 <body>
   <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4">Update Pet</h1>
-    <form method="POST" action="{{ route('updatePet', [pet.id]) }}?_method=PUT">
+    <form method="POST" action="{{ route('updatePet', [pet.id]) }}?_method=PUT" enctype="multipart/form-data">
       {{ csrfField() }}
+      <div class="mb-4">
+        <img src="{{ pet.photo }}" alt="Photo of {{ pet.name }}" class="w-64 h-64 object-cover mb-4">
+      </div>
       <div class="mb-4">
         <label for="name" class="block text-gray-700">Name:</label>
         <input type="text" id="name" name="name" value="{{ pet.name }}" class="mt-1 block w-full" required>
@@ -21,7 +24,15 @@
       </div>
       <div class="mb-4">
         <label for="personality" class="block text-gray-700">Personality:</label>
-        <input type="text" id="personality" name="personality" value="{{ pet.personality }}" class="mt-1 block w-full">
+        <ul>
+          @each((personality, index) in pet.personality)
+          <li>
+            <input type="hidden" name="personality[{{index}}][trait]" value="{{ personality.trait }}">
+            <span>{{ personality.trait }}:</span>
+            <input type="number" name="personality[{{index}}][rating]" value="{{ personality.rating }}" min="0" max="5" class="mt-1 block w-16">
+          </li>
+          @endeach
+        </ul>
       </div>
       <div class="mb-4">
         <label for="vaccined" class="block text-gray-700">Vaccined:</label>
@@ -45,6 +56,10 @@
       <div class="mb-4">
         <label for="species" class="block text-gray-700">Species:</label>
         <input type="text" id="species" name="species" value="{{ pet.speciesName }}" class="mt-1 block w-full" required>
+      </div>
+      <div class="mb-4">
+        <label for="photo" class="block text-gray-700">Photo:</label>
+        <input type="file" id="photo" name="photo" class="mt-1 block w-full">
       </div>
       <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Update Pet</button>
     </form>

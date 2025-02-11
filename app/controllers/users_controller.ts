@@ -17,7 +17,7 @@ export default class UsersController {
 
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
-      const personality = traits.map((trait) => ({
+      /*const personality = traits.map((trait) => ({
         ...trait,
         rating:
           (Array.isArray(validatedData.personality) &&
@@ -25,7 +25,7 @@ export default class UsersController {
               (personalityTrait) => personalityTrait.trait === trait.trait
             )?.rating) ||
           0,
-      }))
+      }))*/
 
       const photo = request.file('photo', {
         size: '2mb',
@@ -42,7 +42,7 @@ export default class UsersController {
       const photoUrl = await drive.use().getUrl(key)
       const pet = await Pet.create({
         ...validatedData,
-        personality: personality,
+        //personality: personality,
         userId: user.id,
         speciesId: species.id,
         speciesName: species.name,
@@ -73,12 +73,15 @@ export default class UsersController {
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
+    //console.log(params.id)
     const pet = await Pet.find(params.id)
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
-    const photo = pet.photo
-    return view.render('pages/display_pet_profile', { pet, photo })
+    const photoUrl = pet.photo
+    console.log(pet)
+    console.log(photoUrl)
+    return view.render('pages/display_pet_profile', { pet, photoUrl })
   }
 
   async displayPetList({ auth, view, response }: HttpContext) {
@@ -104,6 +107,7 @@ export default class UsersController {
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
     }
+    console.log(pets)
     return view.render('pages/display_my_pet', { pets })
   }
 
@@ -116,7 +120,9 @@ export default class UsersController {
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
-    return view.render('pages/update_pet', { pet })
+
+    const photo = pet.photo
+    return view.render('pages/update_pet', { pet, photo })
   }
 
   async updatePet({ auth, request, response, params }: HttpContext) {
@@ -135,9 +141,32 @@ export default class UsersController {
     }
     try {
       const validatedData = await request.validateUsing(createPetValidator)
+      console.log(validatedData)
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
 
+      const photo = request.file('photo', {
+        size: '2mb',
+        extnames: ['jpg', 'png', 'jpeg'],
+      })
+
+      if (!photo) {
+        return response.badRequest({ error: 'Image Missing' })
+      }
+
+      if (pet.photo) {
+        const oldPhoto = pet.photo.replace('/uploads/', '')
+        try {
+          await drive.use().delete(oldPhoto)
+        } catch (error) {
+          console.error('Error deleting old photo:', error)
+        }
+      }
+
+      const key = `uploads/${cuid()}.${photo.extname}`
+      await photo.moveToDisk(key)
+
+      const photoUrl = await drive.use().getUrl(key)
       pet.merge({
         ...validatedData,
         userId: user.id,
@@ -145,8 +174,10 @@ export default class UsersController {
         speciesName: species.name,
         breedId: breed.id,
         breedName: breed.name,
+        photo: photoUrl,
       })
       await pet.save()
+      console.log(pet)
 
       return response.status(200).json({
         message: 'Pet updated successfully!',
@@ -189,6 +220,15 @@ export default class UsersController {
 
     if (pet.userId !== user.id) {
       return response.status(403).json({ message: 'You are not authorized to update this pet' })
+    }
+
+    if (pet.photo) {
+      const photoKey = pet.photo.replace('/uploads/', '')
+      try {
+        await drive.use().delete(photoKey)
+      } catch (error) {
+        console.error('Error deleting photo:', error)
+      }
     }
 
     await pet.delete()
