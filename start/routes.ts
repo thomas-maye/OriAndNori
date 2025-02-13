@@ -21,7 +21,7 @@ router.on('/about').render('pages/about').as('about')
 // route à modifier au fur et à mesure de la constructiond du site
 // c'était juste le temps que le site soit en construction
 router.on('/meetups').render('pages/meetups').as('meetups').use(middleware.auth())
-router.on('/pets').render('pages/pets').as('pets').use(middleware.auth())
+//router.on('/pets').render('pages/pets').as('pets').use(middleware.auth())
 router.on('/profile').render('pages/profile').as('profile').use(middleware.auth())
 router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth())
 
