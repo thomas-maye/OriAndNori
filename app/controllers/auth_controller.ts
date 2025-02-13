@@ -1,6 +1,9 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import { loginUserValidator, registerUserValidator, updateUserValidator } from '#validators/auth'
 import User from '#models/user'
+import drive from '@adonisjs/drive/services/main'
+import { cuid } from '@adonisjs/core/helpers'
+
 
 export default class AuthController {
   register({ view }: HttpContext) {
@@ -8,8 +11,32 @@ export default class AuthController {
   }
 
   async handleRegister({ request, session, response }: HttpContext) {
-    const { email, password, username } = await request.validateUsing(registerUserValidator)
-    await User.create({ email, password, username })
+    const { email, 
+      password,
+      username,
+      first_name='',
+      last_name='',
+      address_1='',
+      address_2= '',
+      postal_code='',
+      city='',
+      phone='',
+      description='',
+      profile_picture=''
+      } = await request.validateUsing(registerUserValidator)
+
+    await User.create({ email,
+      password,
+      username,
+      first_name,
+      last_name,
+      address_1,
+      address_2,
+      postal_code,
+      city,
+      phone,
+      description,
+      profile_picture})
     session.flash('success', 'You have successfully registered')
     return response.redirect().toRoute('auth.login')
   }
@@ -59,14 +86,15 @@ export default class AuthController {
 
     const updateUser = await request.validateUsing(updateUserValidator)
 
-    user.first_name = updateUser.first_name
-    user.last_name = updateUser.last_name
-    user.address_1 = updateUser.address_1
-    user.address_2 = updateUser.address_2
-    user.postal_code = updateUser.postal_code
-    user.city = updateUser.city
-    user.phone = updateUser.phone
-    user.description = updateUser.description
+    user.first_name = updateUser.first_name ?? ''
+    user.last_name = updateUser.last_name ?? ''
+    user.address_1 = updateUser.address_1 ??  ''
+    user.address_2 = updateUser.address_2 ?? ''
+    user.postal_code = updateUser.postal_code ?? ''
+    user.city = updateUser.city ?? ''
+    user.phone = updateUser.phone ?? ''
+    user.description = updateUser.description ?? ''
+    user.profile_picture = updateUser.profile_picture ?? ''
 
     await user.save()
     session.flash('success', 'Profile updated successfully')
