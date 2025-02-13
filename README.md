@@ -24,6 +24,8 @@ docker compose run --rm node npm install
 docker compose run --rm node bash
 ```
 
+Ctrl + D to exit the bash.
+
 ## Installation for development ⚙️
 
 ### Step 1: Clone the repository 🧩

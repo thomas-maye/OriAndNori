@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title || "Ori&Nori - Sociabilication des animaux de compagnie" }}</title>
+
+  @if ($slots.meta)
+  {{{ await $slots.meta() }}}
+  @endif
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+
+<body>
+  @eval(await auth.use('web').check())
+  <header class="bg-white dark:bg-gray-900">
+    <nav x-data="{ isOpen: false }" class="px-6 py-4 shadow">
+      <div class="lg:items-center lg:justify-between lg:flex">
+        <div class="flex items-center justify-between">
+          <a href="{{route('home')}}" class="mx-auto logo-container">
+            <img class="w-auto h-13 sm:h-13 logo px-10" src="resources/images/Ori&Nori - Logo3.png" alt="Ori&Nori">
+          </a>
+
+          <!-- Mobile menu button -->
+          <div class="lg:hidden">
+            <button x-cloak @click="isOpen = !isOpen" type="button"
+              class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
+              aria-label="toggle menu">
+              <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16" />
+              </svg>
+
+              <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+        <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
+          class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('home')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Home
+            </a>
+          </div>
+
+          @if(auth.use('web').isAuthenticated)
+
+          <div x-data="{ isActive: false }" class="relative">
+            <button x-on:click="isActive = !isActive"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">
+              Meetups
+              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div
+              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+              x-on:keydown.escape.window="isActive = false">
+              <div>
+                <a href="{{route('meetups')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                  role="menuitem">
+                  My Meetups
+                </a>
+
+                <a href="{{route('meetups')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Create a Meetup
+                </a>
+
+                <a href="{{route('meetups')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Search for a Meetup
+                </a>
+
+                <a href="{{route('meetups')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Invitations received
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div x-data="{ isActive: false }" class="relative">
+            <button x-on:click="isActive = !isActive"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Pets
+              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div
+              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+              x-on:keydown.escape.window="isActive = false">
+              <div>
+                <a href="{{route('pets')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                  role="menuitem">
+                  My Pets
+                </a>
+
+                <a href="{{route('pets')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Add a Pet
+                </a>
+
+                <a href="{{route('pets')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Search for a Pet profile
+                </a>
+
+                <a href="{{route('pets')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  My Pets's friends
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div x-data="{ isActive: false }" class="relative">
+            <button x-on:click="isActive = !isActive"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Reviews
+              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div
+              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+              x-on:keydown.escape.window="isActive = false">
+              <div>
+                <a href="{{route('reviews')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                  role="menuitem">
+                  My Reviews
+                </a>
+
+                <a href="{{route('reviews')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Post a review
+                </a>
+
+                <a href="{{route('reviews')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Reviews received
+                </a>
+
+              </div>
+            </div>
+          </div>
+
+          <div x-data="{ isActive: false }" class="relative">
+            <button x-on:click="isActive = !isActive"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Profile
+              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+            <div
+              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+              x-on:keydown.escape.window="isActive = false">
+              <div>
+                <a href="{{route('auth.display_my_profile')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                  role="menuitem">
+                  My Profile
+                </a>
+
+                <a href="{{route('profile')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Search for a Profile
+                </a>
+
+                <a href="{{route('profile')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Messages
+                </a>
+
+                <a href="{{route('profile')}}"
+                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                  role="menuitem">
+                  Settings
+                </a>
+
+              </div>
+            </div>
+          </div>
+          @end
+
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('about')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              About
+            </a>
+          </div>
+
+          <div x-data="{ isActive: false }" class="relative">
+            <a href="{{route('contact')}}"
+              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              Contact
+            </a>
+          </div>
+
+          <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
+            {{ csrfField() }}
+            @if(auth.use('web').isAuthenticated)
+            @!component('components/full_button', { text : 'Logout'})
+            @end
+          </form>
+          <div class="px-1">
+            @if (!auth.use('web').isAuthenticated && request.url() !== '/')
+              <a href="{{ route('auth.login') }}">
+                @!component('components/empty_button', { text: 'Login' })
+              </a>
+              <a href="{{ route('auth.register') }}">
+                @!component('components/full_button', { text: 'Register' })
+              </a>
+            @end
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="dark:bg-gray-900 pt-10 pb-10">
+      {{{ await $slots.main() }}}
+    </div>
+  </main>
+  <footer>
+    Copyright &copy; Ori&Nori
+  </footer>
+</body>
+
+</html>
