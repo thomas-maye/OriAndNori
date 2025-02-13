@@ -113,25 +113,25 @@
               role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
               x-on:keydown.escape.window="isActive = false">
               <div>
-                <a href="{{route('pets')}}"
+                <a href="{{route('MyPets')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
                   role="menuitem">
                   My Pets
                 </a>
 
-                <a href="{{route('pets')}}"
+                <a href="{{route('showCreatePetForm')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
-                  Add a Pet
+                  Create a Pet
                 </a>
 
-                <a href="{{route('pets')}}"
+                <a href="{{route('petList')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
                   Search for a Pet profile
                 </a>
 
-                <a href="{{route('pets')}}"
+                <a href="#"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
                   My Pets's friends
