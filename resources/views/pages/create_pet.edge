@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Pet</title>
+  <link href="/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Create Pet</h1>
+    <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
+      {{ csrfField() }}
+      <div class="mb-4">
+        <label for="name" class="block text-gray-700">Name:</label>
+        <input type="text" id="name" name="name" class="mt-1 block w-full" required>
+      </div>
+      <div class="mb-4">
+        <label for="birthday" class="block text-gray-700">Birthday:</label>
+        <input type="date" id="birthday" name="birthday" class="mt-1 block w-full" required>
+      </div>
+      <div class="mb-4">
+        <label for="photo" class="block text-gray-700">Photo:</label>
+        <input type="file" id="photo" name="photo" class="mt-1 block w-full" accept="image/*">
+      </div>
+      <div class="mb-4">
+        <label for="personality" class="block text-gray-700">Personality:</label>
+        <div id="personality-traits">
+          @if(traits && traits.length > 0)
+          <div class="mb-2">
+            @each((trait, index) in traits)
+            <div class="mb-2">
+              <label>{{ trait.trait }}</label>
+              <input type="hidden" name="personality[{{ index }}][trait]" value="{{ trait.trait }}">
+              <input type="range" name="personality[{{ index }}][rating]" min="0" max="5" value="{{ trait.rating }}" class="form-range">
+              <div>Note actuelle: <span id="rating-{{ index }}">{{ trait.rating }}</span>/5</div>
+            </div>
+            @endeach
+          </div>
+          @else
+            <p>No personality traits available.</p>
+          @endif
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="vaccined" class="block text-gray-700">Vaccined:</label>
+        <input type="checkbox" id="vaccined" name="vaccined" class="mt-1">
+      </div>
+      <div class="mb-4">
+        <label for="gender" class="block text-gray-700">Gender:</label>
+        <select id="gender" name="gender" class="mt-1 block w-full" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700">Description:</label>
+        <textarea id="description" name="description" class="mt-1 block w-full"></textarea>
+      </div>
+      <div class="mb-4">
+        <label for="breed" class="block text-gray-700">Breed:</label>
+        <input type="text" id="breed" name="breed" class="mt-1 block w-full" required>
+      </div>
+      <div class="mb-4">
+        <label for="species" class="block text-gray-700">Species:</label>
+        <input type="text" id="species" name="species" class="mt-1 block w-full" required>
+      </div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create Pet</button>
+    </form>
+  </div>
+</body>
+</html>
