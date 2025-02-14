@@ -6,10 +6,21 @@ import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 
 export default class AuthController {
+
+  /**
+   * -------------------------------
+   * Display the Register User Page
+   * -------------------------------
+   */
   register({ view }: HttpContext) {
     return view.render('pages/auth/register')
   }
 
+  /**
+   * ------------------------------
+   * Handle the Register User Page
+   * ------------------------------
+   */
   async handleRegister({ request, session, response }: HttpContext) {
     const { email,
       password,
@@ -43,9 +54,20 @@ export default class AuthController {
     return response.redirect().toRoute('auth.login')
   }
 
+  /**
+   * ---------------------------
+   * Display the Login Page
+   * ---------------------------
+   */
   login({ view }: HttpContext) {
     return view.render('pages/auth/login')
   }
+
+  /**
+   * ---------------------------
+   * Handle the Login User Page
+   * ---------------------------
+   */
 
   async handleLogin({ request, auth, session, response }: HttpContext) {
     const { email, password } = await request.validateUsing(loginUserValidator)
@@ -61,6 +83,12 @@ export default class AuthController {
     return response.redirect().toRoute('home')
   }
 
+/**
+ * ---------------------------
+ * Display the user's profile
+ * ---------------------------
+
+ */
   async displayMyProfile({ view, auth, session }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -70,6 +98,11 @@ export default class AuthController {
     return view.render('pages/auth/myprofile')
   }
 
+  /**
+   * ------------------------
+   * Edit the user's profile
+   * ------------------------
+   */
   async editMyProfile({ view, auth, session }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -80,14 +113,16 @@ export default class AuthController {
   }
 
   /**
+   * --------------------------
    * Update the user's profile
+   * --------------------------
    */
   async updateMyProfile({ request, auth, session, response }: HttpContext) {
     if (!auth.user) {
       session.flash('error', 'You must be logged in to view this page')
       return response.redirect().toRoute('auth.login')
     }
-  
+
     const updateUser = await request.validateUsing(updateUserValidator)
     let fileName = '';
 
@@ -100,11 +135,11 @@ export default class AuthController {
           return response.redirect().back()
         }
       }
-  
+
       await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
         name: `${cuid()}.${updateUser.profile_picture.extname}`
       })
-  
+
       if (!updateUser.profile_picture.fileName) {
         session.flash('error', 'Error uploading profile picture')
         return response.redirect().back()
@@ -112,16 +147,15 @@ export default class AuthController {
 
       fileName = updateUser.profile_picture.fileName
     }
-  
-    
+
     auth.user.merge({
       ...updateUser,
       profile_picture: fileName || auth.user.profile_picture
     })
-  
+
     await auth.user.save()
     session.flash('success', 'Profile updated successfully')
-  
+
     return response.redirect().toRoute('auth.display_my_profile')
   }
 }
