@@ -13,6 +13,7 @@ import { middleware } from './kernel.js'
 const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ResetPasswordController = () => import('#controllers/reset_password_controller')
+const MeetupsController = () => import('#controllers/meetups_controller')
 
 router.on('/').render('pages/home').as('home')
 router.on('/contact').render('pages/contact').as('contact')
@@ -86,4 +87,15 @@ router.get('/pets', [UsersController, 'displayPetList']).as('petList').use(middl
 router
   .get('/pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
+  .use(middleware.auth())
+
+//meetups routes
+router
+  .get('/meetups/create-form', [MeetupsController, 'MeetupsForm'])
+  .as('showCreateMeetupsForm')
+  .use(middleware.auth())
+
+router
+  .post('/meetups/create', [MeetupsController, 'createMeetup'])
+  .as('createMeetup')
   .use(middleware.auth())

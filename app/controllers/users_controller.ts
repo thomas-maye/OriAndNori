@@ -10,6 +10,7 @@ export default class UsersController {
   async createPet({ auth, request, response }: HttpContext) {
     try {
       const validatedData = await request.validateUsing(createPetValidator)
+
       const user = auth.user
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })

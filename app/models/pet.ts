@@ -6,11 +6,13 @@ import {
   beforeSave,
   afterFetch,
   afterFind,
+  manyToMany,
 } from '@adonisjs/lucid/orm'
-import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import Breed from './breed.js'
 import Species from './species.js'
+import Meetup from './meetup.js'
 
 export const traits = [
   { trait: 'Friendly', rating: 0 },
@@ -67,6 +69,14 @@ export default class Pet extends BaseModel {
 
   @column()
   declare photo: string
+
+  @manyToMany(() => Meetup, {
+    localKey: 'id',
+    pivotForeignKey: 'pet_id',
+    relatedKey: 'id',
+    pivotRelatedForeignKey: 'meetup_id',
+  })
+  declare meetups: ManyToMany<typeof Meetup>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
