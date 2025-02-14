@@ -3,7 +3,7 @@ import { loginUserValidator, registerUserValidator, updateUserValidator } from '
 import User from '#models/user'
 import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
-
+import app from '@adonisjs/core/services/app'
 
 export default class AuthController {
   register({ view }: HttpContext) {
@@ -11,21 +11,22 @@ export default class AuthController {
   }
 
   async handleRegister({ request, session, response }: HttpContext) {
-    const { email, 
+    const { email,
       password,
       username,
-      first_name='',
-      last_name='',
-      address_1='',
-      address_2= '',
-      postal_code='',
-      city='',
-      phone='',
-      description='',
-      profile_picture=''
-      } = await request.validateUsing(registerUserValidator)
+      first_name = '',
+      last_name = '',
+      address_1 = '',
+      address_2 = '',
+      postal_code = '',
+      city = '',
+      phone = '',
+      description = '',
+      profile_picture = ''
+    } = await request.validateUsing(registerUserValidator)
 
-    await User.create({ email,
+    await User.create({
+      email,
       password,
       username,
       first_name,
@@ -36,7 +37,8 @@ export default class AuthController {
       city,
       phone,
       description,
-      profile_picture})
+      profile_picture
+    })
     session.flash('success', 'You have successfully registered')
     return response.redirect().toRoute('auth.login')
   }
@@ -77,28 +79,49 @@ export default class AuthController {
     return view.render('pages/auth/edit_myprofile')
   }
 
+  /**
+   * Update the user's profile
+   */
   async updateMyProfile({ request, auth, session, response }: HttpContext) {
-    const user = auth.user
-    if (!user) {
+    if (!auth.user) {
       session.flash('error', 'You must be logged in to view this page')
       return response.redirect().toRoute('auth.login')
     }
-
+  
     const updateUser = await request.validateUsing(updateUserValidator)
+    let fileName = '';
 
-    user.first_name = updateUser.first_name ?? ''
-    user.last_name = updateUser.last_name ?? ''
-    user.address_1 = updateUser.address_1 ??  ''
-    user.address_2 = updateUser.address_2 ?? ''
-    user.postal_code = updateUser.postal_code ?? ''
-    user.city = updateUser.city ?? ''
-    user.phone = updateUser.phone ?? ''
-    user.description = updateUser.description ?? ''
-    user.profile_picture = updateUser.profile_picture ?? ''
+    if (updateUser.profile_picture) {
+      if (auth.user.profile_picture) {
+        try {
+          await drive.use().delete(`uploads/${auth.user.profile_picture}`)
+        } catch (error) {
+          session.flash('error', 'Error deleting old photo')
+          return response.redirect().back()
+        }
+      }
+  
+      await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
+        name: `${cuid()}.${updateUser.profile_picture.extname}`
+      })
+  
+      if (!updateUser.profile_picture.fileName) {
+        session.flash('error', 'Error uploading profile picture')
+        return response.redirect().back()
+      }
 
-    await user.save()
+      fileName = updateUser.profile_picture.fileName
+    }
+  
+    
+    auth.user.merge({
+      ...updateUser,
+      profile_picture: fileName || auth.user.profile_picture
+    })
+  
+    await auth.user.save()
     session.flash('success', 'Profile updated successfully')
-
+  
     return response.redirect().toRoute('auth.display_my_profile')
   }
 }

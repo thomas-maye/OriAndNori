@@ -10,18 +10,14 @@
     @!component('components/group-button')
 </div>
 
-<form method="POST" action="{{ route('auth.update_my_profile') }}">
+<form method="POST" action="{{ route('auth.update_my_profile') }}" enctype="multipart/form-data">
     {{ csrfField() }}
 
     <div class="flex justify-center items-center">
         <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-            <div>
-                <label for="profile_picture" class="block text-gray-700"></label>
-                <input type="file" id="profile_picture" name="profile_picture" class="mt-1 block w-full" accept="image/*" style="display: none;">
-                <img id="profile_picture_preview" class="object-cover object-center w-full h-56"
-                    src="#" alt="avatar">
-            </div>
-
+            <img class="object-cover object-center w-full h-56"
+            src="{{ auth.user.profile_picture ? `storage/${await driveUrl(auth.user.profile_picture)}` : 'https://img.icons8.com/?size=100&id=106514&format=png&color=000000' }}"
+            alt="avatar">
             <div class="flex items-center px-6 py-3 bg-emerald-800">
                 <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -49,27 +45,20 @@
             @!component('components/input-form', { name: 'phone', label: 'Phone number:', type: 'tel', placeholder:
             'Enter your phone number', value: auth.user.phone })
 
+            <div class="mb-4">
+                <label for="profile_picture" class="block text-gray-700">Change Picture Profile:</label>
+                <input type="file" id="profile_picture" name="profile_picture" class="mt-1 block w-full">
+            </div>
+
+            <div class="flex justify-center">
+                @!component('components/full_button', { text: "Submit" })
+            </div>
+
         </div>
-        <div class="flex justify-center">
-            @!component('components/full_button', { text: "Submit" })
-        </div>
+
+        @!component('components/debug/inspect_debug')
+
     </div>
 </form>
-<script>
-    document.getElementById('profile_picture_preview').addEventListener('click', function() {
-        document.getElementById('profile_picture').click();
-    });
-
-    document.getElementById('profile_picture').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('profile_picture_preview').src = e.target.result;
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-</script>
 @endslot
 @end
