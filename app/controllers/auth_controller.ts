@@ -254,4 +254,19 @@ export default class AuthController {
     await auth.user.delete()
     return response.redirect().toRoute('home')
   }
+
+  /**
+   * ---------------------------
+   * Display All Users Profile
+   * ---------------------------
+   */
+  async displayAllUsers({ view, auth, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return view.render('pages/auth/login')
+    }
+    const users = await User.query().whereNot('id', user.id)
+    return view.render('pages/auth/display_all_users', { users })
+  }
 }

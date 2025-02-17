@@ -107,6 +107,12 @@ router
   .as('auth.delete_my_profile')
   .use(middleware.auth())
 
+// Display All Users Profile
+router
+  .get('/users', [AuthController, 'displayAllUsers'])
+  .as('auth.display_all_users')
+  .use(middleware.auth())
+
 /**
  * -------------------------------
  * Pets routes
