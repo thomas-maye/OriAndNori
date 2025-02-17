@@ -14,6 +14,13 @@ const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ResetPasswordController = () => import('#controllers/reset_password_controller')
 
+
+/**
+ * -------------------------------
+ * Home routes
+ * -------------------------------
+ */
+
 router.on('/').render('pages/home').as('home')
 router.on('/contact').render('pages/contact').as('contact')
 router.on('/about').render('pages/about').as('about')
@@ -25,14 +32,36 @@ router.on('/meetups').render('pages/meetups').as('meetups').use(middleware.auth(
 router.on('/profile').render('pages/profile').as('profile').use(middleware.auth())
 router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth())
 
-// Auth routes
-router.get('/register', [AuthController, 'register']).as('auth.register').use(middleware.guest())
-router.post('/register', [AuthController, 'handleRegister']).use(middleware.guest())
+/**
+ * -------------------------------
+ * Auth routes
+ * -------------------------------
+ */
 
-router.get('/login', [AuthController, 'login']).as('auth.login').use(middleware.guest())
-router.post('/login', [AuthController, 'handleLogin']).use(middleware.guest())
-router.delete('/login', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
+// Register
+router
+  .get('/register', [AuthController, 'register'])
+  .as('auth.register')
+  .use(middleware.guest())
 
+router
+  .post('/register', [AuthController, 'handleRegister'])
+  .use(middleware.guest())
+
+// Login
+router
+  .get('/login', [AuthController, 'login'])
+  .as('auth.login').use(middleware.guest())
+
+router
+  .post('/login', [AuthController, 'handleLogin'])
+  .use(middleware.guest())
+
+router
+  .delete('/login', [AuthController, 'logout']).as('auth.logout')
+  .use(middleware.auth())
+
+// Forgot password
 router
   .get('/forgot_password', [ResetPasswordController, 'forgotPassword'])
   .as('auth.forgot_password')
@@ -41,6 +70,7 @@ router
   .post('/forgot_password', [ResetPasswordController, 'handleForgotPassword'])
   .use(middleware.guest())
 
+// Reset password
 router
   .get('/reset_password', [ResetPasswordController, 'resetPassword'])
   .as('auth.reset_password')
@@ -50,10 +80,13 @@ router
   .as('auth.handle_reset_password')
   .use(middleware.guest())
 
+// My profile
 router
   .get('/myprofile', [AuthController, 'displayMyProfile'])
   .as('auth.display_my_profile')
   .use(middleware.auth())
+
+// Edit my profile
 router
   .get('/edit_myprofile', [AuthController, 'editMyProfile'])
   .as('auth.edit_my_profile')
@@ -63,7 +96,22 @@ router
   .as('auth.update_my_profile')
   .use(middleware.auth())
 
-//pets routes
+// Delete my profile
+router
+  .get('/delete_profile', [AuthController, 'displayDeleteProfile'])
+  .as('auth.display_delete_profile')
+  .use(middleware.auth())
+
+router
+  .delete('/myprofile', [AuthController, 'deleteMyProfile'])
+  .as('auth.delete_my_profile')
+  .use(middleware.auth())
+
+/**
+ * -------------------------------
+ * Pets routes
+ * -------------------------------
+ */
 router
   .get('/pets/create-pet', [UsersController, 'showCreatePetForm'])
   .as('showCreatePetForm')

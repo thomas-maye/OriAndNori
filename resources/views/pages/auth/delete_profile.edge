@@ -1,0 +1,17 @@
+@layout.app({ title: "Delete Profile" })
+@slot('meta')
+<meta name="description" content="A Delete Profile page made with EdgeJS">
+@endslot
+
+@slot('main')
+Are you sure you want to delete your profile ?
+<a href="{{route('auth.display_my_profile')}}">
+    @!component('components/empty_button', { text : 'Cancel'})
+</a>
+
+<form method="POST" action="{{ route('auth.delete_my_profile') }}?_method=DELETE">
+    {{ csrfField() }}
+    @!component('components/full_button', { text : 'Delete'})
+</form>
+@endslot
+@end

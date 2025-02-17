@@ -4,6 +4,7 @@ import User from '#models/user'
 import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
+import mail from '@adonisjs/mail/services/main'
 
 export default class AuthController {
 
@@ -50,8 +51,24 @@ export default class AuthController {
       description,
       profile_picture
     })
-    session.flash('success', 'You have successfully registered')
-    return response.redirect().toRoute('auth.login')
+
+    const user = await User.findBy('email', email)
+
+    if (user) {
+      await mail.send((message) => {
+        message
+          .to(user.email)
+          .from('no-reply@oriandnori.org')
+          .subject('Registration Successful')
+          .htmlView('emails/register', { user })
+      })
+
+      session.flash('success', 'You have successfully registered')
+      return response.redirect().toRoute('auth.login')
+    } else {
+      session.flash('error', 'User registration failed')
+      return response.redirect().back()
+    }
   }
 
   /**
@@ -83,12 +100,12 @@ export default class AuthController {
     return response.redirect().toRoute('home')
   }
 
-/**
- * ---------------------------
- * Display the user's profile
- * ---------------------------
-
- */
+  /**
+   * ---------------------------
+   * Display the user's profile
+   * ---------------------------
+  
+   */
   async displayMyProfile({ view, auth, session }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -154,8 +171,87 @@ export default class AuthController {
     })
 
     await auth.user.save()
-    session.flash('success', 'Profile updated successfully')
+
+    const user = await User.find(auth.user.id)
+
+    if (user) {
+      try {
+        await mail.send((message) => {
+          message
+            .to(user.email)
+            .from('no-reply@oriandnori.org')
+            .subject('Edit Profile Successful')
+            .htmlView('emails/edit_myprofile', { user })
+        })
+        session.flash('success', 'Profile updated successfully')
+      } catch (error) {
+        session.flash('error', 'Error sending confirmation email')
+        return response.redirect().back()
+      }
+    } else {
+      session.flash('error', 'User update failed')
+      return response.redirect().back()
+    }
 
     return response.redirect().toRoute('auth.display_my_profile')
+  }
+
+  /**
+   * --------------------------
+   * Display the Delete Profile
+   * --------------------------
+   */
+  async displayDeleteProfile({ view, auth, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return view.render('pages/auth/login')
+    }
+    return view.render('pages/auth/delete_profile')
+  }
+
+  /**
+   * ---------------------------
+   * Delete the user's profile
+   * ---------------------------
+   */
+  async deleteMyProfile({ auth, session, response }: HttpContext) {
+    if (!auth.user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return response.redirect().toRoute('auth.login')
+    }
+
+    if (auth.user.profile_picture) {
+      try {
+        await drive.use().delete(`uploads/${auth.user.profile_picture}`)
+      } catch (error) {
+        session.flash('error', 'Error deleting profile picture')
+        return response.redirect().back()
+      }
+    }
+
+    const user = await User.find(auth.user.id)
+
+    if (user) {
+      try {
+        await mail.send((message) => {
+          message
+            .to(user.email)
+            .from('no-reply@oriandnori.org')
+            .subject('Delete Profile Successful')
+            .htmlView('emails/delete_myprofile', { user })
+        })
+        session.flash('success', 'Profile deleted successfully')
+      } catch (error) {
+        session.flash('error', 'Error sending confirmation email')
+        return response.redirect().back()
+      }
+    } else {
+      session.flash('error', 'User update failed')
+      return response.redirect().back()
+    }
+    
+    await auth.user.delete()
+    return response.redirect().toRoute('home')
   }
 }

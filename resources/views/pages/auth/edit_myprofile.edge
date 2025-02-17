@@ -16,8 +16,7 @@
     <div class="flex justify-center items-center">
         <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
             <img class="object-cover object-center w-full h-56"
-            src="{{ auth.user.profile_picture ? `storage/${await driveUrl(auth.user.profile_picture)}` : src="resources/images/1077114.png" }}"
-            alt="avatar">
+                src="{{ auth.user.profile_picture ? `storage/${await driveUrl(auth.user.profile_picture)}` : src="resources/images/1077114.png" }}" alt="avatar">
             <div class="flex items-center px-6 py-3 bg-emerald-800">
                 <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
                     xmlns="http://www.w3.org/2000/svg">
@@ -26,6 +25,10 @@
                 </svg>
 
                 <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
+            </div>
+
+            <div class="px-4 py-2">
+                @!component('components/banner/error')
             </div>
 
             @!component('components/input-form', { name: 'first_name', label: 'First Name:', type: 'text', placeholder:
@@ -40,7 +43,7 @@
             placeholder: 'Enter your complement address', value: auth.user.address_2 })
             @!component('components/input-form', { name: 'postal_code', label: 'Postal Code:', type: 'text',
             placeholder: 'Enter your postal code', value: auth.user.postal_code })
-            @!component('components/input-form', { name: 'city', label: 'City:', type: 'text', placeholder: 'Enter your city',
+            @!component('components/input-form', { name: 'city', label: 'City:', type: 'text', placeholder: 'Enter your city', 
             value: auth.user.city })
             @!component('components/input-form', { name: 'phone', label: 'Phone number:', type: 'tel', placeholder:
             'Enter your phone number', value: auth.user.phone })
@@ -48,11 +51,20 @@
             <div class="mb-4">
                 <label for="profile_picture" class="block text-gray-700">Change Picture Profile:</label>
                 <input type="file" id="profile_picture" name="profile_picture" class="mt-1 block w-full">
+
+                @inputError('profile_picture')
+                <div class="block text-sm font-medium text-red-500 dark:text-red-400">
+                <p> {{ message }} </p>
+                </div>
+                @end
+
             </div>
 
             <div class="flex justify-center">
                 @!component('components/full_button', { text: "Submit" })
             </div>
+
+            @!component('components/debug/inspect_debug')
 
         </div>
     </div>

@@ -24,6 +24,10 @@
             <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
         </div>
 
+        <div class="px-4 py-2">
+            @!component('components/banner/success')
+        </div>
+
         <div class="px-6 py-4">
             <h1 class="text-xl font-semibold text-gray-800 dark:text-white"></h1>
             <p class="py-2 text-gray-700 dark:text-gray-400">My name is {{ auth.user.first_name }} {{
