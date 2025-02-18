@@ -102,9 +102,8 @@ export default class AuthController {
 
   /**
    * ---------------------------
-   * Display the user's profile
+   * Display my user's profile
    * ---------------------------
-  
    */
   async displayMyProfile({ view, auth, session }: HttpContext) {
     const user = auth.user
@@ -117,7 +116,7 @@ export default class AuthController {
 
   /**
    * ------------------------
-   * Edit the user's profile
+   * Edit my user's profile
    * ------------------------
    */
   async editMyProfile({ view, auth, session }: HttpContext) {
@@ -131,7 +130,7 @@ export default class AuthController {
 
   /**
    * --------------------------
-   * Update the user's profile
+   * Update my user's profile
    * --------------------------
    */
   async updateMyProfile({ request, auth, session, response }: HttpContext) {
@@ -250,7 +249,7 @@ export default class AuthController {
       session.flash('error', 'User update failed')
       return response.redirect().back()
     }
-    
+
     await auth.user.delete()
     return response.redirect().toRoute('home')
   }
@@ -268,5 +267,26 @@ export default class AuthController {
     }
     const users = await User.query().whereNot('id', user.id)
     return view.render('pages/auth/display_all_users', { users })
+  }
+
+  /**
+   * ---------------------------
+   * Display User Profile by ID
+   * ---------------------------
+   */
+  async displayUserProfile({ view, auth, params, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return view.render('pages/auth/login')
+    }
+
+    const userProfile = await User.find(params.id)
+
+    if (!userProfile) {
+      session.flash('error', 'User not found')
+      return view.render('pages/auth/display_all_users')
+    }
+    return view.render('pages/auth/display_user_profile', { userProfile })
   }
 }

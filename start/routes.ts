@@ -14,7 +14,6 @@ const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ResetPasswordController = () => import('#controllers/reset_password_controller')
 
-
 /**
  * -------------------------------
  * Home routes
@@ -113,11 +112,19 @@ router
   .as('auth.display_all_users')
   .use(middleware.auth())
 
+// Display User Profile by ID
+router
+  .get('/users/:id', [AuthController, 'displayUserProfile'])
+  .as('auth.display_user_profile')
+  .use(middleware.auth())
+
 /**
  * -------------------------------
  * Pets routes
  * -------------------------------
  */
+
+//Create Pet
 router
   .get('/pets/create-pet', [UsersController, 'showCreatePetForm'])
   .as('showCreatePetForm')
@@ -125,6 +132,7 @@ router
 
 router.post('/pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
 
+// My Pets
 router
   .group(() => {
     router.get('/my-pets', [UsersController, 'listMyPet']).as('MyPets')
@@ -136,7 +144,13 @@ router
   .prefix('pets')
   .use(middleware.auth())
 
-router.get('/pets', [UsersController, 'displayPetList']).as('petList').use(middleware.auth())
+// Display All Pets Profiles 
+router
+  .get('/pets', [UsersController, 'displayPetList'])
+  .as('petList')
+  .use(middleware.auth())
+
+// Display Pet Profile by ID
 router
   .get('/pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
