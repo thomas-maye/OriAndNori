@@ -9,7 +9,8 @@
 <div class="flex justify-center items-center">
     <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <img class="object-cover object-center w-full h-56"
-        src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}" alt="avatar">
+        src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
+        alt="avatar">
         <div class="flex items-center px-6 py-3 bg-emerald-800">
             <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">

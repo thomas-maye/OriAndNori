@@ -15,6 +15,9 @@ export const createPetValidator = vine.compile(
     description: vine.string().optional(),
     breed: vine.string(),
     species: vine.string(),
-    photos: vine.string().optional(),
+    photo: vine.file({
+      size: '2mb',
+      extnames: ['jpg', 'png', 'jpeg']
+    }).optional()
   })
 )

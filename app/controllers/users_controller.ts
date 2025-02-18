@@ -5,56 +5,65 @@ import Breed from '#models/breed'
 import { createPetValidator } from '#validators/create_pet'
 import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
+import app from '@adonisjs/core/services/app'
 
 export default class UsersController {
-  async createPet({ auth, request, response }: HttpContext) {
+  /**
+   * ------------------------------
+   * Display the Create Pet Page
+   * ------------------------------
+   */
+    async showCreatePetForm({ view }: HttpContext) {
+      return view.render('pages/create_pet', { traits })
+    }
+
+  /**
+   * ------------------------------
+   * Create a Pet
+   * ------------------------------
+   */
+  async createPet({ auth, request, response, session }: HttpContext) {
     try {
       const validatedData = await request.validateUsing(createPetValidator)
       const user = auth.user
+      let fileName = '';
+  
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })
       }
-
+  
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
-      /*const personality = traits.map((trait) => ({
-        ...trait,
-        rating:
-          (Array.isArray(validatedData.personality) &&
-            validatedData.personality.find(
-              (personalityTrait) => personalityTrait.trait === trait.trait
-            )?.rating) ||
-          0,
-      }))*/
-
-      const photo = request.file('photo', {
-        size: '2mb',
-        extnames: ['jpg', 'png', 'jpeg'],
-      })
-
-      if (!photo) {
-        return response.badRequest({ error: 'Image Missing' })
+  
+      if (validatedData.photo) {
+        await validatedData.photo.move(app.makePath('storage/uploads'), {
+          name: `${cuid()}.${validatedData.photo.extname}`
+        })
+  
+        if (!validatedData.photo.fileName) {
+          session.flash('error', 'Error uploading profile picture')
+          return response.redirect().back()
+        }
+  
+        fileName = validatedData.photo.fileName
       }
-
-      const key = `uploads/${cuid()}.${photo.extname}`
-      await photo.moveToDisk(key)
-
-      const photoUrl = await drive.use().getUrl(key)
-      const pet = await Pet.create({
+  
+      const pet = new Pet()
+      pet.merge({
         ...validatedData,
-        //personality: personality,
         userId: user.id,
         speciesId: species.id,
         speciesName: species.name,
         breedId: breed.id,
         breedName: breed.name,
-        photo: photoUrl,
+        photo: fileName,
       })
+  
+      await pet.save()
 
-      return response.status(201).json({
-        message: 'Pet created successfully!',
-        data: pet,
-      })
+      session.flash('success', 'Pet created successfully!')
+      return response.redirect().toRoute('MyPets')
+
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to create pet',
@@ -63,11 +72,11 @@ export default class UsersController {
     }
   }
 
-  async showCreatePetForm({ view }: HttpContext) {
-    console.log(traits)
-    return view.render('pages/create_pet', { traits })
-  }
-
+  /**
+   * ------------------------------
+   * Display the Pet Profile
+   * ------------------------------
+   */
   async displayPetProfile({ auth, view, params, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -79,11 +88,14 @@ export default class UsersController {
       return response.status(404).json({ message: 'Pet not found' })
     }
     const photoUrl = pet.photo
-    console.log(pet)
-    console.log(photoUrl)
     return view.render('pages/display_pet_profile', { pet, photoUrl })
   }
 
+  /**
+   * ------------------------------
+   * Display the Pet List
+   * ------------------------------
+   */
   async displayPetList({ auth, view, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -96,6 +108,11 @@ export default class UsersController {
     return view.render('pages/display_pet_list', { pets })
   }
 
+  /**
+   * ------------------------------
+   * Display My Pet
+   * ------------------------------
+   */
   async listMyPet({ auth, view, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -111,6 +128,11 @@ export default class UsersController {
     return view.render('pages/display_my_pet', { pets })
   }
 
+  /**
+   * ------------------------------
+   * Display the Update Pet Page
+   * ------------------------------
+   */
   async updatePetView({ auth, view, params, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -125,6 +147,11 @@ export default class UsersController {
     return view.render('pages/update_pet', { pet, photo })
   }
 
+  /**
+   * ------------------------------
+   * Update Pet
+   * ------------------------------
+   */
   async updatePet({ auth, request, response, params }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -191,6 +218,11 @@ export default class UsersController {
     }
   }
 
+  /**
+   * ------------------------------
+   * Display the Delete Pet Page
+   * ------------------------------
+   */
   async deletePetView({ auth, view, params, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -208,6 +240,11 @@ export default class UsersController {
     return view.render('pages/delete_pet', { pet })
   }
 
+  /**
+   * ------------------------------
+   * Delete Pet
+   * ------------------------------
+   */ 
   async deletePet({ auth, response, params }: HttpContext) {
     const user = auth.user
     if (!user) {
