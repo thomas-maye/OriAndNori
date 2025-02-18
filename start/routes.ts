@@ -92,7 +92,7 @@ router
 //meetups routes
 router
   .get('/meetups/create-form', [MeetupsController, 'MeetupsForm'])
-  .as('CreateMeetupsForm')
+  .as('createMeetupForm')
   .use(middleware.auth())
 
 router
