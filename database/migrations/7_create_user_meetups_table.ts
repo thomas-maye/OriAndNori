@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       // Foreign keys
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
       table.integer('meetup_id').unsigned().references('meetups.id').onDelete('CASCADE')
+      table.string('user_name').notNullable()
       table.unique(['user_id', 'meetup_id'])
 
       // timestamps

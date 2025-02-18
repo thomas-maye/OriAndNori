@@ -36,20 +36,24 @@ export default class Meetup extends BaseModel {
   declare user: BelongsTo<typeof User>
 
   @manyToMany(() => User, {
-    localKey: 'id',
-    pivotForeignKey: 'meetup_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'user_id',
+    //localKey: 'id',
+    //pivotForeignKey: 'meetup_id',
+    //relatedKey: 'id',
+    //pivotRelatedForeignKey: 'user_id',
+    pivotTable: 'user_meetups',
+    pivotColumns: ['user_name'],
   })
-  declare users: ManyToMany<typeof User>
+  declare meetupUsers: ManyToMany<typeof User>
 
   @manyToMany(() => Pet, {
-    localKey: 'id',
-    pivotForeignKey: 'meetup_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'pet_id',
+    //localKey: 'id',
+    //pivotForeignKey: 'meetup_id',
+    //relatedKey: 'id',
+    //pivotRelatedForeignKey: 'pet_id',
+    pivotTable: 'pet_meetups',
+    pivotColumns: ['pet_name'],
   })
-  declare pets: ManyToMany<typeof Pet>
+  declare meetupPets: ManyToMany<typeof Pet>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

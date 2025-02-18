@@ -68,9 +68,11 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare updatedAt: DateTime | null
 
   @manyToMany(() => Meetup, {
-    localKey: 'id',
-    pivotForeignKey: 'user_id',
-    relatedKey: 'id',
+    //localKey: 'id',
+    //pivotForeignKey: 'user_id',
+    //relatedKey: 'id',
+    pivotTable: 'user_meetups',
+    pivotColumns: ['meetup_title'],
   })
-  declare meetups: ManyToMany<typeof Meetup>
+  declare userMeetups: ManyToMany<typeof Meetup>
 }

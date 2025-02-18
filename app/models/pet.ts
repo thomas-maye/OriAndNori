@@ -71,12 +71,14 @@ export default class Pet extends BaseModel {
   declare photo: string
 
   @manyToMany(() => Meetup, {
-    localKey: 'id',
-    pivotForeignKey: 'pet_id',
-    relatedKey: 'id',
-    pivotRelatedForeignKey: 'meetup_id',
+    //localKey: 'id',
+    //pivotForeignKey: 'pet_id',
+    //relatedKey: 'id',
+    //pivotRelatedForeignKey: 'meetup_id',
+    pivotTable: 'pet_meetups',
+    pivotColumns: ['meetup_title'],
   })
-  declare meetups: ManyToMany<typeof Meetup>
+  declare petMeetups: ManyToMany<typeof Meetup>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

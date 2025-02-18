@@ -18,15 +18,6 @@ export default class UsersController {
 
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
-      /*const personality = traits.map((trait) => ({
-        ...trait,
-        rating:
-          (Array.isArray(validatedData.personality) &&
-            validatedData.personality.find(
-              (personalityTrait) => personalityTrait.trait === trait.trait
-            )?.rating) ||
-          0,
-      }))*/
 
       const photo = request.file('photo', {
         size: '2mb',
@@ -43,7 +34,6 @@ export default class UsersController {
       const photoUrl = await drive.use().getUrl(key)
       const pet = await Pet.create({
         ...validatedData,
-        //personality: personality,
         userId: user.id,
         speciesId: species.id,
         speciesName: species.name,

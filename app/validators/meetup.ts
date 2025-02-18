@@ -10,6 +10,5 @@ export const meetupValidator = vine.compile(
     city: vine.string().minLength(1).maxLength(50),
     type: vine.enum(['Walk', 'Sociabiliation']),
     date: vine.string().transform((value) => DateTime.fromISO(value)),
-    pets: vine.array(vine.number()),
   })
 )

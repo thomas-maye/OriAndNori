@@ -7,22 +7,36 @@ import { meetupValidator } from '#validators/meetup'
 export default class MeetupsController {
   async createMeetup({ auth, request, response }: HttpContext) {
     try {
-      console.log('Request body:', request.body())
+      // console.log('Request body:', request.body())
 
       const validatedData = await request.validateUsing(meetupValidator)
-      console.log('Validated data:', validatedData)
+      //console.log('Validated data:', validatedData)
+      const petIds: number[] = request.input('petIds', [])
 
       const user = auth.user
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })
       }
 
-      // il faut que je trouve comment ajouter les Pets par l'id avec la pivot tables, mais que l'user est le nom de son pet et non l'id :'(
-      //https://adocasts.com/lessons/defining-many-to-many-relationships-and-pivot-columns ceci sera mon salut
+      const userPet = await Pet.query().where('user_id', user.id).select(['id', 'name'])
+
+      if (userPet.length !== petIds.length) {
+        return response.badRequest({
+          message: 'One or more selected pets do not belong to you',
+        })
+      }
+
       const meetup = await Meetup.create({
         ...validatedData,
         userId: user.id,
       })
+
+      const petsData = Object.fromEntries(userPet.map((pet) => [pet.id, { pet_name: pet.name }]))
+      const userData = Object.fromEntries([[user.id, { user_name: user.username }]])
+
+      await meetup.related('meetupPets').attach(petsData)
+      await meetup.related('meetupUsers').attach(userData)
+
       console.log(meetup)
       return response.status(201).json({
         message: 'Meetup created successfully!',

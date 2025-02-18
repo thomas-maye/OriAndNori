@@ -1,3 +1,4 @@
+{{-- filepath: /home/mezanic/OriAndNori/resources/views/pages/create_meetup_form.edge --}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +51,15 @@
           required
           min="{{ new Date().toISOString().slice(0, 16) }}"
         >
+      </div>
+      {{-- essaie de récupéré l'id ici je comprend pas trop --}}
+      <div class="mb-4">
+        <label for="pets" class="block text-gray-700">Select your pets:</label>
+        <select name="petIds[]" id="pets" multiple class="mt-1 block w-full">
+          @each(pet in pets)
+            <option value="{{ pet.id }}">{{ pet.name }}</option>
+          @end
+        </select>
       </div>
       <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create Meetup</button>
     </form>
