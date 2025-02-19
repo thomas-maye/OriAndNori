@@ -143,7 +143,7 @@ router
     router.put('/my-pets/updatePet/:id', [UsersController, 'updatePet']).as('updatePet')
     router.get('/my-pets/updatePet/:id', [UsersController, 'updatePetView']).as('updatePetview')
     router.delete('/my-pets/delete/:id', [UsersController, 'deletePet']).as('deletePet')
-    router.get('/my-pets/deletePetView/:id', [UsersController, 'deletePet']).as('deletePetview')
+    router.get('/my-pets/deletePetView/:id', [UsersController, 'deletePetView']).as('deletePetview')
   })
   .prefix('pets')
   .use(middleware.auth())

@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pet Profile</title>
-  <link href="/css/app.css" rel="stylesheet">
-</head>
-<body>
+@layout.app({ title: "All Users Profiles" })
+@slot('meta')
+<meta name="description" content="A All Users Profiles page made with EdgeJS">
+@endslot
+
+@slot('main')
   <div class="container mx-auto p-4">
     <h1 class="text-3xl font-bold mb-4">Pet Profile</h1>
     <h1>{{ pet.name }}</h1>
-    <img src="{{ photoUrl }}" alt="Photo of {{ pet.name }}" class="w-64 h-64 object-cover mb-4">
+    <img src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+    alt="Photo of {{ pet.name }}" class="w-64 h-64 object-cover mb-4">
     <div class="bg-white shadow-md rounded p-4">
       <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
-      <p><strong>Birthday:</strong> {{ pet.birthday }}</p>
+      <p><strong>Birthday: </strong>{{ new Date(pet.birthday).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</p>
       <p><strong>Personality:</strong></p>
       <ul>
         @each(personality in pet.personality)
@@ -27,5 +25,5 @@
       <p><strong>Species:</strong> {{ pet.speciesName }}</p>
     </div>
   </div>
-</body>
-</html>
+@endslot
+@end

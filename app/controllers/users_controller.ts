@@ -152,70 +152,64 @@ export default class UsersController {
    * Update Pet
    * ------------------------------
    */
-  async updatePet({ auth, request, response, params }: HttpContext) {
-    const user = auth.user
-    if (!user) {
-      return response.unauthorized({ message: 'User not authenticated' })
+  async updatePet({ auth, request, response, params, session}: HttpContext) {
+    if (!auth.user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return response.redirect().toRoute('auth.login')
     }
-
+  
     const pet = await Pet.find(params.id)
     if (!pet) {
-      return response.status(404).json({ message: 'Pet not found' })
+      session.flash('error', 'Pet not found')
+      return response.redirect().toRoute('MyPets')
     }
-
-    if (pet.userId !== user.id) {
-      return response.status(403).json({ message: 'You are not authorized to update this pet' })
+  
+    if (pet.userId !== auth.user.id) {
+      session.flash('error', 'You are not authorized to update this pet')
+      return response.redirect().toRoute('MyPets')
     }
-    try {
-      const validatedData = await request.validateUsing(createPetValidator)
-      console.log(validatedData)
-      const species = await Species.findByOrFail('name', validatedData.species)
-      const breed = await Breed.findByOrFail('name', validatedData.breed)
-
-      const photo = request.file('photo', {
-        size: '2mb',
-        extnames: ['jpg', 'png', 'jpeg'],
-      })
-
-      if (!photo) {
-        return response.badRequest({ error: 'Image Missing' })
-      }
-
+  
+    const updatePetData = await request.validateUsing(createPetValidator)
+    let fileName = ''
+  
+    if (updatePetData.photo) {
       if (pet.photo) {
-        const oldPhoto = pet.photo.replace('/uploads/', '')
         try {
-          await drive.use().delete(oldPhoto)
+          await drive.use().delete(`uploads/${pet.photo}`)
         } catch (error) {
-          console.error('Error deleting old photo:', error)
+          session.flash('error', 'Error deleting old photo')
+          return response.redirect().back()
         }
       }
-
-      const key = `uploads/${cuid()}.${photo.extname}`
-      await photo.moveToDisk(key)
-
-      const photoUrl = await drive.use().getUrl(key)
-      pet.merge({
-        ...validatedData,
-        userId: user.id,
-        speciesId: species.id,
-        speciesName: species.name,
-        breedId: breed.id,
-        breedName: breed.name,
-        photo: photoUrl,
+  
+      await updatePetData.photo.move(app.makePath('storage/uploads'), {
+        name: `${cuid()}.${updatePetData.photo.extname}`
       })
-      await pet.save()
-      console.log(pet)
-
-      return response.status(200).json({
-        message: 'Pet updated successfully!',
-        data: pet,
-      })
-    } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to update pet',
-        error: error.messages,
-      })
+  
+      if (!updatePetData.photo.fileName) {
+        session.flash('error', 'Error uploading profile picture')
+        return response.redirect().back()
+      }
+  
+      fileName = updatePetData.photo.fileName
     }
+  
+    const species = await Species.findByOrFail('name', updatePetData.species)
+    const breed = await Breed.findByOrFail('name', updatePetData.breed)
+  
+    pet.merge({
+      ...updatePetData,
+      userId: auth.user.id,
+      speciesId: species.id,
+      speciesName: species.name,
+      breedId: breed.id,
+      breedName: breed.name,
+      photo: fileName || pet.photo,
+    })
+  
+    await pet.save()
+    session.flash('success', 'Pet updated successfully!')
+    return response.redirect().toRoute('MyPets')
   }
 
   /**
@@ -245,30 +239,34 @@ export default class UsersController {
    * Delete Pet
    * ------------------------------
    */ 
-  async deletePet({ auth, response, params }: HttpContext) {
+  async deletePet({ auth, response, params, session }: HttpContext) {
     const user = auth.user
     if (!user) {
-      return response.unauthorized({ message: 'User not authenticated' })
+      session.flash('error', 'You must be logged in to view this page')
+      return response.redirect().toRoute('auth.login')
     }
     const pet = await Pet.find(params.id)
     if (!pet) {
-      return response.status(404).json({ message: 'Pet not found' })
+      session.flash('error', 'Pet not found')
+      return response.redirect().toRoute('MyPets')
     }
 
     if (pet.userId !== user.id) {
-      return response.status(403).json({ message: 'You are not authorized to update this pet' })
+      session.flash('error', 'You are not authorized to update this pet')
+      return response.redirect().toRoute('MyPets')
     }
 
     if (pet.photo) {
-      const photoKey = pet.photo.replace('/uploads/', '')
       try {
-        await drive.use().delete(photoKey)
+        await drive.use().delete(`uploads/${pet.photo}`)
       } catch (error) {
-        console.error('Error deleting photo:', error)
+        session.flash('error', 'Error deleting profile picture')
+        return response.redirect().back()
       }
     }
 
     await pet.delete()
-    return response.status(200).json({ message: 'Pet deleted successfully!' })
+    session.flash('success', 'Pet deleted successfully!')
+    return response.redirect().toRoute('home')
   }
 }
