@@ -5,7 +5,7 @@
 
 @slot('main')
 <section class="bg-white dark:bg-gray-900">
-  <div class="container px-6 py-10 mx-auto">
+  <div class="container px-6 py-0 mx-auto">
     <h1 class="text-2xl font-semibold text-center capitalize lg:text-3xl text-emerald-700">My Pets</h1>
     <div class="flex justify-center mx-auto mt-6">
       <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
@@ -18,10 +18,10 @@
     </p>
   </div>
   <div class="container px-6 mx-auto">
-    <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-3">
+    <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4">
       @each(pet in pets)
       <div
-        class="flex flex-col items-center p-4 border sm:p-6 rounded-xl dark:border-gray-700 hover:bg-emerald-700 hover:text-white text-black capitalize dark:text-gray-300">
+        class="flex flex-col p-4 border sm:p-6 rounded-xl dark:border-gray-700 hover:bg-emerald-700 hover:text-white text-gray-500  capitalize dark:text-gray-300">
         <img class="object-cover w-full rounded-xl aspect-square"
           src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
           alt="Photo of {{ pet.name }}">
@@ -32,17 +32,19 @@
         <p class="mt-2 capitalize">
           <strong>Birthday: </strong>{{ new Date(pet.birthday).toLocaleDateString('fr-FR', {day: '2-digit', month:
           '2-digit', year: 'numeric' }) }}
-          @each(personality in pet.personality)
-          <li class="mt-2 capitalize">
-            {{ personality.trait }}: {{ personality.rating }}
-          </li>
-          @endeach
+        <div class="grid grid-cols-2 gap-2 mt-2">
+            @each(personality in pet.personality)
+              <p class="capitalize">
+                <strong>{{ personality.trait }}:</strong> {{ personality.rating }}
+              </p>
+            @endeach
+        </div>
         <p class="mt-2 capitalize"><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
         <p class="mt-2  capitalize"><strong>Gender:</strong> {{ pet.gender }}</p>
         <p class="mt-2 capitalize"><strong>Description:</strong> {{pet.description }}
         </p>
 
-        <div class="flex mt-3 -mx-2">
+        <div class="flex mt-3 -mx-2 justify-center">
           <div class="inline-flex rounded border border-gray-100 bg-white shadow-lg p-1">
             <a href="{{ route('PetProfile', [pet.id]) }}">
               <button
