@@ -15,6 +15,9 @@ export default class Meetup extends BaseModel {
   declare description: string
 
   @column()
+  declare organizer: string
+
+  @column()
   declare adress: string
 
   @column()
@@ -41,7 +44,7 @@ export default class Meetup extends BaseModel {
     //relatedKey: 'id',
     //pivotRelatedForeignKey: 'user_id',
     pivotTable: 'user_meetups',
-    pivotColumns: ['user_name'],
+    pivotColumns: ['user_name', 'sort_order'],
   })
   declare meetupUsers: ManyToMany<typeof User>
 
@@ -51,7 +54,7 @@ export default class Meetup extends BaseModel {
     //relatedKey: 'id',
     //pivotRelatedForeignKey: 'pet_id',
     pivotTable: 'pet_meetups',
-    pivotColumns: ['pet_name'],
+    pivotColumns: ['pet_name', 'sort_order'],
   })
   declare meetupPets: ManyToMany<typeof Pet>
 

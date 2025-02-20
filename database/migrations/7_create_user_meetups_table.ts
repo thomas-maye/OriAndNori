@@ -8,9 +8,15 @@ export default class extends BaseSchema {
       table.increments('id')
 
       // Foreign keys
-      table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
-      table.integer('meetup_id').unsigned().references('meetups.id').onDelete('CASCADE')
+      table.integer('user_id').unsigned().references('users.id').notNullable().onDelete('CASCADE')
+      table
+        .integer('meetup_id')
+        .unsigned()
+        .references('meetups.id')
+        .notNullable()
+        .onDelete('CASCADE')
       table.string('user_name').notNullable()
+      table.string('sort_order').notNullable().defaultTo(0)
       table.unique(['user_id', 'meetup_id'])
 
       // timestamps

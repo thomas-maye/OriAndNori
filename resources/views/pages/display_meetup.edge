@@ -1,0 +1,49 @@
+{{-- filepath: /home/mezanic/OriAndNori/resources/views/pages/display_meetup.edge --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meetup Details</title>
+  <link href="/css/app.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">{{ meetup.title }}</h1>
+    <p><strong>Description:</strong> {{ meetup.description }}</p>
+    <p><strong>Address:</strong> {{ meetup.adress }}</p>
+    <p><strong>Additional Address:</strong> {{ meetup.additionalAddress }}</p>
+    <p><strong>City:</strong> {{ meetup.city }}</p>
+    <p><strong>Type:</strong> {{ meetup.type }}</p>
+    <p><strong>Date and Time:</strong> {{ formattedDate}}</p>
+    <p><strong>Organizer:</strong> {{ meetup.organizer }}</p>
+  <div class="w-full lg:w-1/2">
+    <h3 class="font-bold text-lg">Pets participants</h3>
+    <dl>
+      @each(pet in meetupPets)
+        <div class="flex items-baseline gap-2">
+           {{--ça affiche le pet--}}
+          <dt>{{ pet.name }}</dt>
+          {{--ça trie --}}
+          <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
+        </div>
+      @end
+    </dl>
+  </div>
+
+  <div class="w-full lg:w-1/2"> 
+    <h3 class="font-bold text-lg">Participants</h3>
+    <dl>
+      @each(user in meetupUsers)
+        <div class="flex items-baseline gap-2">
+          {{--ça affiche le nom d'utilisateur--}}
+          <dt>{{ user.username }}</dt>
+          {{--ça trie --}}
+          <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
+        </div>
+      @end
+    </dl>
+  </div>
+</div>
+</body>
+</html>
