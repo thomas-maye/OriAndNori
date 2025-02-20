@@ -10,13 +10,13 @@ export const createPetValidator = vine.compile(
         rating: vine.number().min(0).max(5),
       })
     ),
-    vaccined: vine.boolean(),
+    vaccined: vine.boolean().optional(),
     gender: vine.enum(['male', 'female']),
     description: vine.string().optional(),
     breed: vine.string(),
     species: vine.string(),
     photo: vine.file({
-      size: '2mb',
+      size: '4mb',
       extnames: ['jpg', 'png', 'jpeg']
     }).optional()
   })

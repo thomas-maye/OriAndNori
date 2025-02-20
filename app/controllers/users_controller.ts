@@ -7,6 +7,7 @@ import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 
+
 export default class UsersController {
   /**
    * ------------------------------
@@ -14,7 +15,9 @@ export default class UsersController {
    * ------------------------------
    */
     async showCreatePetForm({ view }: HttpContext) {
-      return view.render('pages/create_pet', { traits })
+      const species = await Species.all()
+      const breeds = await Breed.all()
+      return view.render('pages/create_pet', { species, breeds, traits })
     }
 
   /**
@@ -268,6 +271,6 @@ export default class UsersController {
 
     await pet.delete()
     session.flash('success', 'Pet deleted successfully!')
-    return response.redirect().toRoute('home')
+    return response.redirect().toRoute('MyPets')
   }
 }
