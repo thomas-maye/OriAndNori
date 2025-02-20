@@ -76,7 +76,7 @@ export default class Pet extends BaseModel {
     //relatedKey: 'id',
     //pivotRelatedForeignKey: 'meetup_id',
     pivotTable: 'pet_meetups',
-    pivotColumns: ['meetup_title'],
+    pivotColumns: ['pet_name', 'sort_order'],
   })
   declare petMeetups: ManyToMany<typeof Meetup>
 

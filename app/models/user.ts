@@ -72,7 +72,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
     //pivotForeignKey: 'user_id',
     //relatedKey: 'id',
     pivotTable: 'user_meetups',
-    pivotColumns: ['meetup_title'],
+    pivotColumns: ['user_name', 'sort_order'],
   })
   declare userMeetups: ManyToMany<typeof Meetup>
 }

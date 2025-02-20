@@ -91,11 +91,16 @@ router
 
 //meetups routes
 router
-  .get('/meetups/create-form', [MeetupsController, 'MeetupsForm'])
+  .get('/meetups/create-form', [MeetupsController, 'meetupsForm'])
   .as('createMeetupForm')
   .use(middleware.auth())
 
 router
   .post('/meetups/create', [MeetupsController, 'createMeetup'])
   .as('createMeetup')
+  .use(middleware.auth())
+
+router
+  .get('/meetups/:id', [MeetupsController, 'displayOneMeetup'])
+  .as('displayMeetup')
   .use(middleware.auth())
