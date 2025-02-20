@@ -60,6 +60,8 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => Meetup)
   declare meetup: HasMany<typeof Meetup>
+  @column()
+  declare profile_picture: string
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime

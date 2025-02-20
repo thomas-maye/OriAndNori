@@ -1,0 +1,37 @@
+@layout.app({ title: "All Users Profiles" })
+@slot('meta')
+<meta name="description" content="A All Users Profiles page made with EdgeJS">
+@endslot
+
+@slot('main')
+<h1 class="text-center">All Users Profiles</h1>
+<section class="bg-white dark:bg-gray-900">
+    <div class="container px-6 py-10 mx-auto">
+        <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-4 justify-items-center">
+            @each(user in users)
+            <div
+                class="flex flex-col items-center p-8 transition-colors duration-300 transform border cursor-pointer rounded-xl hover:border-transparent group hover:bg-emerald-700 dark:border-gray-700 dark:hover:border-transparent">
+
+                <img class="object-cover w-32 h-32 rounded-full ring-4 ring-amber-400"
+                src="{{ asset(user.profile_picture ? `storage/${await driveUrl(user.profile_picture)}` : 'resources/images/1077114.png') }}"
+                alt="avatar">
+
+                <h1 class="mt-4 text-2xl font-semibold text-gray-700 capitalize dark:text-white group-hover:text-white">
+                    {{user.username}}</h1>
+
+                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">
+                    {{user.description}}</p>
+                <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">{{user.city}}</p>
+
+                <div class="flex mt-3 -mx-2">
+                    <a href="{{ route('auth.display_user_profile', { id: user.id }) }}">
+                    @!component('components/empty_button', { text: "View Profile"})
+                    </a>
+                </div>
+            </div>
+            @endeach
+        </div>
+    </div>
+</section>
+@endslot
+@end

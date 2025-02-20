@@ -7,13 +7,13 @@
 
 @slot('main')
 <div class="flex justify-center items-center mb-10">
-    @!component('components/group-button')
+    @!component('components/group-button-myprofile')
 </div>
 
 <div class="flex justify-center items-center">
     <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <img class="object-cover object-center w-full h-56"
-            src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80"
+            src="{{ auth.user.profile_picture ? 'storage/' + await driveUrl(auth.user.profile_picture) : src="resources/images/1077114.png" }}"
             alt="avatar">
 
         <div class="flex items-center px-6 py-3 bg-emerald-800">
@@ -22,6 +22,10 @@
             </svg>
 
             <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
+        </div>
+
+        <div class="px-4 py-2">
+            @!component('components/banner/success')
         </div>
 
         <div class="px-6 py-4">

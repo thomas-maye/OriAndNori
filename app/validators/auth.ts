@@ -19,6 +19,15 @@ export const registerUserValidator = vine.compile(
         return !users
       }),
     password: vine.string().minLength(8),
+    first_name: vine.string().trim().minLength(2).optional(),
+    last_name: vine.string().trim().minLength(2).optional(),
+    address_1: vine.string().trim().minLength(5).optional(),
+    address_2: vine.string().trim().minLength(5).optional(),
+    postal_code: vine.string().trim().minLength(2).optional(),
+    city: vine.string().trim().alpha().minLength(2).optional(),
+    phone: vine.string().trim().minLength(10).optional(),
+    description: vine.string().trim().minLength(10).optional(),
+    profile_picture: vine.string().optional(),
   })
 )
 
@@ -45,13 +54,17 @@ export const resetPasswordValidator = vine.compile(
 
 export const updateUserValidator = vine.compile(
   vine.object({
-    first_name: vine.string().trim().minLength(2),
-    last_name: vine.string().trim().minLength(2),
-    address_1: vine.string().trim().minLength(5),
-    address_2: vine.string().trim().minLength(5),
-    postal_code: vine.string().trim().minLength(2),
-    city: vine.string().trim().alpha().minLength(2),
-    phone: vine.string().trim().minLength(10),
-    description: vine.string().trim().minLength(10),
+    first_name: vine.string().trim().minLength(2).optional(),
+    last_name: vine.string().trim().minLength(2).optional(),
+    address_1: vine.string().trim().minLength(5).optional(),
+    address_2: vine.string().trim().minLength(5).optional(),
+    postal_code: vine.string().trim().minLength(2).optional(),
+    city: vine.string().trim().alpha().minLength(2).optional(),
+    phone: vine.string().trim().minLength(10).optional(),
+    description: vine.string().trim().minLength(10).maxLength(150).optional(),
+    profile_picture: vine.file({
+      size: '2mb',
+      extnames: ['jpg', 'png', 'jpeg']
+    }).optional()
   })
 )

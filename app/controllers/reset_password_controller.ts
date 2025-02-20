@@ -8,10 +8,20 @@ import { DateTime } from 'luxon'
 import mail from '@adonisjs/mail/services/main'
 
 export default class ResetPasswordController {
+  /**
+   * -------------------------------
+   * Display the Forgot Password Page
+   * -------------------------------
+   */
   forgotPassword({ view }: HttpContext) {
     return view.render('pages/auth/forgot_password')
   }
 
+  /**
+   * ------------------------------
+   * Handle the Forgot Password Page
+   * ------------------------------
+   */
   async handleForgotPassword({ request, session, response }: HttpContext) {
     const { email } = await request.validateUsing(forgotPasswordValidator)
     const user = await User.findBy('email', email)
@@ -41,6 +51,11 @@ export default class ResetPasswordController {
     return response.redirect().toRoute('auth.forgot_password')
   }
 
+  /**
+   * ------------------------------
+   * Display the Reset Password Page
+   * ------------------------------
+   */
   async resetPassword({ request, session, response, view }: HttpContext) {
     const token = request.input('token')
     const email = request.input('email')
@@ -58,6 +73,11 @@ export default class ResetPasswordController {
     return view.render('pages/auth/reset_password', { token, email })
   }
 
+  /**
+   * ------------------------------
+   * Handle the Reset Password Page
+   * ------------------------------
+   */
   async handleResetPassword({ request, session, response }: HttpContext) {
     const { token, email, password } = await request.validateUsing(resetPasswordValidator)
     const passwordResetToken = await ResetPassword.findBy('token', token)

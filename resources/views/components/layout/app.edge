@@ -21,7 +21,7 @@
       <div class="lg:items-center lg:justify-between lg:flex">
         <div class="flex items-center justify-between">
           <a href="{{route('home')}}" class="mx-auto logo-container">
-            <img class="w-auto h-13 sm:h-13 logo px-10" src="resources/images/Ori&Nori - Logo3.png" alt="Ori&Nori">
+            <img class="w-auto h-13 sm:h-13 logo px-10" src="{{ asset('resources/images/Ori&Nori - Logo3.png') }}" alt='Ori&Nori'>
           </a>
 
           <!-- Mobile menu button -->
@@ -199,7 +199,7 @@
                   My Profile
                 </a>
 
-                <a href="{{route('profile')}}"
+                <a href="{{route('auth.display_all_users')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
                   Search for a Profile
@@ -244,12 +244,12 @@
           </form>
           <div class="px-1">
             @if (!auth.use('web').isAuthenticated && request.url() !== '/')
-              <a href="{{ route('auth.login') }}">
-                @!component('components/empty_button', { text: 'Login' })
-              </a>
-              <a href="{{ route('auth.register') }}">
-                @!component('components/full_button', { text: 'Register' })
-              </a>
+            <a href="{{ route('auth.login') }}">
+              @!component('components/empty_button', { text: 'Login' })
+            </a>
+            <a href="{{ route('auth.register') }}">
+              @!component('components/full_button', { text: 'Register' })
+            </a>
             @end
           </div>
         </div>
