@@ -17,11 +17,11 @@
 <body>
   @eval(await auth.use('web').check())
   <header class="bg-white dark:bg-gray-900">
-    <nav x-data="{ isOpen: false }" class="px-6 py-4 shadow">
+    <nav x-data="{ isOpen: false }" class="py-4 mx-auto max-w-screen-2xl px-4">
       <div class="lg:items-center lg:justify-between lg:flex">
-        <div class="flex items-center justify-between">
-          <a href="{{route('home')}}" class="mx-auto logo-container">
-            <img class="w-auto h-13 sm:h-13 logo px-10" src="{{ asset('resources/images/Ori&Nori - Logo3.png') }}" alt='Ori&Nori'>
+        <div class="flex items-center">
+          <a href="{{route('home')}}" class="mx-auto">
+            <img class="w-auto h-20 md:h-max" src="{{ asset('resources/images/Ori&Nori - Logo3.png') }}" alt='Ori&Nori'>
           </a>
 
           <!-- Mobile menu button -->
@@ -48,7 +48,7 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <a href="{{route('home')}}"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               Home
             </a>
           </div>
@@ -57,7 +57,7 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <button x-on:click="isActive = !isActive"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200">
               Meetups
               <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 10 6">
@@ -100,7 +100,7 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <button x-on:click="isActive = !isActive"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               Pets
               <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 10 6">
@@ -143,7 +143,7 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <button x-on:click="isActive = !isActive"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               Reviews
               <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 10 6">
@@ -180,7 +180,7 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <button x-on:click="isActive = !isActive"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               Profile
               <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 10 6">
@@ -224,14 +224,14 @@
 
           <div x-data="{ isActive: false }" class="relative">
             <a href="{{route('about')}}"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               About
             </a>
           </div>
 
           <div x-data="{ isActive: false }" class="relative">
             <a href="{{route('contact')}}"
-              class="text-gray-700 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
+              class="text-gray-500 hover:bg-emerald-600 hover:text-white focus:ring-4 focus:outline-none font-medium rounded text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800">
               Contact
             </a>
           </div>
@@ -242,7 +242,7 @@
             @!component('components/full_button', { text : 'Logout'})
             @end
           </form>
-          <div class="px-1">
+          <div class="">
             @if (!auth.use('web').isAuthenticated && request.url() !== '/')
             <a href="{{ route('auth.login') }}">
               @!component('components/empty_button', { text: 'Login' })
@@ -257,10 +257,8 @@
     </nav>
   </header>
 
-  <main>
-    <div class="dark:bg-gray-900 pt-10 pb-10">
+  <main class="bg-white dark:bg-gray-900">
       {{{ await $slots.main() }}}
-    </div>
   </main>
   <footer>
     Copyright &copy; Ori&Nori

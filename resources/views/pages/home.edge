@@ -7,9 +7,9 @@
 @endslot
 
 @slot('main')
-<section class="overflow-hidden sm:grid sm:grid-cols-2 sm:items-center">
-  <div class="p-8 md:p-12 lg:px-16 lg:py-24">
-    <div class="mx-auto max-w-xl ltr:sm:text-left rtl:sm:text-right">
+<section class="sm:grid sm:grid-cols-2 sm:items-center">
+  <div class="flex items-center flex-row-reverse">
+    <div class="max-w-screen-md p-4 md:pr-12 xl:pr-24">
       <div class="mb-4">
         @!component('components/banner/success')
       </div>
@@ -40,11 +40,8 @@
     </div>
   </div>
 
-  <img
-    alt=""
-    src="/resources/images/noelle-rebekah-9ymXyNCouyU-unsplash.jpg"
-    class="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%_-_4rem)] md:rounded-ss-[60px]"
-  />
+  <img alt="" src="/resources/images/noelle-rebekah-9ymXyNCouyU-unsplash.jpg"
+    class="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%_-_4rem)] md:rounded-ss-[60px]" />
 </section>
 @endslot
 @end
