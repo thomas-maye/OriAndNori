@@ -70,11 +70,11 @@
               role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
               x-on:keydown.escape.window="isActive = false">
               <div>
-                <a href="{{route('meetups')}}"
+                {{--<a href="{{route('meetup')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
                   role="menuitem">
                   My Meetups
-                </a>
+                </a>--}}
 
                 <a href="{{route('createMeetupForm')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
@@ -82,17 +82,17 @@
                   Create a Meetup
                 </a>
 
-                <a href="{{route('meetups')}}"
+                <a href="{{route('displayMeetupsList')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
                   Search for a Meetup
                 </a>
 
-                <a href="{{route('meetups')}}"
+                {{--<a href="{{route('meetup')}}"
                   class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
                   role="menuitem">
                   Invitations received
-                </a>
+                </a>--}}
 
               </div>
             </div>

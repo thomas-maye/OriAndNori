@@ -14,7 +14,6 @@ export default class MeetupsController {
       }
 
       const validatedData = await request.validateUsing(meetupValidator)
-      //console.log(validatedData)
       const petIds: number[] = request.input('petIds', [])
 
       const userPet = await Pet.query().where('user_id', user.id).select(['id', 'name'])
@@ -36,19 +35,6 @@ export default class MeetupsController {
       await meetup.related('meetupPets').attach(petsData)
       await meetup.related('meetupUsers').attach(userData)
 
-      //console.log(meetup)
-      /* return response.status(201).json({
-        message: 'Meetup created successfully!',
-        data: meetup,
-      })
-    } catch (error) {
-      console.error('Validation error details:', error)
-      return response.status(400).json({
-        message: 'Error creating meetup',
-        error: error.message,
-        details: error.messages || error.message,
-      }) */
-
       session.flash('success', 'You have successfully create a Meetup')
       return response.redirect().toRoute('meetups')
     } catch (error) {
@@ -64,7 +50,7 @@ export default class MeetupsController {
 
     const userPets = await Pet.query().where('user_id', user.id).select(['id', 'name'])
 
-    return view.render('pages/create_meetup_form', { pets: userPets })
+    return view.render('pages/meetup/create_meetup_form', { pets: userPets })
   }
 
   async displayOneMeetup({ view, params, auth, response, session }: HttpContext) {
@@ -96,12 +82,32 @@ export default class MeetupsController {
         return response.status(404).json({ message: 'Meetup not found' })
       }
 
-      return view.render('pages/display_meetup', { meetup, meetupUsers, meetupPets, formattedDate })
-      //console.log(meetupUsers)
-      //console.log(meetupPets)
+      return view.render('pages/meetup/display_meetup', {
+        meetup,
+        meetupUsers,
+        meetupPets,
+        formattedDate,
+      })
     } catch (error) {
       session.flash('error', 'Meetup not found') // a affiché un message d'erreur mais voir comment._.
       return response.redirect().back() // a redirigé vers la list des meetup
     }
+  }
+  async displayMeetupsList({ view, auth, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetups = await Meetup.query().preload('meetupPets').orderBy('date', 'asc')
+
+    const formattedMeetups = meetups.map((meetup) => ({
+      ...meetup.serialize(),
+      formattedDate: DateTime.isDateTime(meetup.date)
+        ? meetup.date
+        : DateTime.fromJSDate(new Date(meetup.date)).toFormat('dd/MM/yyyy HH:mm'),
+    }))
+
+    return view.render('pages/meetup/meetups', { meetups: formattedMeetups })
   }
 }

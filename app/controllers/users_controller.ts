@@ -7,18 +7,17 @@ import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 
-
 export default class UsersController {
   /**
    * ------------------------------
    * Display the Create Pet Page
    * ------------------------------
    */
-    async showCreatePetForm({ view }: HttpContext) {
-      const species = await Species.all()
-      const breeds = await Breed.all()
-      return view.render('pages/create_pet', { species, breeds, traits })
-    }
+  async showCreatePetForm({ view }: HttpContext) {
+    const species = await Species.all()
+    const breeds = await Breed.all()
+    return view.render('pages/pet/create_pet', { species, breeds, traits })
+  }
 
   /**
    * ------------------------------
@@ -30,28 +29,28 @@ export default class UsersController {
       const validatedData = await request.validateUsing(createPetValidator)
 
       const user = auth.user
-      let fileName = '';
-  
+      let fileName = ''
+
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })
       }
-  
+
       const species = await Species.findByOrFail('name', validatedData.species)
       const breed = await Breed.findByOrFail('name', validatedData.breed)
-  
+
       if (validatedData.photo) {
         await validatedData.photo.move(app.makePath('storage/uploads'), {
-          name: `${cuid()}.${validatedData.photo.extname}`
+          name: `${cuid()}.${validatedData.photo.extname}`,
         })
-  
+
         if (!validatedData.photo.fileName) {
           session.flash('error', 'Error uploading profile picture')
           return response.redirect().back()
         }
-  
+
         fileName = validatedData.photo.fileName
       }
-  
+
       const pet = new Pet()
       pet.merge({
         ...validatedData,
@@ -62,12 +61,11 @@ export default class UsersController {
         breedName: breed.name,
         photo: fileName,
       })
-  
+
       await pet.save()
 
       session.flash('success', 'Pet created successfully!')
       return response.redirect().toRoute('MyPets')
-
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to create pet',
@@ -92,7 +90,7 @@ export default class UsersController {
       return response.status(404).json({ message: 'Pet not found' })
     }
     const photoUrl = pet.photo
-    return view.render('pages/display_pet_profile', { pet, photoUrl })
+    return view.render('pages/pet/display_pet_profile', { pet, photoUrl })
   }
 
   /**
@@ -110,7 +108,7 @@ export default class UsersController {
       session.flash('error', 'No pets found')
       return response.redirect().toRoute('home')
     }
-    return view.render('pages/display_pet_list', { pets })
+    return view.render('pages/pet/display_pet_list', { pets })
   }
 
   /**
@@ -130,7 +128,7 @@ export default class UsersController {
       return response.status(404).json({ message: 'No pets found' })
     }
     console.log(pets)
-    return view.render('pages/display_my_pet', { pets })
+    return view.render('pages/pet/display_my_pet', { pets })
   }
 
   /**
@@ -149,7 +147,7 @@ export default class UsersController {
     }
 
     const photo = pet.photo
-    return view.render('pages/update_pet', { pet, photo })
+    return view.render('pages/pet/update_pet', { pet, photo })
   }
 
   /**
@@ -157,26 +155,26 @@ export default class UsersController {
    * Update Pet
    * ------------------------------
    */
-  async updatePet({ auth, request, response, params, session}: HttpContext) {
+  async updatePet({ auth, request, response, params, session }: HttpContext) {
     if (!auth.user) {
       session.flash('error', 'You must be logged in to view this page')
       return response.redirect().toRoute('auth.login')
     }
-  
+
     const pet = await Pet.find(params.id)
     if (!pet) {
       session.flash('error', 'Pet not found')
       return response.redirect().toRoute('MyPets')
     }
-  
+
     if (pet.userId !== auth.user.id) {
       session.flash('error', 'You are not authorized to update this pet')
       return response.redirect().toRoute('MyPets')
     }
-  
+
     const updatePetData = await request.validateUsing(createPetValidator)
     let fileName = ''
-  
+
     if (updatePetData.photo) {
       if (pet.photo) {
         try {
@@ -186,22 +184,22 @@ export default class UsersController {
           return response.redirect().back()
         }
       }
-  
+
       await updatePetData.photo.move(app.makePath('storage/uploads'), {
-        name: `${cuid()}.${updatePetData.photo.extname}`
+        name: `${cuid()}.${updatePetData.photo.extname}`,
       })
-  
+
       if (!updatePetData.photo.fileName) {
         session.flash('error', 'Error uploading profile picture')
         return response.redirect().back()
       }
-  
+
       fileName = updatePetData.photo.fileName
     }
-  
+
     const species = await Species.findByOrFail('name', updatePetData.species)
     const breed = await Breed.findByOrFail('name', updatePetData.breed)
-  
+
     pet.merge({
       ...updatePetData,
       userId: auth.user.id,
@@ -211,7 +209,7 @@ export default class UsersController {
       breedName: breed.name,
       photo: fileName || pet.photo,
     })
-  
+
     await pet.save()
     session.flash('success', 'Pet updated successfully!')
     return response.redirect().toRoute('MyPets')
@@ -236,14 +234,14 @@ export default class UsersController {
       return response.status(403).json({ message: 'You are not authorized to update this pet' })
     }
 
-    return view.render('pages/delete_pet', { pet })
+    return view.render('pages/pet/delete_pet', { pet })
   }
 
   /**
    * ------------------------------
    * Delete Pet
    * ------------------------------
-   */ 
+   */
   async deletePet({ auth, response, params, session }: HttpContext) {
     const user = auth.user
     if (!user) {

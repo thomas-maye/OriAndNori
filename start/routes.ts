@@ -27,7 +27,7 @@ router.on('/about').render('pages/about').as('about')
 
 // route à modifier au fur et à mesure de la constructiond du site
 // c'était juste le temps que le site soit en construction
-router.on('/meetups').render('pages/meetups').as('meetups').use(middleware.auth())
+//router.on('/meetups').render('pages/meetups').as('meetups').use(middleware.auth())
 //router.on('/pets').render('pages/pets').as('pets').use(middleware.auth())
 router.on('/profile').render('pages/profile').as('profile').use(middleware.auth())
 router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth())
@@ -39,28 +39,16 @@ router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth(
  */
 
 // Register
-router
-  .get('/register', [AuthController, 'register'])
-  .as('auth.register')
-  .use(middleware.guest())
+router.get('/register', [AuthController, 'register']).as('auth.register').use(middleware.guest())
 
-router
-  .post('/register', [AuthController, 'handleRegister'])
-  .use(middleware.guest())
+router.post('/register', [AuthController, 'handleRegister']).use(middleware.guest())
 
 // Login
-router
-  .get('/login', [AuthController, 'login'])
-  .as('auth.login')
-  .use(middleware.guest())
+router.get('/login', [AuthController, 'login']).as('auth.login').use(middleware.guest())
 
-router
-  .post('/login', [AuthController, 'handleLogin'])
-  .use(middleware.guest())
+router.post('/login', [AuthController, 'handleLogin']).use(middleware.guest())
 
-router
-  .delete('/login', [AuthController, 'logout']).as('auth.logout')
-  .use(middleware.auth())
+router.delete('/login', [AuthController, 'logout']).as('auth.logout').use(middleware.auth())
 
 // Forgot password
 router
@@ -80,6 +68,12 @@ router
   .post('/reset_password', [ResetPasswordController, 'handleResetPassword'])
   .as('auth.handle_reset_password')
   .use(middleware.guest())
+
+/**
+ * -------------------------------
+ * Users routes
+ * -------------------------------
+ */
 
 // My profile
 router
@@ -132,10 +126,7 @@ router
   .as('showCreatePetForm')
   .use(middleware.auth())
 
-router
-  .post('/pets/create', [UsersController, 'createPet'])
-  .as('createPet')
-  .use(middleware.auth())
+router.post('/pets/create', [UsersController, 'createPet']).as('createPet').use(middleware.auth())
 
 // My Pets
 router
@@ -149,19 +140,21 @@ router
   .prefix('pets')
   .use(middleware.auth())
 
-// Display All Pets Profiles 
-router
-  .get('/pets', [UsersController, 'displayPetList'])
-  .as('petList')
-  .use(middleware.auth())
+// Display All Pets Profiles
+router.get('/pets', [UsersController, 'displayPetList']).as('petList').use(middleware.auth())
 
 // Display Pet Profile by ID
 router
   .get('/pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
   .use(middleware.auth())
+/**
+ * -------------------------------
+ * Meetups routes
+ * -------------------------------
+ */
 
-//meetups routes
+// Create Meetup
 router
   .get('/meetups/create-form', [MeetupsController, 'meetupsForm'])
   .as('createMeetupForm')
@@ -172,7 +165,14 @@ router
   .as('createMeetup')
   .use(middleware.auth())
 
+//Display Meetups by ID
 router
   .get('/meetups/:id', [MeetupsController, 'displayOneMeetup'])
   .as('displayMeetup')
+  .use(middleware.auth())
+
+//Display All Meetups
+router
+  .get('/meetups', [MeetupsController, 'displayMeetupsList'])
+  .as('displayMeetupsList')
   .use(middleware.auth())
