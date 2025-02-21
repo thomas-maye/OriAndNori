@@ -39,6 +39,9 @@
             <strong>Birthday: </strong>{{ new Date(pet.birthday).toLocaleDateString('fr-FR', {day: '2-digit', month:
             '2-digit', year: 'numeric' }) }}
           </p>
+          <p class="mt-2 capitalize">
+            <strong>Owner: </strong>{{ pet.user.id }}
+          </p>
         </div>
         <div
           class="mt-2 bg-gray-100 dark:bg-emerald-800 p-4 rounded-lg  text-gray-500 dark:text-gray-300 border-amber-400 border-2">
@@ -60,7 +63,7 @@
 
         <div class="flex mt-3 -mx-2 justify-center">
           <div>
-            <a href="{{ route('PetProfile', [pet.id]) }}" class="inline-block rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring border-2 border-amber-400 hover:border-amber-500 shadow">
+            <a href="{{ route('PetProfile', [pet.id]) }}" class="inline-flex items-center gap-2 rounded-md px-4 py-2 text-gray-400 hover:text-white hover:bg-emerald-800 hover:border-amber-400 hover:border-2 focus:relative">
               View
             </a>
           </div>
