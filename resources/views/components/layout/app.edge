@@ -239,17 +239,13 @@
           <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
             {{ csrfField() }}
             @if(auth.use('web').isAuthenticated)
-            @!component('components/full_button', { text : 'Logout'})
+            @!component('components/button-simple/full', { text : 'Logout'})
             @end
           </form>
           <div class="">
             @if (!auth.use('web').isAuthenticated && request.url() !== '/')
-            <a href="{{ route('auth.login') }}">
-              @!component('components/empty_button', { text: 'Login' })
-            </a>
-            <a href="{{ route('auth.register') }}">
-              @!component('components/full_button', { text: 'Register' })
-            </a>
+            @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+            @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
             @end
           </div>
         </div>
@@ -257,7 +253,7 @@
     </nav>
   </header>
 
-  <main class="bg-white dark:bg-gray-900">
+  <main class="bg-white dark:bg-gray-900 py-8">
       {{{ await $slots.main() }}}
   </main>
   <footer>

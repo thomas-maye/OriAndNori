@@ -28,7 +28,7 @@
           alt="Photo of {{ pet.name }}">
 
         <div class="p-4">
-        <h1 class="text-2xl font-semibold capitalize">{{ pet.name }}</h1>
+        <h1 class="text-2xl font-semibold capitalize">{{ pet.name }} {{ pet.gender === 'female' ? '♀' : '♂' }}</h1>
         <div class="flex mx-auto">
           <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
           <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
@@ -54,8 +54,7 @@
         @endeach
         </div>
         <div class="p-4">
-        <p class="mt-2 capitalize"><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
-        <p class="mt-2 capitalize"><strong>Gender:</strong> {{ pet.gender }}</p>
+        <p class="mt-2 capitalize"><strong>Vaccined:</strong> {{ pet.vaccined === true ? '✅' : '❌' }}</p>
         <p class="mt-2 capitalize"><strong>Description:</strong> {{pet.description }}</p>
       </div>
 

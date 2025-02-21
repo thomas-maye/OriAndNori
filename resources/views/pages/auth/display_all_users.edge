@@ -24,9 +24,7 @@
                 <p class="mt-2 text-gray-500 capitalize dark:text-gray-300 group-hover:text-gray-300">{{user.city}}</p>
 
                 <div class="flex mt-3 -mx-2">
-                    <a href="{{ route('auth.display_user_profile', { id: user.id }) }}">
-                    @!component('components/empty_button', { text: "View Profile"})
-                    </a>
+                    @!component('components/button-link/empty', { text: "View Profile", link: route('auth.display_user_profile', { id: user.id }) })
                 </div>
             </div>
             @endeach
