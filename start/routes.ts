@@ -176,3 +176,15 @@ router
   .get('/meetups', [MeetupsController, 'displayMeetupsList'])
   .as('displayMeetupsList')
   .use(middleware.auth())
+
+//Display My Meetups
+router
+  .get('/my-meetups', [MeetupsController, 'displayMyMeetups'])
+  .as('myMeetups')
+  .use(middleware.auth())
+
+// Join Meetup
+router
+  .get('/meetups/join/:id', [MeetupsController, 'joinMeetup'])
+  .as('joinMeetup')
+  .use(middleware.auth())

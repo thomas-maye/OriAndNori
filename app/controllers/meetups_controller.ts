@@ -39,7 +39,7 @@ export default class MeetupsController {
       return response.redirect().toRoute('meetups')
     } catch (error) {
       session.flash('error', 'Error creating meetup')
-      return response.redirect().back()
+      return response.redirect().toRoute('createMeetupForm')
     }
   }
   async meetupsForm({ view, auth, response }: HttpContext) {
@@ -90,7 +90,7 @@ export default class MeetupsController {
       })
     } catch (error) {
       session.flash('error', 'Meetup not found') // a affiché un message d'erreur mais voir comment._.
-      return response.redirect().back() // a redirigé vers la list des meetup
+      return response.redirect().toRoute('meetups')
     }
   }
   async displayMeetupsList({ view, auth, response }: HttpContext) {
@@ -99,7 +99,12 @@ export default class MeetupsController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const meetups = await Meetup.query().preload('meetupPets').orderBy('date', 'asc')
+    const meetups = await Meetup.query()
+      .whereDoesntHave('meetupUsers', (query) => {
+        query.where('user_id', user.id)
+      })
+      .preload('meetupPets')
+      .orderBy('date', 'asc')
 
     const formattedMeetups = meetups.map((meetup) => ({
       ...meetup.serialize(),
@@ -109,5 +114,45 @@ export default class MeetupsController {
     }))
 
     return view.render('pages/meetup/meetups', { meetups: formattedMeetups })
+  }
+
+  async displayMyMeetups({ view, auth, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetups = await Meetup.query()
+      .whereHas('meetupUsers', (query) => {
+        query.where('user_id', user.id)
+      })
+      .preload('meetupPets')
+      .orderBy('date', 'asc')
+
+    const formattedMeetups = meetups.map((meetup) => ({
+      ...meetup.serialize(),
+      formattedDate: DateTime.isDateTime(meetup.date)
+        ? meetup.date
+        : DateTime.fromJSDate(new Date(meetup.date)).toFormat('dd/MM/yyyy HH:mm'),
+    }))
+    return view.render('pages/meetup/my_meetups', { meetups: formattedMeetups })
+  }
+  async joinMeetup({ auth, params, response, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      session.flash('error', 'Meetup not found')
+      return response.redirect().toRoute('meetups')
+    }
+
+    await meetup.related('meetupUsers').attach({ [user.id]: { user_name: user.username } })
+
+    session.flash('success', 'You have successfully joined the meetup')
+    return response.redirect().back() // a changé pour .toRoute('myMeetups')
   }
 }

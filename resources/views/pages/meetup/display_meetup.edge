@@ -41,6 +41,12 @@
           {{--ça trie --}}
           <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
         </div>
+        <div class="mt-4">
+          <a href="{{ route('joinMeetup', { id: meetup.id }) }}" 
+             class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">
+            Join Meetup
+          </a>
+        </div>
       @end
     </dl>
   </div>
