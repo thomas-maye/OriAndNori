@@ -188,3 +188,9 @@ router
   .get('/meetups/join/:id', [MeetupsController, 'joinMeetup'])
   .as('joinMeetup')
   .use(middleware.auth())
+
+// Leave Meetup
+router
+  .get('/meetups/leave/:id', [MeetupsController, 'leaveMeetup'])
+  .as('leaveMeetup')
+  .use(middleware.auth())

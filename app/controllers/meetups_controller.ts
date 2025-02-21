@@ -16,6 +16,11 @@ export default class MeetupsController {
       const validatedData = await request.validateUsing(meetupValidator)
       const petIds: number[] = request.input('petIds', [])
 
+      if (!petIds.length) {
+        session.flash('error', 'You must select at least one pet for the meetup')
+        return response.redirect().toRoute('createMeetupForm')
+      }
+
       const userPet = await Pet.query().where('user_id', user.id).select(['id', 'name'])
 
       if (userPet.length !== petIds.length) {
@@ -36,7 +41,7 @@ export default class MeetupsController {
       await meetup.related('meetupUsers').attach(userData)
 
       session.flash('success', 'You have successfully create a Meetup')
-      return response.redirect().toRoute('meetups')
+      return response.redirect().toRoute('myMeetups')
     } catch (error) {
       session.flash('error', 'Error creating meetup')
       return response.redirect().toRoute('createMeetupForm')
@@ -153,6 +158,25 @@ export default class MeetupsController {
     await meetup.related('meetupUsers').attach({ [user.id]: { user_name: user.username } })
 
     session.flash('success', 'You have successfully joined the meetup')
-    return response.redirect().back() // a changé pour .toRoute('myMeetups')
+    return response.redirect().toRoute('myMeetups') //a voir si on les laisse pas la ou ils sont déjà
+  }
+
+  async leaveMeetup({ auth, params, response, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      session.flash('error', 'Meetup not found')
+      return response.redirect().toRoute('myMeetups')
+    }
+
+    await meetup.related('meetupUsers').detach([user.id])
+
+    session.flash('success', 'You have successfully leave the meetup')
+    return response.redirect().toRoute('myMeetups') //a voir si on les laisse pas la ou ils sont déjà
   }
 }
