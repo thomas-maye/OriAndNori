@@ -21,8 +21,8 @@
         {{ csrfField() }}
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @!component('components/input', { name: 'name', label: 'Name', placeholder: 'Enter the name of your pet'})
-          @!component('components/input', { name: 'birthday', label: 'Birthday', type: 'date' })
+          @!component('components/input', { name: 'name', label: 'Name', placeholder: 'Enter the name of your pet', required: true })
+          @!component('components/input', { name: 'birthday', label: 'Birthday', type: 'date', required: true })
         </div>
 
         <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -43,7 +43,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @!component('components/input', { name: 'gender', label: 'Gender', type: 'select', options: ['male', 'female']})
+          @!component('components/input', { name: 'gender', label: 'Gender', type: 'select', options: ['male', 'female'], required: true})
           @!component('components/input', { name: 'vaccined', label: 'Vaccined', type: 'checkbox'})
         </div>
 
@@ -57,8 +57,7 @@
         </div>
 
         <div>
-          @!component('components/input', { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*', required:
-          false})
+          @!component('components/input', { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*'})
         </div>
 
         <div class="flex w-full justify-center">
