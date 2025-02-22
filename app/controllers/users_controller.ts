@@ -57,9 +57,7 @@ export default class UsersController {
         ...validatedData,
         userId: user.id,
         speciesId: species.id,
-        speciesName: species.name,
         breedId: breed.id,
-        breedName: breed.name,
         photo: fileName,
       })
   
@@ -105,11 +103,13 @@ export default class UsersController {
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pets = await Pet.query().whereNot('userId', user.id)
+    const pets = await Pet.query().whereNot('userId', user.id).preload('user').preload('species').preload('breed')
+
     if (!pets || pets.length === 0) {
       session.flash('error', 'No pets found')
       return response.redirect().toRoute('home')
     }
+
     return view.render('pages/display_pet_list', { pets })
   }
 
@@ -206,9 +206,7 @@ export default class UsersController {
       ...updatePetData,
       userId: auth.user.id,
       speciesId: species.id,
-      speciesName: species.name,
       breedId: breed.id,
-      breedName: breed.name,
       photo: fileName || pet.photo,
     })
   
