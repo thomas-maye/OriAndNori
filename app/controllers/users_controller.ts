@@ -104,18 +104,16 @@ export default class UsersController {
    * Display the Pet List
    * ------------------------------
    */
-  async displayPetList({ auth, view, response, session }: HttpContext) {
+  async displayPetList({ auth, view, response}: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
     const pets = await Pet.query().whereNot('userId', user.id).preload('user').preload('species').preload('breed')
 
-    if (!pets || pets.length === 0) {
-      session.flash('error', 'No pets found')
-      return response.redirect().toRoute('home')
+    if (!pets) {
+      return response.status(404).json({ message: 'No pets found' })
     }
-
     return view.render('pages/display_pet_list', { pets })
   }
 
