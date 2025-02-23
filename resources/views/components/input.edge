@@ -1,16 +1,16 @@
 <div class="block text-sm font-medium text-gray-900 dark:text-white mt-2">
-  <label for="{{name}}">{{label}}</label>
+  <label for="{{name}}">{{label || ''}}</label>
   <div class="mt-1">
     @if(type === 'select')
     <select name="{{name}}" id="{{name}}" {{ required ? 'required' : '' }}
-      class="block w-full rounded-md bg-white  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">
+      class="block w-full rounded-lg bg-white  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">
       @each(option in options)
       <option value="{{option}}" {{ old(name)===option ? 'selected' : '' }}>{{option}}</option>
       @end
     </select>
     @elseif(type === 'textarea')
-    <textarea name="{{name}}" id="{{name}}" required placeholder="{{ placeholder || `Enter your ${label}`}}" {{ required ? 'required' : '' }}
-      class="block w-full rounded-md bg-white px-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">{{ old(name) || value || '' }}</textarea>
+    <textarea name="{{name}}" id="{{name}}" placeholder="{{ placeholder || `Enter your ${label}`}}" {{ required ? 'required' : '' }}
+      class="block w-full rounded-lg bg-white px-3 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">{{ old(name) || value || '' }}</textarea>
     @elseif(type === 'checkbox')
     <input type="checkbox" name="{{name}}" id="{{name}}" {{ old(name) ? 'checked' : '' }} {{ required ? 'required' : '' }}>
     @elseif(type === 'file')
@@ -18,11 +18,11 @@
       class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
     @elseif(type === 'range')
     <input type="range" id="{{ name }}" name="{{ name }}" min="{{ min }}" max="{{ max }}" value="{{ value }}" {{ required ? 'required' : '' }}
-      class="form-range block w-full border-gray-300 rounded-md shadow-sm focus:ring-emerald-500 focus:border-emerald-500">
+      class="form-range block w-full border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500">
     @else
     <input type="{{type || 'text'}}" name="{{name}}" id="{{name}}" autocomplete="{{name}}" {{ required ? 'required' : '' }}
       placeholder="{{ placeholder || `Enter your ${label}`}}" value="{{ old(name) || value || '' }}"
-      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">
+      class="block w-full rounded-lg bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">
     @endif
   </div>
 </div>

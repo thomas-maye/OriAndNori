@@ -4,67 +4,110 @@
 @endslot
 
 @slot('main')
-<section class="bg-white dark:bg-gray-900">
-  <div class="container px-6 mx-auto mb-10">
-    <h1 class="text-2xl font-semibold text-center capitalize lg:text-3xl text-emerald-700">Create a New Pet</h1>
-    <div class="flex justify-center mx-auto mt-6">
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
+  <div class="container px-4 py-0">
+    <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Create a Pet</h1>
+    <div class="flex mx-auto">
       <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
       <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
       <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
     </div>
+    <p class="mt-6 text-gray-500 dark:text-gray-300">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error
+      alias, adipisci rem similique, at omnis eligendi optio eos harum.
+    </p>
   </div>
 
-  <div class="mx-auto max-w-screen-xl px-4
-   sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-lg mt-6 mb-0 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-      <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
-        {{ csrfField() }}
+  <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
+    {{ csrfField() }}
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @!component('components/input', { name: 'name', label: 'Name', placeholder: 'Enter the name of your pet', required: true })
-          @!component('components/input', { name: 'birthday', label: 'Birthday', type: 'date', required: true })
+    <div class="px-4 py-10 ">
+      <div class="mb-4">
+        What is your pet's name?
+        @!component('components/input', { name: 'name', placeholder: 'Enter the name of your pet', required: true })
+      </div>
+
+      <div class="mb-4">
+        What is your pet's birthday?
+        @!component('components/input', { name: 'birthday', type: 'date', required: true })
+      </div>
+
+      <div class="mb-4">
+        What is your pet's species?
+        @!component('components/input', { name: 'species', placeholder: 'Species', required: true })
+      </div>
+
+      <div class="mb-4">
+        What is your pet's breed?
+        @!component('components/input', { name: 'breed', placeholder: 'Breed', required: true })
+      </div>
+
+      <div class="mb-4">
+        <div class="mb-2">
+        What is your pet's gender?
+      </div>
+        <div class="flex space-x-2">
+          <label class=" inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
+            <input type="radio" name="gender" value="male" class="sr-only peer" required>
+            <span class="peer-checked:text-white">Male</span>
+          </label>
+          <label class=" inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
+            <input type="radio" name="gender" value="female" class="sr-only peer" required>
+            <span class="peer-checked:text-white peer-checked:bg-emerald-700">Female</span>
+          </label>
         </div>
+      </div>
+      
+      <div class="mb-4">
+        <div class="mb-2">
+          Is your pet vaccinated?
+        </div>
+        <div class="flex space-x-2">
+          <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
+            <input type="radio" name="vaccinated" value="true" class="sr-only peer" required>
+            <span class="peer-checked:text-white">Yes</span>
+          </label>
+          <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
+            <input type="radio" name="vaccinated" value="false" class="sr-only peer" required>
+            <span class="peer-checked:text-white">No</span>
+          </label>
+        </div>
+      </div>
 
-        <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @if(traits && traits.length > 0)
+      <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @if(traits && traits.length > 0)
+        <div class="mb-2">
+          @each((trait, index) in traits)
           <div class="mb-2">
-            @each((trait, index) in traits)
-            <div class="mb-2">
-              @!component('components/input', { name: `personality[${index}][trait]`, label: '', type: 'hidden', value:
-              trait.trait })
-              @!component('components/input', { name: `personality[${index}][rating]`, label: trait.trait, type:
-              'range', min: '0', max: '5', value: trait.rating })
-            </div>
-            @endeach
+            @!component('components/input', { name: `personality[${index}][trait]`, label: '', type: 'hidden', value:
+            trait.trait })
+            @!component('components/input', { name: `personality[${index}][rating]`, label: trait.trait, type:
+            'range', min: '0', max: '5', value: trait.rating })
           </div>
-          @else
-          <p class="text-gray-700">No personality traits available.</p>
-          @endif
+          @endeach
         </div>
+        @else
+        <p class="text-gray-700">No personality traits available.</p>
+        @endif
+      </div>
+      
+      <div>
+        Describe your pet in a few words
+        @!component('components/input', { name: 'description', placeholder: 'Descption', type: 'textarea' })
+      </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @!component('components/input', { name: 'gender', label: 'Gender', type: 'select', options: ['male', 'female'], required: true})
-          @!component('components/input', { name: 'vaccined', label: 'Vaccined', type: 'checkbox'})
-        </div>
+      <div class="mb-4">
+        Upload a photo of your pet
+        @!component('components/input', { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*'})
+      </div>
 
-        <div>
-          @!component('components/input', { name: 'description', label: 'Description', type: 'textarea' })
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          @!component('components/input', { name: 'species', label: 'Species', required: true })
-          @!component('components/input', { name: 'breed', label: 'Breed', required: true })
-        </div>
-
-        <div>
-          @!component('components/input', { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*'})
-        </div>
-
-        <div class="flex w-full justify-center">
-          @!component('components/button-simple/full', { text: "Create" })
-        </div>
-      </form>
+      <div class="flex">
+        @!component('components/button-simple/full', { text: "Create" })
+      </div>
     </div>
+
+  </form>
+  </div>
   </div>
 </section>
 @endslot
