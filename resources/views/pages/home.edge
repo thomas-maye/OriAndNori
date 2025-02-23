@@ -7,9 +7,9 @@
 @endslot
 
 @slot('main')
-<section class="overflow-hidden sm:grid sm:grid-cols-2 sm:items-center">
-  <div class="p-8 md:p-12 lg:px-16 lg:py-24">
-    <div class="mx-auto max-w-xl ltr:sm:text-left rtl:sm:text-right">
+<section class="sm:grid sm:grid-cols-2 sm:items-center">
+  <div class="flex items-center flex-row-reverse">
+    <div class="max-w-screen-md p-4 md:pr-12 xl:pr-24">
       <div class="mb-4">
         @!component('components/banner/success')
       </div>
@@ -29,22 +29,15 @@
 
       <div class="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
         @if(!auth.use('web').isAuthenticated)
-        <a href="{{route('auth.login')}}">
-          @!component('components/empty_button', { text : 'Login'})
-        </a>
-        <a href="{{route('auth.register')}}">
-          @!component('components/full_button', { text : 'Register'})
-        </a>
+          @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+          @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
         @end
       </div>
     </div>
   </div>
 
-  <img
-    alt=""
-    src="/resources/images/noelle-rebekah-9ymXyNCouyU-unsplash.jpg"
-    class="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%_-_4rem)] md:rounded-ss-[60px]"
-  />
+  <img alt="" src="/resources/images/noelle-rebekah-9ymXyNCouyU-unsplash.jpg"
+    class="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%_-_4rem)] md:rounded-ss-[60px]" />
 </section>
 @endslot
 @end

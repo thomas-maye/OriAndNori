@@ -47,22 +47,16 @@ export default class Pet extends BaseModel {
   declare userId: number
 
   @belongsTo(() => User)
-  declare owner: BelongsTo<typeof User>
+  declare user: BelongsTo<typeof User>
 
   @column()
   declare breedId: number
-
-  @column()
-  declare breedName: string
 
   @belongsTo(() => Breed)
   declare breed: BelongsTo<typeof Breed>
 
   @column()
   declare speciesId: number
-
-  @column()
-  declare speciesName: string
 
   @belongsTo(() => Species)
   declare species: BelongsTo<typeof Species>

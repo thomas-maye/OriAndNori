@@ -11,7 +11,7 @@ Are you sure you want to delete your profile ?
 
 <form method="POST" action="{{ route('auth.delete_my_profile') }}?_method=DELETE">
     {{ csrfField() }}
-    @!component('components/full_button', { text : 'Delete'})
+    @!component('components/button-simple/full', { text : 'Delete'})
 </form>
 @endslot
 @end

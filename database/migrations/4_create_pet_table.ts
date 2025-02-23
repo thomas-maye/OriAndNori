@@ -17,9 +17,7 @@ export default class extends BaseSchema {
       // Foreign keys
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
       table.integer('breed_id').unsigned().references('breeds.id').onDelete('CASCADE')
-      table.string('breed_name').notNullable()
       table.integer('species_id').unsigned().references('species.id').onDelete('CASCADE')
-      table.string('species_name').notNullable()
 
       // Timestamps
       table.timestamp('created_at').notNullable()

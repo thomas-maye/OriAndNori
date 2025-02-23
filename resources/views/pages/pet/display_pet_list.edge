@@ -4,36 +4,137 @@
 @endslot
 
 @slot('main')
-  <div class="container mx-auto p-4">
-    <h1 class="text-3xl font-bold mb-4">Pet List</h1>
-    <div class="bg-white shadow-md rounded p-4">
-      <ul>
-        @each(pet in pets)
-          <li class="mb-4 border-b pb-4">
-            <div class="flex items-center gap-4">
-              <img src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
-              alt="Photo of {{ pet.name }}" class="w-16 h-16 object-cover rounded-full">
-              <div>
-                <h2 class="text-2xl font-semibold">{{ pet.name }}</h2>
-                <p class="text-gray-600"><strong>Birthday: </strong>{{ new Date(pet.birthday).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</p>
-              </div>
-            </div>
-            <div class="mt-2 ml-20">
-              <ul class="mb-2">
-                @each(personality in pet.personality)
-                  <li>{{ personality.trait }}: {{ personality.rating }}</li>
-                @endeach
-              </ul>
-              <p><strong>Vaccined:</strong> {{ pet.vaccined ? 'Yes' : 'No' }}</p>
-              <p><strong>Gender:</strong> {{ pet.gender }}</p>
-              <p><strong>Description:</strong> {{ pet.description }}</p>
-              <p><strong>Breed:</strong> {{ pet.breedName }}</p>
-              <p><strong>Species:</strong> {{ pet.speciesName }}</p>
-            </div>
-          </li>
-        @endeach
-      </ul>
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
+  <div class="container px-4 py-0">
+    <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Pets List</h1>
+    <div class="flex mx-auto">
+      <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
     </div>
+    <p class="mt-6 text-gray-500 dark:text-gray-300">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error
+      alias, adipisci rem similique, at omnis eligendi optio eos harum.
+    </p>
   </div>
+  <div class="px-4">
+    @if(pets.length === 0)
+      <div class="mt-10">
+        <h1 class="text-2xl font-semibold text-emerald-700">No Pets Found</h1>
+      </div>
+    @end
+  </div>
+  <div class="container px-30 md:px-4">
+    <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+      @each(pet in pets)
+      <div
+        class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+        <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
+          src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+          alt="Photo of {{ pet.name }}">
+
+        <div class="p-4">
+          <h1 class="text-2xl font-semibold capitalize text-emerald-700 flex items-center">
+            {{ pet.name }}
+            @if(pet.gender === 'female')
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M11 19h-1q-.425 0-.712-.288T9 18t.288-.712T10 17h1v-2.1q-1.975-.35-3.238-1.888T6.5 9.45q0-2.275 1.613-3.862T12 4t3.888 1.588T17.5 9.45q0 2.025-1.263 3.563T13 14.9V17h1q.425 0 .713.288T15 18t-.288.713T14 19h-1v1q0 .425-.288.713T12 21t-.712-.288T11 20zm1-6q1.45 0 2.475-1.025T15.5 9.5t-1.025-2.475T12 6T9.525 7.025T8.5 9.5t1.025 2.475T12 13" />
+            </svg>
+            @else
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M20 5v4q0 .425-.288.713T19 10t-.712-.288T18 9V7.425l-3.975 3.95q.475.7.725 1.488T15 14.5q0 2.3-1.6 3.9T9.5 20t-3.9-1.6T4 14.5t1.6-3.9T9.5 9q.825 0 1.625.237t1.475.738L16.575 6H15q-.425 0-.712-.288T14 5t.288-.712T15 4h4q.425 0 .713.288T20 5M9.5 11q-1.45 0-2.475 1.025T6 14.5t1.025 2.475T9.5 18t2.475-1.025T13 14.5t-1.025-2.475T9.5 11" />
+            </svg>
+            @endif
+          </h1>
+          <div class="flex mx-auto">
+            <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-1 h-0.5 bg-amber-400 rounded-full"></span>
+          </div>
+          <div>
+            {{ pet.species.name }}, {{ pet.breed.name }}
+          </div>
+          <div class="flex items">
+            <p class="mt-2 capitalize flex items-center">
+              <span class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M4 22q-.425 0-.712-.288T3 21v-4q0-.825.588-1.412T5 15h14q.825 0 1.413.588T21 17v4q0 .425-.288.713T20 22zm1-9v-3q0-.825.588-1.412T7 8h4V6.55q-.45-.3-.725-.725T10 4.8q0-.375.15-.738t.45-.662l1.05-1.05q.05-.05.35-.15q.05 0 .35.15L13.4 3.4q.3.3.45.662T14 4.8q0 .6-.275 1.025T13 6.55V8h4q.825 0 1.413.587T19 10v3z" />
+                </svg>
+                {{ new Date(pet.birthday).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year:
+                'numeric'})}}
+              </span>
+            </p>
+            <p class="mt-2 capitalize flex items-center">
+              <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M8 22.5L6 21v-4H5q-.825 0-1.412-.587T3 15V7.5q-.425 0-.712-.288T2 6.5t.288-.712T3 5.5h3V4h-.5q-.425 0-.712-.288T4.5 3t.288-.712T5.5 2h3q.425 0 .713.288T9.5 3t-.288.713T8.5 4H8v1.5h3q.425 0 .713.288T12 6.5t-.288.713T11 7.5V15q0 .825-.587 1.413T9 17H8zM5 15h4v-1.5H7.25q-.3 0-.525-.225T6.5 12.75t.225-.525T7.25 12H9v-1.5H7.25q-.3 0-.525-.225T6.5 9.75t.225-.525T7.25 9H9V7.5H5zm10 7q-.825 0-1.412-.587T13 20v-6.5q0-.725.25-1.2t.525-.825t.5-.562t.225-.413V10q-.425 0-.712-.287T13.5 9t.288-.712T14.5 8h5q.425 0 .713.288T20.5 9t-.288.713T19.5 10v.5q0 .2.25.45t.55.6q.275.35.488.825T21 13.5V20q0 .825-.587 1.413T19 22zm0-8h4v-.5q0-.375-.225-.65t-.5-.6t-.525-.725t-.25-1.025V10h-1v.5q0 .6-.238 1t-.512.725t-.513.613T15 13.5zm0 6h4v-1.5h-4z" />
+                </svg>
+                {{ pet.vaccined === true ? 'Vaccined' : 'Not Vaccined' }}
+              </span>
+            </p>
+          </div>
+          <div class="flex items">
+            <p class="mt-2 capitalize flex items-center">
+              <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+                </svg>
+                {{ pet.user.city }}
+              </span>
+            </p>
+            <p class="mt-2 capitalize flex items-center">
+              <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
+                </svg>
+                <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}"
+                  class="text-emerald-700 hover:text-emerald-800">{{ pet.user.username }}</a>
+              </span>
+            </p>
+          </div>
+        </div>
+        <div
+          class="mt-2 bg-gray-100 dark:bg-emerald-800 p-4 rounded-lg  text-gray-500 dark:text-gray-300 border-amber-400 border-2">
+          @each(personality in pet.personality)
+          <div class="grid grid-cols-2 gap-4">
+            <div class="capitalize">
+              <strong>{{ personality.trait }}:</strong>
+            </div>
+            <div class="inline-flex text-emerald-700">
+              @each(i in [...Array(personality.rating)])
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M4.5 12.125q-1.05 0-1.775-.725T2 9.625t.725-1.775T4.5 7.125t1.775.725T7 9.625T6.275 11.4t-1.775.725m4.5-4q-1.05 0-1.775-.725T6.5 5.625t.725-1.775T9 3.125t1.775.725t.725 1.775t-.725 1.775T9 8.125m6 0q-1.05 0-1.775-.725T12.5 5.625t.725-1.775T15 3.125t1.775.725t.725 1.775t-.725 1.775T15 8.125m4.5 4q-1.05 0-1.775-.725T17 9.625t.725-1.775t1.775-.725t1.775.725T22 9.625t-.725 1.775t-1.775.725m-12.85 10q-1.125 0-1.888-.862T4 19.225q0-1.3.888-2.275t1.762-1.925q.725-.775 1.25-1.687t1.25-1.713q.55-.65 1.275-1.075T12 10.125t1.575.4t1.275 1.05q.7.8 1.238 1.725t1.262 1.725q.875.95 1.762 1.925T20 19.225q0 1.175-.763 2.038t-1.887.862q-1.35 0-2.675-.225T12 21.675t-2.675.225t-2.675.225" />
+              </svg>
+              @endeach
+            </div>
+          </div>
+          @endeach
+        </div>
+        <div class="mt-4 flex items-center justify-center">
+          <a href="{{ route('PetProfile', [pet.id]) }}">
+            <button
+            class="inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-4 h-4 mr-2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              View
+            </button>
+          </a>
+        </div>
+      </div>
+        @endeach
+      </div>
+    </div>
+</section>
 @endslot
 @end

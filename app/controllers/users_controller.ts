@@ -56,9 +56,7 @@ export default class UsersController {
         ...validatedData,
         userId: user.id,
         speciesId: species.id,
-        speciesName: species.name,
         breedId: breed.id,
-        breedName: breed.name,
         photo: fileName,
       })
 
@@ -85,10 +83,16 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
     //console.log(params.id)
-    const pet = await Pet.find(params.id)
+    const pet = await Pet.query()
+    .where('id', params.id)
+    .preload('species')
+    .preload('breed')
+    .first()
+    
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
+
     const photoUrl = pet.photo
     return view.render('pages/pet/display_pet_profile', { pet, photoUrl })
   }
@@ -98,15 +102,15 @@ export default class UsersController {
    * Display the Pet List
    * ------------------------------
    */
-  async displayPetList({ auth, view, response, session }: HttpContext) {
+  async displayPetList({ auth, view, response}: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pets = await Pet.query().whereNot('userId', user.id)
-    if (!pets || pets.length === 0) {
-      session.flash('error', 'No pets found')
-      return response.redirect().toRoute('home')
+    const pets = await Pet.query().whereNot('userId', user.id).preload('user').preload('species').preload('breed')
+
+    if (!pets) {
+      return response.status(404).json({ message: 'No pets found' })
     }
     return view.render('pages/pet/display_pet_list', { pets })
   }
@@ -122,7 +126,7 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const pets = await Pet.query().where('userId', user.id)
+    const pets = await Pet.query().where('userId', user.id).preload('user').preload('species').preload('breed')
 
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
@@ -141,7 +145,13 @@ export default class UsersController {
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pet = await Pet.find(params.id)
+
+    const pet = await Pet.query()
+    .where('id', params.id)
+    .preload('species')
+    .preload('breed')
+    .first()
+
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
@@ -204,9 +214,7 @@ export default class UsersController {
       ...updatePetData,
       userId: auth.user.id,
       speciesId: species.id,
-      speciesName: species.name,
       breedId: breed.id,
-      breedName: breed.name,
       photo: fileName || pet.photo,
     })
 
