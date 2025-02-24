@@ -10,7 +10,7 @@ export const createPetValidator = vine.compile(
         rating: vine.number().min(0).max(5),
       })
     ),
-    vaccined: vine.boolean().optional(),
+    vaccined: vine.boolean(),
     gender: vine.enum(['male', 'female']),
     description: vine.string().optional(),
     species_id: vine.number().exists({ table: 'species', column: 'id' }),
