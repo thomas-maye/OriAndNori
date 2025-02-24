@@ -12,7 +12,7 @@
       <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
       <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
     </div>
-    <p class="mt-6 text-gray-500 dark:text-gray-300">
+    <p class="mt-6 pb-10 text-gray-500 dark:text-gray-300">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error
       alias, adipisci rem similique, at omnis eligendi optio eos harum.
     </p>
@@ -21,131 +21,105 @@
   <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
     {{ csrfField() }}
 
-    <div class="px-4 py-10 ">
-      <div class="mb-4">
-        What is your pet's name?
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        @!component('components/input', { name: 'name', placeholder: 'Enter the name of your pet', required: true })
-        </div>
-      </div>
-
-      <div class="mb-4">
-        What is your pet's birthday?
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        @!component('components/input', { name: 'birthday', type: 'date', required: true })
-        </div>
-      </div>
-
-
-      <div class="mb-4">
-        What is your pet's species?
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        @!component('components/input', { 
-          type: 'select', 
-          name: 'species_id', 
-          options: species.map(species => ({ value: species.id, text: species.name })), 
-          required: true 
-        })
-        </div>
-      </div>
-
-      <div class="mb-4">
-        What is your pet's breed?
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        @!component('components/input', { 
-          type: 'select', 
-          name: 'breed_id', 
-          options: breeds.map(breed => ({ value: breed.id, text: breed.name })), 
-          required: true 
-        })
-        </div>
-      </div>
-
-      {{--<div class="mb-4">
-        What is your pet's species?
-        <select name="species_id" class="mt-1 block w-full  border-gray-300 bg-white text-gray-700 sm:text-sm">
-          @each(species in species)
-            <option value="{{ species.id }}">{{ species.name }}</option>
-          @end
-        </select>
-      </div>
-      
-      <div class="mb-4">
-        What is your pet's breed?
-        <select name="breed_id" class="mt-1 block w-full rounded-lg border-gray-300 bg-white text-gray-700 sm:text-sm">
-          @each(breed in breeds)
-            <option value="{{ breed.id }}">{{ breed.name }}</option>
-          @end
-        </select>
-      </div>--}}
-
-      <div class="mb-4">
-        <div class="mb-2">
-        What is your pet's gender?
-      </div>
-        <div class="flex space-x-2">
-          <label class=" inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
-            <input type="radio" name="gender" value="male" class="sr-only peer" required>
-            <span class="peer-checked:text-white">Male</span>
-          </label>
-          <label class=" inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
-            <input type="radio" name="gender" value="female" class="sr-only peer" required>
-            <span class="peer-checked:text-white peer-checked:bg-emerald-700">Female</span>
-          </label>
-        </div>
-      </div>
-      
-      <div class="mb-4">
-        <div class="mb-2">
-          Is your pet vaccinated?
-        </div>
-        <div class="flex space-x-2">
-          <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
-            <input type="radio" name="vaccinated" value="true" class="sr-only peer" required>
-            <span class="peer-checked:text-white">Yes</span>
-          </label>
-          <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 has-checked:bg-emerald-700">
-            <input type="radio" name="vaccinated" value="false" class="sr-only peer" required>
-            <span class="peer-checked:text-white">No</span>
-          </label>
-        </div>
-      </div>
-
-      <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-5 gap-4">
-        @if(traits && traits.length > 0)
-        <div class="mb-2">
-          @each((trait, index) in traits)
-          <div class="mb-2">
-            @!component('components/input', { name: `personality[${index}][trait]`, label: '', type: 'hidden', value:
-            trait.trait })
-            @!component('components/input', { name: `personality[${index}][rating]`, label: trait.trait, type:
-            'range', min: '0', max: '5', value: trait.rating })
+    <div class="px-4 py-4 border rounded-lg">
+    <div class="px-4 text-emerald-700 text-lg grid grid-cols-1 md:grid-cols-2 gap-6 ">
+      <div>
+        <div class="mb-4">
+          What is your pet's name?
+          <div class="">
+          @!component('components/input', { name: 'name', placeholder: 'Enter the name of your pet', required: true })
           </div>
-          @endeach
         </div>
-        @else
-        <p class="text-gray-700">No personality traits available.</p>
-        @endif
+        
+        <div class="mb-4">
+          What is your pet's species?
+          <div class="">
+          @!component('components/input', { 
+            type: 'select', 
+            name: 'species_id', 
+            options: species.map(species => ({ value: species.id, text: species.name })), 
+            required: true 
+          })
+          </div>
+        </div>
+        
+        <div class="mb-4">
+          What is your pet's gender?
+          <div class="flex space-x-2 mt-2">
+            <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+              <input type="radio" name="gender" value="male" class="sr-only peer" required>
+              <span class="peer-checked:text-white">Male</span>
+            </label>
+            <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+              <input type="radio" name="gender" value="female" class="sr-only peer" required>
+              <span class="peer-checked:text-white">Female</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          Describe your pet in a few words
+          <div class="">
+          @!component('components/input', { name: 'description', placeholder: 'Description', type: 'textarea' })
+          </div>
+        </div>
+
       </div>
       
       <div>
-        Describe your pet in a few words
-        @!component('components/input', { name: 'description', placeholder: 'Descption', type: 'textarea' })
-      </div>
+        <div class="mb-4">
+          What is your pet's birthday?
+          <div class="">
+          @!component('components/input', { name: 'birthday', type: 'date', required: true })
+          </div>
+        </div>
 
-      <div class="mb-4">
-        Upload a photo of your pet
-        @!component('components/input', { name: 'photo', label: 'Photo', type: 'file', accept: 'image/*'})
-      </div>
+        <div class="mb-4">
+          What is your pet's breed?
+          <div class="">
+          @!component('components/input', { 
+            type: 'select', 
+            name: 'breed_id', 
+            options: breeds.map(breed => ({ value: breed.id, text: breed.name })), 
+            required: true 
+          })
+          </div>
+        </div>
 
-      <div class="flex">
-        @!component('components/button-simple/full', { text: "Create" })
+        <div class="mb-4">
+          Is your pet vaccinated?
+          <div class="flex mt-2 space-x-2">
+            <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+              <input type="radio" name="vaccinated" value="true" class="sr-only peer" required>
+              <span class="peer-checked:text-white">Yes</span>
+            </label>
+            <label class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+              <input type="radio" name="vaccinated" value="false" class="sr-only peer" required>
+              <span class="peer-checked:text-white">No</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          Upload a photo of your pet
+          <div class="">
+          @!component('components/input', { name: 'photo', type: 'file', accept: 'image/*'})
+          </div>
+        </div>
+      </div>
+        
       </div>
     </div>
+    
+    <div class="flex justify-center mt-6">
+      @!component('components/button-simple/full', { text: "Create" })
+    </div>
 
-  </form>
+</form>
+
   </div>
   </div>
 </section>
+<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 @endslot
 @end
