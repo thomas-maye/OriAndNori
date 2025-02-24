@@ -113,10 +113,13 @@ export default class MeetupsController {
     }
 
     const meetups = await Meetup.query()
-      .whereDoesntHave('meetupUsers', (query) => {
+      .whereHas('meetupUsers', (query) => {
         query.where('user_id', user.id)
       })
-      .preload('meetupPets')
+      .preload('meetupPets', (query) => {
+        query.preload('breed')
+        query.preload('species')
+      })
       .orderBy('date', 'asc')
 
     const formattedMeetups = meetups.map((meetup) => ({
@@ -139,9 +142,13 @@ export default class MeetupsController {
       .whereHas('meetupUsers', (query) => {
         query.where('user_id', user.id)
       })
-      .preload('meetupPets')
+      .preload('meetupPets', (query) => {
+        query.preload('breed')
+        query.preload('species')
+      })
       .orderBy('date', 'asc')
 
+    // pour avoir une date a bien formatté
     const formattedMeetups = meetups.map((meetup) => ({
       ...meetup.serialize(),
       formattedDate: DateTime.isDateTime(meetup.date)
@@ -150,7 +157,7 @@ export default class MeetupsController {
     }))
     return view.render('pages/meetup/my_meetups', { meetups: formattedMeetups })
   }
-  //surement faire deux routes une pour les pet une pour les user
+
   async joinMeetup({ auth, params, response, session, request }: HttpContext) {
     try {
       const user = auth.user
