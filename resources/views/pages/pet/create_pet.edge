@@ -24,38 +24,46 @@
     <div class="px-4 py-10 ">
       <div class="mb-4">
         What is your pet's name?
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         @!component('components/input', { name: 'name', placeholder: 'Enter the name of your pet', required: true })
+        </div>
       </div>
 
       <div class="mb-4">
         What is your pet's birthday?
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         @!component('components/input', { name: 'birthday', type: 'date', required: true })
+        </div>
       </div>
 
 
-      {{-- <div class="mb-4">
+      <div class="mb-4">
         What is your pet's species?
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         @!component('components/input', { 
           type: 'select', 
           name: 'species_id', 
           options: species.map(species => ({ value: species.id, text: species.name })), 
           required: true 
         })
+        </div>
       </div>
 
       <div class="mb-4">
         What is your pet's breed?
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
         @!component('components/input', { 
           type: 'select', 
           name: 'breed_id', 
           options: breeds.map(breed => ({ value: breed.id, text: breed.name })), 
           required: true 
         })
-      </div> --}}
+        </div>
+      </div>
 
-      <div class="mb-4">
-        <label class="block text-gray-700">Select your pet's species:</label>
-        <select name="species_id" class="mt-1 block w-full">
+      {{--<div class="mb-4">
+        What is your pet's species?
+        <select name="species_id" class="mt-1 block w-full  border-gray-300 bg-white text-gray-700 sm:text-sm">
           @each(species in species)
             <option value="{{ species.id }}">{{ species.name }}</option>
           @end
@@ -63,13 +71,13 @@
       </div>
       
       <div class="mb-4">
-        <label class="block text-gray-700">Select your pet's breed:</label>
-        <select name="breed_id" class="mt-1 block w-full">
+        What is your pet's breed?
+        <select name="breed_id" class="mt-1 block w-full rounded-lg border-gray-300 bg-white text-gray-700 sm:text-sm">
           @each(breed in breeds)
             <option value="{{ breed.id }}">{{ breed.name }}</option>
           @end
         </select>
-      </div>
+      </div>--}}
 
       <div class="mb-4">
         <div class="mb-2">
@@ -103,7 +111,7 @@
         </div>
       </div>
 
-      <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div id="personality-traits" class="grid grid-cols-1 md:grid-cols-5 gap-4">
         @if(traits && traits.length > 0)
         <div class="mb-2">
           @each((trait, index) in traits)
@@ -134,8 +142,6 @@
         @!component('components/button-simple/full', { text: "Create" })
       </div>
     </div>
-
-    @!component('components/debug/inspect_debug')
 
   </form>
   </div>
