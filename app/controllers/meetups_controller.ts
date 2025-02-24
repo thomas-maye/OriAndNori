@@ -237,4 +237,60 @@ export default class MeetupsController {
       return response.redirect().toRoute('myMeetups')
     }
   }
+
+  async removePetFromMeetup({ auth, params, response, session, request }: HttpContext) {
+    try {
+      const user = auth.user
+      if (!user) {
+        return response.unauthorized({ message: 'User not authenticated' })
+      }
+
+      const meetup = await Meetup.find(params.id)
+
+      if (!meetup) {
+        session.flash('error', 'Meetup not found')
+        return response.redirect().toRoute('myMeetups')
+      }
+
+      const petId = request.input('petId')
+
+      const pet = await Pet.find(petId)
+
+      if (!pet) {
+        session.flash('error', 'Pet not found')
+        return response.redirect().toRoute('myMeetups')
+      }
+
+      await meetup.related('meetupPets').detach([petId])
+
+      session.flash('success', 'Pet removed from meetup')
+      return response.redirect().toRoute('myMeetups')
+    } catch (error) {
+      session.flash('error', 'Error removing pet from meetup')
+      return response.redirect().toRoute('myMeetups')
+    }
+  }
+
+  async deleteMeetup({ auth, params, response, session }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      session.flash('error', 'Meetup not found')
+      return response.redirect().toRoute('myMeetups')
+    }
+
+    if (meetup.userId !== user.id) {
+      session.flash('error', 'You are not the organizer of this meetup')
+      return response.redirect().toRoute('myMeetups')
+    }
+
+    await meetup.delete()
+    session.flash('success', 'Meetup deleted successfully!')
+    return response.redirect().toRoute('myMeetups')
+  }
 }

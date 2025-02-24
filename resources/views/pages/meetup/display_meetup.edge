@@ -21,10 +21,17 @@
       <h3 class="font-bold text-lg">Pets participants</h3>
       <dl>
         @each(pet in meetupPets)
-          <div class="flex items-baseline gap-2">
-            <dt>{{ pet.name }}</dt>
-            <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
-          </div>
+        <div class="flex items-baseline gap-2">
+          <dt>{{ pet.name }}</dt>
+          <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
+          @if(connectUserPet.some(userPet => userPet.id === pet.id))
+            <form action="{{ route('removePetFromMeetup', { id: meetup.id }) }}?_method=DELETE"  method="POST" class="mt-4">
+              {{ csrfField() }}
+              <input type="hidden" name="petId" value="{{ pet.id }}">
+              <button type="submit" class="text-red-500 ml-2">✖</button>
+            </form>
+          @endif
+        </div>
         @end
       </dl>
     </div>
@@ -77,6 +84,12 @@
               </button>
             </form>
 
+            @if(meetup.userId === auth.user.id)
+            <form action="{{route('deleteMeetup', { id: meetup.id })}}?_method=DELETE" method="POST" class="mt-4">
+              {{ csrfField() }}
+              <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete Meetup</button>
+            </form>
+            @endif
             <form action="{{ route('leaveMeetup', { id: meetup.id }) }}?_method=DELETE" method="POST" class="mt-4">
               {{ csrfField() }}
               <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Leave Meetup</button>

@@ -194,3 +194,15 @@ router
   .delete('/meetups/leave/:id', [MeetupsController, 'leaveMeetup'])
   .as('leaveMeetup')
   .use(middleware.auth())
+
+// Remove Pet from Meetup
+router
+  .delete('/meetups/removePet/:id', [MeetupsController, 'removePetFromMeetup'])
+  .as('removePetFromMeetup')
+  .use(middleware.auth())
+
+// Delete Meetup
+router
+  .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])
+  .as('deleteMeetup')
+  .use(middleware.auth())
