@@ -49,10 +49,12 @@
       </div>
       <div class="mb-4">
         <label for="breed" class="block text-gray-700">Breed:</label>
+        <input type="hidden" id="breed_id" name="breed_id" value="{{ pet.breed.id }}">
         <input type="text" id="breed" name="breed" value="{{ pet.breed.name }}" class="mt-1 block w-full" required>
       </div>
       <div class="mb-4">
         <label for="species" class="block text-gray-700">Species:</label>
+        <input type="hidden" id="species_id" name="species_id" value="{{ pet.species.id }}">
         <input type="text" id="species" name="species" value="{{ pet.species.name }}" class="mt-1 block w-full" required>
       </div>
       <div class="mb-4">
