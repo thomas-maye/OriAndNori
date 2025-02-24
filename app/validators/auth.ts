@@ -62,9 +62,11 @@ export const updateUserValidator = vine.compile(
     city: vine.string().trim().alpha().minLength(2).optional(),
     phone: vine.string().trim().minLength(10).optional(),
     description: vine.string().trim().minLength(10).maxLength(150).optional(),
-    profile_picture: vine.file({
-      size: '2mb',
-      extnames: ['jpg', 'png', 'jpeg']
-    }).optional()
+    profile_picture: vine
+      .file({
+        size: '2mb',
+        extnames: ['jpg', 'png', 'jpeg'],
+      })
+      .optional(),
   })
 )
