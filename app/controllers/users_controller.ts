@@ -35,9 +35,6 @@ export default class UsersController {
         return response.unauthorized({ message: 'User not authenticated' })
       }
 
-      const species = await Species.findByOrFail('name', validatedData.species)
-      const breed = await Breed.findByOrFail('name', validatedData.breed)
-
       if (validatedData.photo) {
         await validatedData.photo.move(app.makePath('storage/uploads'), {
           name: `${cuid()}.${validatedData.photo.extname}`,
@@ -55,9 +52,7 @@ export default class UsersController {
       pet.merge({
         ...validatedData,
         userId: user.id,
-        speciesId: species.id,
-        breedId: breed.id,
-        photo: fileName,
+        photo: fileName
       })
 
       await pet.save()
@@ -207,14 +202,9 @@ export default class UsersController {
       fileName = updatePetData.photo.fileName
     }
 
-    const species = await Species.findByOrFail('name', updatePetData.species)
-    const breed = await Breed.findByOrFail('name', updatePetData.breed)
-
     pet.merge({
       ...updatePetData,
       userId: auth.user.id,
-      speciesId: species.id,
-      breedId: breed.id,
       photo: fileName || pet.photo,
     })
 

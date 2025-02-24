@@ -32,14 +32,43 @@
         @!component('components/input', { name: 'birthday', type: 'date', required: true })
       </div>
 
-      <div class="mb-4">
+
+      {{-- <div class="mb-4">
         What is your pet's species?
-        @!component('components/input', { name: 'species', placeholder: 'Species', required: true })
+        @!component('components/input', { 
+          type: 'select', 
+          name: 'species_id', 
+          options: species.map(species => ({ value: species.id, text: species.name })), 
+          required: true 
+        })
       </div>
 
       <div class="mb-4">
         What is your pet's breed?
-        @!component('components/input', { name: 'breed', placeholder: 'Breed', required: true })
+        @!component('components/input', { 
+          type: 'select', 
+          name: 'breed_id', 
+          options: breeds.map(breed => ({ value: breed.id, text: breed.name })), 
+          required: true 
+        })
+      </div> --}}
+
+      <div class="mb-4">
+        <label class="block text-gray-700">Select your pet's species:</label>
+        <select name="species_id" class="mt-1 block w-full">
+          @each(species in species)
+            <option value="{{ species.id }}">{{ species.name }}</option>
+          @end
+        </select>
+      </div>
+      
+      <div class="mb-4">
+        <label class="block text-gray-700">Select your pet's breed:</label>
+        <select name="breed_id" class="mt-1 block w-full">
+          @each(breed in breeds)
+            <option value="{{ breed.id }}">{{ breed.name }}</option>
+          @end
+        </select>
       </div>
 
       <div class="mb-4">
@@ -105,6 +134,8 @@
         @!component('components/button-simple/full', { text: "Create" })
       </div>
     </div>
+
+    @!component('components/debug/inspect_debug')
 
   </form>
   </div>

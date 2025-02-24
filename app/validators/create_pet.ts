@@ -13,8 +13,8 @@ export const createPetValidator = vine.compile(
     vaccined: vine.boolean().optional(),
     gender: vine.enum(['male', 'female']),
     description: vine.string().optional(),
-    breed: vine.string(),
-    species: vine.string(),
+    species_id: vine.number().exists({ table: 'species', column: 'id' }),
+    breed_id: vine.number().exists({ table: 'breeds', column: 'id' }),
     photo: vine.file({
       size: '4mb',
       extnames: ['jpg', 'png', 'jpeg']

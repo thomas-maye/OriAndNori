@@ -4,8 +4,11 @@
     @if(type === 'select')
     <select name="{{name}}" id="{{name}}" {{ required ? 'required' : '' }}
       class="block w-full rounded-lg bg-white  text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm">
+      <option value="">Select an option</option>
       @each(option in options)
-      <option value="{{option}}" {{ old(name)===option ? 'selected' : '' }}>{{option}}</option>
+      <option value="{{ option.value.toString() }}" {{ old(name)===option.value.toString() ? 'selected' : '' }}>
+        {{ option.text }}
+      </option>
       @end
     </select>
     @elseif(type === 'textarea')
