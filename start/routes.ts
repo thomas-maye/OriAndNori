@@ -176,3 +176,33 @@ router
   .get('/meetups', [MeetupsController, 'displayMeetupsList'])
   .as('displayMeetupsList')
   .use(middleware.auth())
+
+//Display My Meetups
+router
+  .get('/my-meetups', [MeetupsController, 'displayMyMeetups'])
+  .as('myMeetups')
+  .use(middleware.auth())
+
+// Join Meetup
+router
+  .post('/meetups/join/:id', [MeetupsController, 'joinMeetup'])
+  .as('joinMeetup')
+  .use(middleware.auth())
+
+// Leave Meetup
+router
+  .delete('/meetups/leave/:id', [MeetupsController, 'leaveMeetup'])
+  .as('leaveMeetup')
+  .use(middleware.auth())
+
+// Remove Pet from Meetup
+router
+  .delete('/meetups/removePet/:id', [MeetupsController, 'removePetFromMeetup'])
+  .as('removePetFromMeetup')
+  .use(middleware.auth())
+
+// Delete Meetup
+router
+  .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])
+  .as('deleteMeetup')
+  .use(middleware.auth())

@@ -7,7 +7,6 @@ import app from '@adonisjs/core/services/app'
 import mail from '@adonisjs/mail/services/main'
 
 export default class AuthController {
-
   /**
    * -------------------------------
    * Display the Register User Page
@@ -23,7 +22,8 @@ export default class AuthController {
    * ------------------------------
    */
   async handleRegister({ request, session, response }: HttpContext) {
-    const { email,
+    const {
+      email,
       password,
       username,
       first_name = '',
@@ -34,7 +34,7 @@ export default class AuthController {
       city = '',
       phone = '',
       description = '',
-      profile_picture = ''
+      profile_picture = '',
     } = await request.validateUsing(registerUserValidator)
 
     await User.create({
@@ -49,7 +49,7 @@ export default class AuthController {
       city,
       phone,
       description,
-      profile_picture
+      profile_picture,
     })
 
     const user = await User.findBy('email', email)
@@ -140,7 +140,7 @@ export default class AuthController {
     }
 
     const updateUser = await request.validateUsing(updateUserValidator)
-    let fileName = '';
+    let fileName = ''
 
     if (updateUser.profile_picture) {
       if (auth.user.profile_picture) {
@@ -153,7 +153,7 @@ export default class AuthController {
       }
 
       await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
-        name: `${cuid()}.${updateUser.profile_picture.extname}`
+        name: `${cuid()}.${updateUser.profile_picture.extname}`,
       })
 
       if (!updateUser.profile_picture.fileName) {
@@ -166,7 +166,7 @@ export default class AuthController {
 
     auth.user.merge({
       ...updateUser,
-      profile_picture: fileName || auth.user.profile_picture
+      profile_picture: fileName || auth.user.profile_picture,
     })
 
     await auth.user.save()
