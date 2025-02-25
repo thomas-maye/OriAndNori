@@ -27,7 +27,7 @@ export default class UsersController {
   async createPet({ auth, request, response, session }: HttpContext) {
     try {
       const validatedData = await request.validateUsing(createPetValidator)
-
+      console.log('validateddata', validatedData)
       const user = auth.user
       let fileName = ''
 
@@ -48,11 +48,14 @@ export default class UsersController {
         fileName = validatedData.photo.fileName
       }
 
+      const vaccined = request.input('vaccined') === '1'
       const pet = new Pet()
+
       pet.merge({
         ...validatedData,
         userId: user.id,
         photo: fileName,
+        vaccined: vaccined,
       })
 
       await pet.save()
@@ -62,7 +65,7 @@ export default class UsersController {
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to create pet',
-        error: error.messages,
+        error: error.messages || error.message,
       })
     }
   }
@@ -202,10 +205,14 @@ export default class UsersController {
 
         fileName = updatePetData.photo.fileName
       }
+      console.log('vaccined', request.input('vaccined'))
+      const vaccined = request.input('vaccined') === '1'
+      console.log('vaccined', vaccined)
 
       pet.merge({
         ...updatePetData,
         userId: auth.user.id,
+        vaccined: vaccined,
         photo: fileName || pet.photo,
       })
 
