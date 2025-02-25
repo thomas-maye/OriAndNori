@@ -132,6 +132,46 @@
         @end
       </div>
     </div>
+    <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
+      {{--@if(meetup.date < new Date() && meetupUsers.some(meetupUser => meetupUser.id === auth.user.id))--}}
+        <h3 class="font-bold text-lg mb-4">Submit Review</h3>
+        <form method="POST" action="{{ route('createReviewMeetup') }}" class="space-y-4">
+          {{ csrfField() }}
+          <input type="hidden" name="meetupId" value="{{ meetup.id }}">
+  
+          <div class="mb-4">
+            <label for="rating" class="block text-gray-700">Rating:</label>
+            <input 
+              type="number" 
+              id="rating" 
+              name="rating" 
+              min="0" 
+              max="5" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+              required
+            >
+          </div>
+  
+          <div class="mb-4">
+            <label for="description" class="block text-gray-700">Description:</label>
+            <textarea 
+              id="description" 
+              name="description" 
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+              rows="4"
+              required
+            ></textarea>
+          </div>
+  
+          <button 
+            type="submit" 
+            class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
+          >
+            Submit Review
+          </button>
+        </form>
+      {{--@endif--}}
+    </div>
   </div>
 </body>
 </html>

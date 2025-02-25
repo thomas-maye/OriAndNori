@@ -14,6 +14,7 @@ const UsersController = () => import('#controllers/users_controller')
 const AuthController = () => import('#controllers/auth_controller')
 const ResetPasswordController = () => import('#controllers/reset_password_controller')
 const MeetupsController = () => import('#controllers/meetups_controller')
+const ReviewMeetupsController = () => import('#controllers/review_meetups_controller')
 
 /**
  * -------------------------------
@@ -205,4 +206,16 @@ router
 router
   .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])
   .as('deleteMeetup')
+  .use(middleware.auth())
+
+/**
+ * -------------------------------
+ * Review Meetup routes
+ * -------------------------------
+ */
+
+// Create ReviewMeetup
+router
+  .post('/review_meetups', [ReviewMeetupsController, 'createReviewMeetup'])
+  .as('createReviewMeetup')
   .use(middleware.auth())
