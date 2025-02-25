@@ -24,8 +24,8 @@
         <form class="space-y-6" action="{{ route('auth.login')}}" method="POST">
           {{ csrfField() }}
 
-          @!component('components/input', { name: 'email', label: 'Email address', type: 'email' })
-          @!component('components/input', { name: 'password', label: 'Password', type: 'password' })
+          @!component('components/input', { name: 'email', label: 'Email address', type: 'email', required: true })
+          @!component('components/input', { name: 'password', label: 'Password', type: 'password', required: true })
           <div class="flex justify-end text-sm/6 font-semibold text-emerald-600 hover:text-emerald-500">
             <a href="{{route('auth.forgot_password')}}">Forgot password?</a>
           </div>

@@ -2,32 +2,56 @@
   <label for="{{name}}">{{label || ''}}</label>
   <div class="mt-1">
     @if(type === 'select')
-    <select name="{{name}}" id="{{name}}" {{ required ? 'required' : '' }} class="mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
+    <select name="{{name}}" id="{{name}}" {{ required ? 'required' : '' }} 
+      class="mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+      focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
+      
       <option value="">Select an option</option>
       @each(option in options)
-      <option value="{{ option.value.toString() }}" {{ old(name)===option.value.toString() ? 'selected' : '' }}>
+      <option value="{{ option.value.toString() }}" 
+        {{ (old(name) ?? value) == option.value.toString() ? 'selected' : '' }}>
         {{ option.text }}
       </option>
       @end
+
     </select>
+
     @elseif(type === 'textarea')
     <textarea name="{{name}}" id="{{name}}" placeholder="{{ placeholder || `Enter your ${label}`}}" {{ required ? 'required' : '' }}
-    rows="5"
-    class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm"></textarea>
+      rows="5"
+      class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+      placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
+      {{ old(name) || value || '' }}
+    </textarea>
+
     @elseif(type === 'checkbox')
-    <input type="checkbox" name="{{name}}" id="{{name}}" {{ old(name) ? 'checked' : '' }} {{ required ? 'required' : '' }}>
+    <input type="checkbox" name="{{name}}" id="{{name}}" 
+      {{ old(name) ?? value ? 'checked' : '' }} {{ required ? 'required' : '' }}>
+
     @elseif(type === 'file')
-    <input type="file" name="{{name}}" id="{{name}}" accept="{{accept}}" {{ required ? 'required' : '' }} class="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border outline outline-1 -outline-offset-1 outline-gray-300 rounded-lg file:bg-emerald-600 file:text-white file:text-sm file:px-4 file:py-2 file:border-none file:rounded-lg dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:focus:border-blue-300">
+    <input type="file" name="{{name}}" id="{{name}}" accept="{{accept}}" {{ required ? 'required' : '' }}
+      class="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border outline outline-1 -outline-offset-1 outline-gray-300 
+      rounded-lg file:bg-emerald-600 file:text-white file:text-sm file:px-4 file:py-2 file:border-none file:rounded-lg 
+      dark:file:text-gray-200 dark:text-gray-300 placeholder-gray-400/70 dark:placeholder-gray-500 focus:border-blue-400 
+      focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 
+      dark:focus:border-blue-300">
+
     @elseif(type === 'range')
-    <input type="range" id="{{ name }}" name="{{ name }}" min="{{ min }}" max="{{ max }}" value="{{ value }}" {{ required ? 'required' : '' }}
+    <input type="range" id="{{ name }}" name="{{ name }}" min="{{ min }}" max="{{ max }}" value="{{ old(name) ?? value }}" 
+      {{ required ? 'required' : '' }}
       class="form-range block w-full border-gray-300 rounded-lg shadow-sm focus:ring-emerald-500 focus:border-emerald-500">
+
     @elseif(type === 'date')
-    <input type="date" name="{{name}}" id="{{name}}" {{ required ? 'required' : '' }}
-    class="block mt-2 w-full  rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400  focus:border-emerald-700 focus:outline-emerald-700 focus:outline focus:outline-2 focus:-outline-offset-2">    
+    <input type="date" name="{{name}}" id="{{name}}" value="{{ old(name) ?? value }}" {{ required ? 'required' : '' }}
+      class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+      placeholder:text-gray-400 focus:border-emerald-700 focus:outline-emerald-700 focus:outline focus:outline-2 focus:-outline-offset-2">
+
     @else
-    <input type="{{type || 'text'}}" name="{{name}}" id="{{name}}" autocomplete="{{name}}" {{ required ? 'required' : '' }}
-      placeholder="{{ placeholder || `Enter your ${label}`}}" value="{{ old(name) || value || '' }}"
-    class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
+    <input type="{{type || 'text'}}" name="{{name}}" id="{{name}}" autocomplete="{{name}}" 
+      placeholder="{{ placeholder || `Enter your ${label}`}}" value="{{ old(name) || value || '' }}" 
+      {{ required ? 'required' : '' }}
+      class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+      placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
     @endif
   </div>
 </div>

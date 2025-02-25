@@ -18,6 +18,7 @@
     </p>
   </div>
 
+  <div class="container mx-auto p-4">
   <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
     {{ csrfField() }}
 
@@ -114,14 +115,14 @@
 
           <div class="mb-4">
             What is your pet's personality?
-            <div id="personality-traits" class="text-sm px-4 dark:text-amber-400">
+            <div id="personality-traits" class="text-sm px-4 ">
               @if(traits && traits.length > 0)
               <div class="mb-2">
                 @each((trait, index) in traits)
                 <div class="mb-4" x-data="{ rating: {{ trait.rating }} }">
                   <input type="hidden" name="personality[{{ index }}][trait]" value="{{ trait.trait }}">
                   <input type="hidden" name="personality[{{ index }}][rating]" x-model="rating">
-                  <label class="block text-gray-700 font-semibold">{{ trait.trait }}</label>
+                  <label class="block text-gray-700 dark:text-amber-400 font-semibold">{{ trait.trait }}</label>
                   <div class="flex space-x-1">
                     <template x-for="i in 5" :key="i">
                       <button type="button" @click="rating = i" class="focus:outline-none">
