@@ -83,12 +83,8 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
     //console.log(params.id)
-    const pet = await Pet.query()
-    .where('id', params.id)
-    .preload('species')
-    .preload('breed')
-    .first()
-    
+    const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
+
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
@@ -102,12 +98,16 @@ export default class UsersController {
    * Display the Pet List
    * ------------------------------
    */
-  async displayPetList({ auth, view, response}: HttpContext) {
+  async displayPetList({ auth, view, response }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pets = await Pet.query().whereNot('userId', user.id).preload('user').preload('species').preload('breed')
+    const pets = await Pet.query()
+      .whereNot('userId', user.id)
+      .preload('user')
+      .preload('species')
+      .preload('breed')
 
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
@@ -126,7 +126,11 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const pets = await Pet.query().where('userId', user.id).preload('user').preload('species').preload('breed')
+    const pets = await Pet.query()
+      .where('userId', user.id)
+      .preload('user')
+      .preload('species')
+      .preload('breed')
 
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
@@ -146,11 +150,7 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const pet = await Pet.query()
-    .where('id', params.id)
-    .preload('species')
-    .preload('breed')
-    .first()
+    const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
 
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })

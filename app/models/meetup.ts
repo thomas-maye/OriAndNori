@@ -1,8 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, belongsTo, column, manyToMany } from '@adonisjs/lucid/orm'
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
+import { BaseModel, belongsTo, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
+import type { BelongsTo, ManyToMany, HasMany } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import Pet from './pet.js'
+import ReviewMeetup from './review_meetup.js'
 
 export default class Meetup extends BaseModel {
   @column({ isPrimary: true })
@@ -57,6 +58,9 @@ export default class Meetup extends BaseModel {
     pivotColumns: ['pet_name', 'sort_order'],
   })
   declare meetupPets: ManyToMany<typeof Pet>
+
+  @hasMany(() => ReviewMeetup)
+  declare reviewMeetup: HasMany<typeof ReviewMeetup>
 
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
