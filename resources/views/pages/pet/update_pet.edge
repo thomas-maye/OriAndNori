@@ -33,8 +33,19 @@
         </ul>
       </div>
       <div class="mb-4">
-        <label for="vaccined" class="block text-gray-700">Vaccined:</label>
-        <input type="checkbox" id="vaccined" name="vaccined" {{ pet.vaccined ? 'checked' : '' }} class="mt-1">
+        Is your pet vaccinated?
+        <div class="flex mt-2 space-x-2">
+          <label
+            class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+            <input type="radio" name="vaccined" value="1" class="sr-only peer" required>
+            <span class="peer-checked:text-white">Yes</span>
+          </label>
+          <label
+            class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
+            <input type="radio" name="vaccined" value="0" class="sr-only peer" required>
+            <span class="peer-checked:text-white">No</span>
+          </label>
+        </div>
       </div>
       <div class="mb-4">
         <label for="gender" class="block text-gray-700">Gender:</label>
@@ -49,10 +60,12 @@
       </div>
       <div class="mb-4">
         <label for="breed" class="block text-gray-700">Breed:</label>
+        <input type="hidden" id="breed_id" name="breed_id" value="{{ pet.breed.id }}">
         <input type="text" id="breed" name="breed" value="{{ pet.breed.name }}" class="mt-1 block w-full" required>
       </div>
       <div class="mb-4">
         <label for="species" class="block text-gray-700">Species:</label>
+        <input type="hidden" id="species_id" name="species_id" value="{{ pet.species.id }}">
         <input type="text" id="species" name="species" value="{{ pet.species.name }}" class="mt-1 block w-full" required>
       </div>
       <div class="mb-4">

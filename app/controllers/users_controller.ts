@@ -27,16 +27,13 @@ export default class UsersController {
   async createPet({ auth, request, response, session }: HttpContext) {
     try {
       const validatedData = await request.validateUsing(createPetValidator)
-
+      console.log('validateddata', validatedData)
       const user = auth.user
       let fileName = ''
 
       if (!user) {
         return response.unauthorized({ message: 'User not authenticated' })
       }
-
-      const species = await Species.findByOrFail('name', validatedData.species)
-      const breed = await Breed.findByOrFail('name', validatedData.breed)
 
       if (validatedData.photo) {
         await validatedData.photo.move(app.makePath('storage/uploads'), {
@@ -51,13 +48,14 @@ export default class UsersController {
         fileName = validatedData.photo.fileName
       }
 
+      const vaccined = request.input('vaccined') === '1'
       const pet = new Pet()
+
       pet.merge({
         ...validatedData,
         userId: user.id,
-        speciesId: species.id,
-        breedId: breed.id,
         photo: fileName,
+        vaccined: vaccined,
       })
 
       await pet.save()
@@ -67,7 +65,7 @@ export default class UsersController {
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to create pet',
-        error: error.messages,
+        error: error.messages || error.message,
       })
     }
   }
@@ -83,12 +81,8 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
     //console.log(params.id)
-    const pet = await Pet.query()
-    .where('id', params.id)
-    .preload('species')
-    .preload('breed')
-    .first()
-    
+    const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
+
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
@@ -102,12 +96,16 @@ export default class UsersController {
    * Display the Pet List
    * ------------------------------
    */
-  async displayPetList({ auth, view, response}: HttpContext) {
+  async displayPetList({ auth, view, response }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pets = await Pet.query().whereNot('userId', user.id).preload('user').preload('species').preload('breed')
+    const pets = await Pet.query()
+      .whereNot('userId', user.id)
+      .preload('user')
+      .preload('species')
+      .preload('breed')
 
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
@@ -126,7 +124,11 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const pets = await Pet.query().where('userId', user.id).preload('user').preload('species').preload('breed')
+    const pets = await Pet.query()
+      .where('userId', user.id)
+      .preload('user')
+      .preload('species')
+      .preload('breed')
 
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
@@ -146,11 +148,7 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
 
-    const pet = await Pet.query()
-    .where('id', params.id)
-    .preload('species')
-    .preload('breed')
-    .first()
+    const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
 
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
@@ -166,61 +164,67 @@ export default class UsersController {
    * ------------------------------
    */
   async updatePet({ auth, request, response, params, session }: HttpContext) {
-    if (!auth.user) {
-      session.flash('error', 'You must be logged in to view this page')
-      return response.redirect().toRoute('auth.login')
-    }
+    try {
+      if (!auth.user) {
+        session.flash('error', 'You must be logged in to view this page')
+        return response.redirect().toRoute('auth.login')
+      }
 
-    const pet = await Pet.find(params.id)
-    if (!pet) {
-      session.flash('error', 'Pet not found')
-      return response.redirect().toRoute('MyPets')
-    }
+      const pet = await Pet.find(params.id)
+      if (!pet) {
+        session.flash('error', 'Pet not found')
+        return response.redirect().toRoute('MyPets')
+      }
 
-    if (pet.userId !== auth.user.id) {
-      session.flash('error', 'You are not authorized to update this pet')
-      return response.redirect().toRoute('MyPets')
-    }
+      if (pet.userId !== auth.user.id) {
+        session.flash('error', 'You are not authorized to update this pet')
+        return response.redirect().toRoute('MyPets')
+      }
 
-    const updatePetData = await request.validateUsing(createPetValidator)
-    let fileName = ''
+      const updatePetData = await request.validateUsing(createPetValidator)
+      let fileName = ''
 
-    if (updatePetData.photo) {
-      if (pet.photo) {
-        try {
-          await drive.use().delete(`uploads/${pet.photo}`)
-        } catch (error) {
-          session.flash('error', 'Error deleting old photo')
+      if (updatePetData.photo) {
+        if (pet.photo) {
+          try {
+            await drive.use().delete(`uploads/${pet.photo}`)
+          } catch (error) {
+            session.flash('error', 'Error deleting old photo')
+            return response.redirect().back()
+          }
+        }
+
+        await updatePetData.photo.move(app.makePath('storage/uploads'), {
+          name: `${cuid()}.${updatePetData.photo.extname}`,
+        })
+
+        if (!updatePetData.photo.fileName) {
+          session.flash('error', 'Error uploading profile picture')
           return response.redirect().back()
         }
-      }
 
-      await updatePetData.photo.move(app.makePath('storage/uploads'), {
-        name: `${cuid()}.${updatePetData.photo.extname}`,
+        fileName = updatePetData.photo.fileName
+      }
+      console.log('vaccined', request.input('vaccined'))
+      const vaccined = request.input('vaccined') === '1'
+      console.log('vaccined', vaccined)
+
+      pet.merge({
+        ...updatePetData,
+        userId: auth.user.id,
+        vaccined: vaccined,
+        photo: fileName || pet.photo,
       })
 
-      if (!updatePetData.photo.fileName) {
-        session.flash('error', 'Error uploading profile picture')
-        return response.redirect().back()
-      }
-
-      fileName = updatePetData.photo.fileName
+      await pet.save()
+      session.flash('success', 'Pet updated successfully!')
+      return response.redirect().toRoute('MyPets')
+    } catch (error) {
+      return response.status(400).json({
+        message: 'Failed to create pet',
+        error: error.messages,
+      })
     }
-
-    const species = await Species.findByOrFail('name', updatePetData.species)
-    const breed = await Breed.findByOrFail('name', updatePetData.breed)
-
-    pet.merge({
-      ...updatePetData,
-      userId: auth.user.id,
-      speciesId: species.id,
-      breedId: breed.id,
-      photo: fileName || pet.photo,
-    })
-
-    await pet.save()
-    session.flash('success', 'Pet updated successfully!')
-    return response.redirect().toRoute('MyPets')
   }
 
   /**
