@@ -81,14 +81,13 @@ export default class UsersController {
       return response.unauthorized({ message: 'User not authenticated' })
     }
     //console.log(params.id)
-    const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
+    const pet = await Pet.findOrFail(params.id)
 
-    if (!pet) {
-      return response.status(404).json({ message: 'Pet not found' })
-    }
+    await pet.load('user')
+    await pet.load('species')
+    await pet.load('breed')
 
-    const photoUrl = pet.photo
-    return view.render('pages/pet/display_pet_profile', { pet, photoUrl })
+    return view.render('pages/pet/display_pet_profile', { pet })
   }
 
   /**
