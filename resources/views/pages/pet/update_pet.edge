@@ -56,15 +56,21 @@
             </div>
 
             <div class="mb-4">
+              What is your pet's species?
+            <div class="mb-4">
               <input type="hidden" id="species_id" name="species_id" value="{{ pet.species.id }}">
               <input type="select" id="species" name="species" value="{{ pet.species.name }}" class="mt-1 block w-full"
                 required>
             </div>
+            </div>
 
+            <div class="mb-4">
+              What is your pet's breed?
             <div class="mb-4">
               <input type="hidden" id="breed_id" name="breed_id" value="{{ pet.breed.id }}">
               <input type="text" id="breed" name="breed" value="{{ pet.breed.name }}" class="mt-1 block w-full"
                 required>
+            </div>
             </div>
 
             <div class="mb-4">
