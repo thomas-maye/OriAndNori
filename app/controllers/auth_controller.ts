@@ -5,7 +5,6 @@ import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 import mail from '@adonisjs/mail/services/main'
-import { dd } from '@adonisjs/core/services/dumper'
 
 export default class AuthController {
   /**
