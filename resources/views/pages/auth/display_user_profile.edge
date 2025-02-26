@@ -21,7 +21,7 @@
 
 
     <div
-        class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+        class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
         <div>
             <img class="mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
             src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
@@ -34,7 +34,7 @@
                     <path fill="currentColor"
                         d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
                 </svg>
-                <div class="text-2xl font-semibold capitalize text-emerald-700">
+                <div class="text-2xl font-semibold  text-emerald-700">
                     {{ userProfile.username }}
                 </div>
             </div>
@@ -71,6 +71,14 @@
 
                 <h1 class="px-2 text-sm">
                     <p> {{ userProfile.city }}</p>
+                </h1>
+            </div>
+
+            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
+                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12z"/></svg>
+
+                <h1 class="px-2 text-sm">
+                    <p>Register since {{ new Date(userProfile.createdAt).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'})}}</p>
                 </h1>
             </div>
 
