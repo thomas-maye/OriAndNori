@@ -111,6 +111,9 @@ export default class AuthController {
       session.flash('error', 'You must be logged in to view this page')
       return view.render('pages/auth/login')
     }
+
+    await user.load('pet')
+
     return view.render('pages/auth/myprofile')
   }
 
