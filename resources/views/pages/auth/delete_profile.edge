@@ -1,3 +1,4 @@
+@eval(await auth.use('web').check())
 @layout.app({ title: "Delete MyProfile" })
 @slot('meta')
 <meta name="description" content="A Delete MyProfile page made with EdgeJS">

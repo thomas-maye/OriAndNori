@@ -268,7 +268,7 @@ export default class AuthController {
       session.flash('error', 'You must be logged in to view this page')
       return view.render('pages/auth/login')
     }
-    const users = await User.query().whereNot('id', user.id)
+    const users = await User.query().whereNot('id', user.id).preload('pet')
     return view.render('pages/auth/display_all_users', { users })
   }
 
