@@ -86,8 +86,26 @@ export default class UsersController {
     await pet.load('user')
     await pet.load('species')
     await pet.load('breed')
+    await pet.load('petMeetups', (query) => {
+      query.preload('reviewMeetup')
+    })
 
-    return view.render('pages/pet/display_pet_profile', { pet })
+    let totalRating = 0
+    let totalReviews = 0
+
+    pet.petMeetups.forEach((meetup) => {
+      if (meetup.reviewMeetup && meetup.reviewMeetup.length > 0) {
+        const meetupRating = meetup.reviewMeetup.reduce((sum, review) => sum + review.rating, 0)
+        totalRating += meetupRating
+        totalReviews += meetup.reviewMeetup.length
+      }
+    })
+    console.log('totalRating', totalRating)
+    console.log('totalReviews', totalReviews)
+    const petAverageRating = totalRating / totalReviews
+    console.log('averageRating', petAverageRating)
+
+    return view.render('pages/pet/display_pet_profile', { pet, petAverageRating })
   }
 
   /**
@@ -204,9 +222,9 @@ export default class UsersController {
 
         fileName = updatePetData.photo.fileName
       }
-      console.log('vaccined', request.input('vaccined'))
+      //console.log('vaccined', request.input('vaccined'))
       const vaccined = request.input('vaccined') === '1'
-      console.log('vaccined', vaccined)
+      //console.log('vaccined', vaccined)
 
       pet.merge({
         ...updatePetData,

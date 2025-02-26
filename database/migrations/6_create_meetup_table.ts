@@ -14,6 +14,7 @@ export default class extends BaseSchema {
       table.string('city').notNullable()
       table.string('type').notNullable()
       table.dateTime('date').notNullable()
+      table.float('global_rating', 3, 1).nullable()
 
       // Foreign keys
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')

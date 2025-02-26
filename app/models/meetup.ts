@@ -34,6 +34,9 @@ export default class Meetup extends BaseModel {
   declare date: DateTime
 
   @column()
+  declare globalRating: number
+
+  @column()
   declare userId: number
 
   @belongsTo(() => User)
@@ -67,4 +70,13 @@ export default class Meetup extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+
+  // Method for updating the global rating of a meetup
+  public async updateGlobalRating() {
+    if (this.reviewMeetup && this.reviewMeetup.length > 0) {
+      const totalRating = this.reviewMeetup.reduce((sum, review) => sum + review.rating, 0)
+      this.globalRating = Number((totalRating / this.reviewMeetup.length).toFixed(1))
+      await this.save()
+    }
+  }
 }

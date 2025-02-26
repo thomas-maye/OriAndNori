@@ -208,6 +208,18 @@ router
   .as('deleteMeetup')
   .use(middleware.auth())
 
+// Update Meetup View
+router
+  .get('/meetups/update/:id', [MeetupsController, 'updateMeetupView'])
+  .as('updateMeetupView')
+  .use(middleware.auth())
+
+// Update Meetup
+router
+  .put('/meetups/update/:id', [MeetupsController, 'updateMeetup'])
+  .as('updateMeetup')
+  .use(middleware.auth())
+
 /**
  * -------------------------------
  * Review Meetup routes
@@ -218,4 +230,16 @@ router
 router
   .post('/review_meetups', [ReviewMeetupsController, 'createReviewMeetup'])
   .as('createReviewMeetup')
+  .use(middleware.auth())
+
+// Delete ReviewMeetup
+router
+  .delete('/review_meetups/:id', [ReviewMeetupsController, 'deleteReviewMeetup'])
+  .as('deleteReviewMeetup')
+  .use(middleware.auth())
+
+// edit ReviewMeetup
+router
+  .put('/review_meetups/:id', [ReviewMeetupsController, 'editReviewMeetup'])
+  .as('editReviewMeetup')
   .use(middleware.auth())

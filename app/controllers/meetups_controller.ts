@@ -4,8 +4,14 @@ import Pet from '#models/pet'
 import Meetup from '#models/meetup'
 import { meetupValidator } from '#validators/meetup'
 import { DateTime } from 'luxon'
+import ReviewMeetup from '#models/review_meetup'
 
 export default class MeetupsController {
+  /**
+   * ------------------------------
+   * Create a Meetup
+   * ------------------------------
+   */
   async createMeetup({ auth, request, response, session }: HttpContext) {
     try {
       const user = auth.user
@@ -49,6 +55,11 @@ export default class MeetupsController {
       return response.redirect().toRoute('createMeetupForm')
     }
   }
+  /**
+   * ------------------------------
+   * Show the Meetup create Form
+   * ------------------------------
+   */
   async meetupsForm({ view, auth, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -59,7 +70,11 @@ export default class MeetupsController {
 
     return view.render('pages/meetup/create_meetup_form', { pets: userPets })
   }
-
+  /**
+   * ------------------------------
+   * Display One Meetup
+   * ------------------------------
+   */
   async displayOneMeetup({ view, params, auth, response, session }: HttpContext) {
     try {
       const user = auth.user
@@ -75,6 +90,11 @@ export default class MeetupsController {
         : DateTime.fromJSDate(meetup.date)
 
       const formattedDate = meetupDate.toFormat('dd/MM/yyyy HH:mm')
+
+      const reviewMeetup = await ReviewMeetup.query()
+        .where('meetup_id', params.id)
+        .preload('user')
+        .orderBy('created_at', 'desc')
 
       //participant meetup
       const meetupUsers = await meetup
@@ -100,12 +120,19 @@ export default class MeetupsController {
         meetupPets,
         formattedDate,
         connectUserPet,
+        reviewMeetup,
       })
     } catch (error) {
       session.flash('error', 'Meetup not found') // a affiché un message d'erreur mais voir comment._.
       return response.redirect().toRoute('myMeetups')
     }
   }
+
+  /**
+   * ------------------------------
+   * Display Meetups List
+   * ------------------------------
+   */
   async displayMeetupsList({ view, auth, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -113,7 +140,7 @@ export default class MeetupsController {
     }
 
     const meetups = await Meetup.query()
-      .whereHas('meetupUsers', (query) => {
+      .whereDoesntHave('meetupUsers', (query) => {
         query.where('user_id', user.id)
       })
       .preload('meetupPets', (query) => {
@@ -132,6 +159,11 @@ export default class MeetupsController {
     return view.render('pages/meetup/meetups', { meetups: formattedMeetups })
   }
 
+  /**
+   * ------------------------------
+   * Display My Meetups
+   * ------------------------------
+   */
   async displayMyMeetups({ view, auth, response }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -158,6 +190,11 @@ export default class MeetupsController {
     return view.render('pages/meetup/my_meetups', { meetups: formattedMeetups })
   }
 
+  /**
+   * ------------------------------
+   * Join a Meetup
+   * ------------------------------
+   */
   async joinMeetup({ auth, params, response, session, request }: HttpContext) {
     try {
       const user = auth.user
@@ -213,7 +250,11 @@ export default class MeetupsController {
       return response.redirect().toRoute('myMeetups')
     }
   }
-
+  /**
+   * ------------------------------
+   * Leave a Meetup
+   * ------------------------------
+   */
   async leaveMeetup({ auth, params, response, session }: HttpContext) {
     try {
       const user = auth.user
@@ -245,6 +286,11 @@ export default class MeetupsController {
     }
   }
 
+  /**
+   * ------------------------------
+   * Remove Pet from Meetup
+   * ------------------------------
+   */
   async removePetFromMeetup({ auth, params, response, session, request }: HttpContext) {
     try {
       const user = auth.user
@@ -278,6 +324,11 @@ export default class MeetupsController {
     }
   }
 
+  /**
+   * ------------------------------
+   * Delete Meetup
+   * ------------------------------
+   */
   async deleteMeetup({ auth, params, response, session }: HttpContext) {
     const user = auth.user
     if (!user) {
@@ -299,5 +350,72 @@ export default class MeetupsController {
     await meetup.delete()
     session.flash('success', 'Meetup deleted successfully!')
     return response.redirect().toRoute('myMeetups')
+  }
+
+  /**
+   * ------------------------------
+   * Display the Update Meetup Page
+   * ------------------------------
+   */
+  async updateMeetupView({ auth, view, params, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      return response.status(404).json({ message: 'Meetup not found' })
+    }
+    const meetupDate = DateTime.isDateTime(meetup.date)
+      ? meetup.date
+      : DateTime.fromJSDate(meetup.date)
+
+    const formattedDate = meetupDate.toFormat('dd/MM/yyyy HH:mm')
+    return view.render('pages/meetup/update_meetup', { meetup, formattedDate })
+  }
+
+  /**
+   * ------------------------------
+   * Update Meetup
+   * ------------------------------
+   */
+  async updateMeetup({ auth, params, response, session, request }: HttpContext) {
+    try {
+      const user = auth.user
+      if (!user) {
+        return response.unauthorized({ message: 'User not authenticated' })
+      }
+
+      const meetup = await Meetup.find(params.id)
+
+      if (!meetup) {
+        session.flash('error', 'Meetup not found')
+        return response.redirect().toRoute('myMeetups')
+      }
+
+      if (meetup.userId !== user.id) {
+        session.flash('error', 'You are not the organizer of this meetup')
+        return response.redirect().toRoute('myMeetups')
+      }
+
+      if (meetup.date < DateTime.now()) {
+        session.flash('error', 'You cannot edit a past meetup')
+        return response.redirect().toRoute('myMeetups')
+      }
+
+      const validatedData = await request.validateUsing(meetupValidator)
+      await meetup.merge(validatedData).save()
+
+      session.flash('success', 'Meetup updated successfully!')
+      return response.redirect().toRoute('myMeetups')
+    } catch (error) {
+      return response.status(400).json({
+        message: 'Failed to delete review',
+        error: error.messages || error.message,
+      })
+    }
+    //session.flash('error', 'Meetup deleted successfully!')
+    //return response.redirect().toRoute('myMeetups')
   }
 }
