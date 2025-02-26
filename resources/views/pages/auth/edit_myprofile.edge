@@ -28,31 +28,37 @@
                     class="mx-4 my-4 w-64 h-64 object-cover rounded-xl aspect-square border-amber-400 border-2">
 
                 <div class="px-4 text-emerald-700 text-lg grid grid-cols-1 md:grid-cols-2 gap-6 ">
-                    @!component('components/input-form', { name: 'first_name', label: 'First Name:', type: 'text',
-                    placeholder:'Enter your first name', value: auth.user.first_name })
-                    @!component('components/input-form', { name: 'last_name', label: 'Last Name:', type: 'text',
-                    placeholder:'Enter your last name', value: auth.user.last_name })
-                    @!component('components/input-form', { name: 'description', label: 'Description:',
-                    type:'text',placeholder: 'Description', value: auth.user.description})
-                    @!component('components/input-form', { name: 'address_1', label: 'Address:', type: 'text',
-                    placeholder: 'Enter your address', value: auth.user.address_1 })
-                    @!component('components/input-form', { name: 'address_2', label: 'Complement Adress:', type: 'text',
-                    placeholder: 'Enter your complement address', value: auth.user.address_2 })
-                    @!component('components/input-form', { name: 'postal_code', label: 'Postal Code:', type: 'text',
-                    placeholder: 'Enter your postal code', value: auth.user.postal_code })
-                    @!component('components/input-form', { name: 'city', label: 'City:', type: 'text', placeholder:
-                    'Enter your city', value: auth.user.city })
-                    @!component('components/input-form', { name: 'phone', label: 'Phone number:', type: 'tel',
-                    placeholder: 'Enter your phone number', value: auth.user.phone })
+
+                    <div class="space-y-4"> 
+                        @!component('components/input', { name: 'first_name', placeholder: 'Enter your first name',
+                        type: 'text', value: auth.user.first_name})
+                        @!component('components/input', { name: 'last_name', placeholder: 'Enter your last name', type:
+                        'text', value: auth.user.last_name})
+                        @!component('components/input', { name: 'phone', placeholder: 'Enter your phone number', type:
+                        'tel', value: auth.user.phone})
+                        @!component('components/input', { name: 'description', placeholder: 'Description', type: 'text',
+                        value: auth.user.description})
+                    </div>
+                    <div class="space-y-4">
+                        @!component('components/input', { name: 'address_1', placeholder: 'Enter your address', type:
+                        'text', value: auth.user.address_1})
+                        @!component('components/input', { name: 'address_2', placeholder: 'Enter your complement address', type: 'text', value: auth.user.address_2})
+                        <div class="grid grid-cols-2 space-x-1">
+                            @!component('components/input', { name: 'postal_code', placeholder: 'Enter your postal code',
+                            type: 'text', value: auth.user.postal_code})
+                            @!component('components/input', { name: 'city', placeholder: 'Enter your city', type: 'text',
+                            value: auth.user.city})
+                        </div>
+                    </div>
+
                 </div>
             </div>
-    </div>
 
-    <div class="flex justify-center mt-6">
-        @!component('components/button-simple/full', { text: "Update" })
-    </div>
+            <div class="flex justify-center mt-6">
+                @!component('components/button-simple/full', { text: "Update" })
+            </div>
 
-    </form>
+        </form>
     </div>
 
 </section>
