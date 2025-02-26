@@ -5,6 +5,7 @@ import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 import mail from '@adonisjs/mail/services/main'
+import { dd } from '@adonisjs/core/services/dumper'
 
 export default class AuthController {
   /**
@@ -284,12 +285,10 @@ export default class AuthController {
       return view.render('pages/auth/login')
     }
 
-    const userProfile = await User.find(params.id)
+    const userProfile = await User.findOrFail(params.id)
 
-    if (!userProfile) {
-      session.flash('error', 'User not found')
-      return view.render('pages/auth/display_all_users')
-    }
+    await userProfile.load('pet')
+
     return view.render('pages/auth/display_user_profile', { userProfile })
   }
 }
