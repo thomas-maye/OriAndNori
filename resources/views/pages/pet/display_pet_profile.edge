@@ -13,11 +13,12 @@
       <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
     </div>
     <p class="mt-6 mb-6 text-gray-500 dark:text-gray-300">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo incidunt ex placeat modi magni quia error
-      alias, adipisci rem similique, at omnis eligendi optio eos harum.
+      Here is the profile of the pet you are looking for. Enjoy! You can add this pet to your favorites or propose a
+      meetup with it.
     </p>
   </div>
-  <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+  <div
+    class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
     <div>
       <h1 class="text-2xl font-semibold capitalize text-emerald-700 flex items-center">
         {{ pet.name }}
@@ -45,7 +46,7 @@
         src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
         alt="Photo of {{ pet.name }}">
 
-        <div
+      <div
         class=" bg-gray-100 dark:bg-emerald-800 p-4 rounded-lg  text-gray-500 dark:text-gray-300 border-amber-400 border-2 mt-4">
         @each(personality in pet.personality)
         <div class="grid grid-cols-2 gap-4">
@@ -111,34 +112,41 @@
         </div>
       </div>
       <div class="py-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+        </svg>
         {{ pet.description }}
-        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+        </svg>
       </div>
       <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
         <div class="px-4 py-4">
-        insérer les Meetups auxquels l'animal à participé
+          insérer les Meetups auxquels l'animal à participé
         </div>
       </div>
       <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
         <div class="px-4 py-4">
-        insérer les Meetups auxquels l'animal à participé
+          insérer les Meetups auxquels l'animal à participé
         </div>
       </div>
       <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
         <div class="px-4 py-4">
-        insérer les Meetups auxquels l'animal à participé
+          insérer les Meetups auxquels l'animal à participé
         </div>
       </div>
       <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
         <div class="px-4 py-4">
-        insérer les Meetups auxquels l'animal à participé
+          insérer les Meetups auxquels l'animal à participé
         </div>
       </div>
-      <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
-        <div class="px-4 py-4">
-        insérer les Meetups auxquels l'animal à participé
-        </div>
+      <div class="mt-4 text-right space-x-2">
+        @if(auth.user.id !== pet.user.id)
+        @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
+        @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
+        @endif
       </div>
     </div>
   </div>
