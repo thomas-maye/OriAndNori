@@ -19,7 +19,7 @@
     @elseif(type === 'textarea')
     <textarea name="{{name}}" id="{{name}}" placeholder="{{ placeholder || `Enter your ${label}`}}" {{ required ? 'required' : '' }}
       rows="5"
-      class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+      class="block mt-2 w-full rounded-lg bg-white py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
       placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
       {{ old(name) || value || '' }}
     </textarea>

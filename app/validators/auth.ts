@@ -64,7 +64,7 @@ export const updateUserValidator = vine.compile(
     description: vine.string().trim().minLength(10).maxLength(150).optional(),
     profile_picture: vine
       .file({
-        size: '2mb',
+        size: '4mb',
         extnames: ['jpg', 'png', 'jpeg'],
       })
       .optional(),
