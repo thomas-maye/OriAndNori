@@ -6,82 +6,105 @@
 @endslot
 
 @slot('main')
-<div class="flex justify-center items-center mb-10">
-    @!component('components/group-button-myprofile')
-</div>
-
-<div class="flex justify-center items-center">
-    <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        <img class="object-cover object-center w-full h-56"
-            src="{{ auth.user.profile_picture ? 'storage/' + await driveUrl(auth.user.profile_picture) : src="resources/images/1077114.png" }}"
-            alt="avatar">
-
-        <div class="flex items-center px-6 py-3 bg-emerald-800">
-            <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-
-            <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
+    <div class="container px-4 py-0">
+        <h1 class="text-2xl font-semibold  lg:text-3xl text-emerald-700">My Profile</h1>
+        <div class="flex mx-auto">
+            <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
         </div>
-
-        <div class="px-4 py-2">
-            @!component('components/banner/success')
-        </div>
-
-        <div class="px-6 py-4">
-            <h1 class="text-xl font-semibold text-gray-800 dark:text-white"></h1>
-            <p class="py-2 text-gray-700 dark:text-gray-400">My name is {{ auth.user.first_name }} {{
-                auth.user.last_name }}</p>
-
-            <p class="py-2 text-gray-700 dark:text-gray-400">Description: {{ auth.user.description }}</p>
-
-            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                <img class="w-6 h-6" src="https://img.icons8.com/?size=100&id=106514&format=png&color=000000">
-                <h1 class="px-2 text-sm">Pet</h1>
-            </div>
-
-            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
-                <svg aria-label="location pin icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-                </svg>
-
-                <h1 class="px-2 text-sm">
-                    <p>{{ auth.user.address_1 }}</p>
-                    <p>{{ auth.user.address_2 }}</p>
-                    <p>{{ auth.user.postal_code }} {{ auth.user.city }}</p>
-                </h1>
-            </div>
-
-            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
-                <svg aria-label="location pin icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
-                </svg>
-
-                <h1 class="px-2 text-sm">
-                    <p>{{ auth.user.phone }}</p>
-                </h1>
-            </div>
-
-            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-                <svg aria-label="email icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
-                </svg>
-
-                <h1 class="px-2 text-sm">{{ auth.user.email }}</h1>
-            </div>
-
-        </div>
+        <p class="mt-6 text-gray-500 dark:text-gray-300">
+            Here is your profile information. You can update it by clicking the button below.
+        </p>
     </div>
-</div>
-@endslot
-@end
+
+    <div class="px-4 py-2">
+        @!component('components/banner/success')
+    </div>
+
+    <div class="container px-30 md:px-4">
+        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+            <div
+                class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+                <img class="object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+                    src="{{ auth.user.profile_picture ? 'storage/' + await driveUrl(auth.user.profile_picture) : src="resources/images/1077114.png" }}" alt="Photo of {{ auth.user.username }}">
+
+                <div class="flex items-center py-4">
+                    <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <h1 class="mx-3 text-lg font-semibold text-white">{{ auth.user.username }}</h1>
+                </div>
+
+                <div class="">
+                    <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
+                    <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
+                    <span class="inline-block w-1 h-0.5 bg-amber-400 rounded-full"></span>
+                </div>
+
+                <div class="px-6 py-4">
+                    <h1 class="text-xl font-semibold text-gray-800 dark:text-white"></h1>
+                    <p class="py-2 text-gray-700 dark:text-gray-400">My name is {{ auth.user.first_name }} {{
+                        auth.user.last_name }}</p>
+
+                    <div class="py-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                        </svg>
+                        {{ auth.user.description }}
+                        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                        <img class="w-6 h-6" src="https://img.icons8.com/?size=100&id=106514&format=png&color=000000">
+                        <h1 class="px-2 text-sm">Pet</h1>
+                    </div>
+
+                    <div class="flex mt-4 text-gray-700 dark:text-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+                        </svg>
+
+                        <h1 class="px-2 text-sm">
+                            <p>{{ auth.user.address_1 }}</p>
+                            <p>{{ auth.user.address_2 }}</p>
+                            <p>{{ auth.user.postal_code }} {{ auth.user.city }}</p>
+                        </h1>
+                    </div>
+
+                    <div class="flex mt-4 text-gray-700 dark:text-gray-200">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M4.05 21q-.45 0-.75-.3t-.3-.75V15.9q0-.325.225-.587t.575-.363l3.45-.7q.35-.05.713.063t.587.337L10.9 17q.95-.55 1.8-1.213t1.625-1.437q.825-.8 1.513-1.662t1.187-1.788L14.6 8.45q-.2-.2-.275-.475T14.3 7.3l.65-3.5q.05-.325.325-.562T15.9 3h4.05q.45 0 .75.3t.3.75q0 3.125-1.362 6.175t-3.863 5.55t-5.55 3.863T4.05 21" />
+                        </svg>
+
+                        <h1 class="px-2 text-sm">
+                            <p>{{ auth.user.phone }}</p>
+                        </h1>
+                    </div>
+
+                    <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                        <svg aria-label="email icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M3.00977 5.83789C3.00977 5.28561 3.45748 4.83789 4.00977 4.83789H20C20.5523 4.83789 21 5.28561 21 5.83789V17.1621C21 18.2667 20.1046 19.1621 19 19.1621H5C3.89543 19.1621 3 18.2667 3 17.1621V6.16211C3 6.11449 3.00333 6.06765 3.00977 6.0218V5.83789ZM5 8.06165V17.1621H19V8.06199L14.1215 12.9405C12.9499 14.1121 11.0504 14.1121 9.87885 12.9405L5 8.06165ZM6.57232 6.80554H17.428L12.7073 11.5263C12.3168 11.9168 11.6836 11.9168 11.2931 11.5263L6.57232 6.80554Z" />
+                        </svg>
+
+                        <h1 class="px-2 text-sm">{{ auth.user.email }}</h1>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        @endslot
+        @end
