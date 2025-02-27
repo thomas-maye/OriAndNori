@@ -89,23 +89,11 @@ export default class UsersController {
     await pet.load('petMeetups', (query) => {
       query.preload('reviewMeetup')
     })
-
-    let totalRating = 0
-    let totalReviews = 0
-
-    pet.petMeetups.forEach((meetup) => {
-      if (meetup.reviewMeetup && meetup.reviewMeetup.length > 0) {
-        const meetupRating = meetup.reviewMeetup.reduce((sum, review) => sum + review.rating, 0)
-        totalRating += meetupRating
-        totalReviews += meetup.reviewMeetup.length
-      }
+    await pet.load('reviewPet', (query) => {
+      query.preload('user')
     })
-    //console.log('totalRating', totalRating)
-    //console.log('totalReviews', totalReviews)
-    const petAverageRating = totalRating / totalReviews
-    //console.log('averageRating', petAverageRating)
 
-    return view.render('pages/pet/display_pet_profile', { pet, petAverageRating })
+    return view.render('pages/pet/display_pet_profile', { pet })
   }
 
   /**

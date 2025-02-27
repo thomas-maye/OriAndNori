@@ -273,3 +273,9 @@ router
   .get('/reviewsForm/:id', [ReviewPetsController, 'showReviewForm'])
   .as('showReviewForm')
   .use(middleware.auth())
+
+//show edit review form
+router
+  .get('/editReviewForm/:id', [ReviewPetsController, 'editReviewForm'])
+  .as('showEditReviewForm')
+  .use(middleware.auth())

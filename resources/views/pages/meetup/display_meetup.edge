@@ -186,8 +186,17 @@
         </form>
       {{--@endif--}}
     </div>--}}
+
     <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
       <h3 class="font-bold text-lg mb-4">Reviews</h3>
+      @if(reviewMeetup.some(review => review.user.id === auth.user.id || reviewPet.some(review => review.user.id === auth.user.id)))
+        <a 
+        href="{{ route('showEditReviewForm', { id: meetup.id }) }}" 
+        class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+      >
+        Edit Review
+      </a>
+      @endif
       @if(reviewMeetup && reviewMeetup.length > 0)
         @each(review in reviewMeetup)
           <div class="bg-white shadow rounded-lg p-4 mb-4">
@@ -199,9 +208,16 @@
               <span class="text-sm text-gray-500">{{ review.createdAt.toFormat('dd/MM/yyyy HH:mm') }}</span>
             </div>
             <p class="text-gray-700">{{ review.description }}</p>
-            @if(review.user.id === auth.user.id)
+            
+           {{--@if(review.user.id === auth.user.id)
             <div class="flex space-x-2 mt-2">
-              <form method="POST" action="{{ route('editReviewMeetup', {id: review.id})}}?_method=PUT">
+              <a 
+                href="{{ route('showEditReviewForm', { id: review.id }) }}" 
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                Edit Review
+              </a> --}}
+              {{--<form method="POST" action="{{ route('editReviewMeetup', {id: review.id})}}?_method=PUT">
                 {{ csrfField() }}
                 <div class="mb-4">
                   <label for="rating" class="block text-gray-700">Rating:</label>
@@ -227,13 +243,13 @@
                   ></textarea>
                 </div>
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</button>
-              </form>
+              </form>--}}
               <form action="{{ route('deleteReviewMeetup', { id: review.id }) }}?_method=DELETE" method="POST">
                 {{ csrfField() }}
                 <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
               </form>
             </div>
-          @endif
+          {{--@endif--}}
         </div>
         @end
       @else
@@ -246,6 +262,7 @@
         >
           Review Meetup
         </a>
+        
       </div>
     </div>
   </div>

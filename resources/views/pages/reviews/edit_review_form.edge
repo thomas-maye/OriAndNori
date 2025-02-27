@@ -1,0 +1,107 @@
+@layout.app({ title: "Edit Review Meetup" })
+@slot('meta')
+<meta name="description" content="Edit review form for meetup and pets">
+@endslot
+
+@slot('main')
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10 px-4">
+  <div class="container py-4">
+    <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Edit Review</h1>
+
+    {{-- Meetup Review Section --}}
+    @if(reviewMeetup)
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">Edit Meetup Review: {{ meetup.title }}</h2>
+      <form method="POST" action="{{ route('editReviewMeetup', { id: reviewMeetup.id }) }}?_method=PUT" class="space-y-4">
+        {{ csrfField() }}
+
+        <div class="mb-4">
+          <label for="meetupRating" class="block text-gray-700">Meetup Rating:</label>
+          <input 
+            type="number" 
+            id="meetupRating" 
+            name="rating" 
+            min="0" 
+            max="5"
+            value="{{ reviewMeetup.rating }}"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+            required
+          >
+        </div>
+
+        <div class="mb-4">
+          <label for="meetupDescription" class="block text-gray-700">Meetup Review:</label>
+          <textarea 
+            id="meetupDescription" 
+            name="description" 
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
+            rows="4"
+            required
+          >{{ reviewMeetup.description }}</textarea>
+        </div>
+
+        <button type="submit" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">
+          Update Meetup Review
+        </button>
+      </form>
+    </div>
+    @end
+
+    {{-- Pets Reviews Section --}}
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-gray-700 mb-4">Edit Pet Reviews</h2>
+      
+      @if(reviewPets && reviewPets.length > 0)
+        @each(pet in reviewPets)
+          <div>
+            <h4 class="font-semibold text-lg text-emerald-700 mb-2">{{ pet.name }}</h4>
+            @if(pet.$preloaded.reviewPet[0])
+              <form method="POST" action="{{ route('editReviewPet', { id: pet.$preloaded.reviewPet[0].id }) }}?_method=PUT" class="space-y-4">
+                {{ csrfField() }}
+          
+                <div class="mb-4">
+                <label for="petRating{{ pet.id }}" class="block text-gray-700">Pet Rating:</label>
+                <input 
+                  type="number" 
+                  id="petRating{{ pet.id }}" 
+                  name="rating" 
+                  min="0" 
+                  max="5" 
+                  value="{{ pet.$preloaded.reviewPet[0].rating }}"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  required
+                >
+              </div>
+
+              <div class="mb-4">
+                <label for="petDescription{{ pet.id }}" class="block text-gray-700">Pet Review:</label>
+                <textarea 
+                  id="petDescription{{ pet.id }}"
+                  name="description"
+                  class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+                  rows="3"
+                  required
+                >{{ pet.$preloaded.reviewPet[0].description }}</textarea>
+              </div>
+
+              <button type="submit" class="bg-amber-500 text-white px-4 py-2 rounded hover:bg-amber-600">
+                 Update Pet Review
+              </button>
+            </form>
+        @end
+    </div>
+  @end
+@else
+  <p class="text-gray-500 italic">No pets reviews to edit</p>
+@end
+    </div>
+
+    <div class="mt-8 pb-8">
+      <a href="{{ route('displayMeetup', { id: meetupId }) }}" class="text-emerald-600 hover:text-emerald-700">
+        ← Back to meetup
+      </a>
+    </div>
+  </div>
+</section>
+@endslot
+@end
