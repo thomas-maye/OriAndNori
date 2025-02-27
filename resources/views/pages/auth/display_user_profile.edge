@@ -6,39 +6,153 @@
 @endslot
 
 @slot('main')
-<div class="flex justify-center items-center">
-    <div class="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
-        <img class="object-cover object-center w-full h-56"
-        src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
-        alt="avatar">
-        <div class="flex items-center px-6 py-3 bg-emerald-800">
-            <svg aria-label="user icon" class="w-6 h-6 text-white fill-current" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-            </svg>
-            <h1 class="mx-3 text-lg font-semibold text-white">{{ userProfile.username }}</h1>
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10  px-4">
+    <div class="container py-4">
+        <h1 class="text-2xl font-semibold lg:text-3xl text-emerald-700">Profile of {{userProfile.username}}</h1>
+        <div class="flex mx-auto">
+            <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+            <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
         </div>
+        <p class="mt-6 mb-6 text-gray-500 dark:text-gray-300">
+            This is the profile of {{userProfile.username}}. You can see the details of the user here.
+        </p>
+    </div>
 
-        <div class="px-6 py-4">
-            <h1 class="text-xl font-semibold text-gray-800 dark:text-white"></h1>
-            <p class="py-2 text-gray-700 dark:text-gray-400">My name is {{ userProfile.first_name }} {{userProfile.last_name }}</p>
-            <p class="py-2 text-gray-700 dark:text-gray-400">Description: {{ userProfile.description }}</p>
-            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
-                <svg aria-label="location pin icon" class="w-6 h-6 fill-current" viewBox="0 0 24 24" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M16.2721 10.2721C16.2721 12.4813 14.4813 14.2721 12.2721 14.2721C10.063 14.2721 8.27214 12.4813 8.27214 10.2721C8.27214 8.063 10.063 6.27214 12.2721 6.27214C14.4813 6.27214 16.2721 8.063 16.2721 10.2721ZM14.2721 10.2721C14.2721 11.3767 13.3767 12.2721 12.2721 12.2721C11.1676 12.2721 10.2721 11.3767 10.2721 10.2721C10.2721 9.16757 11.1676 8.27214 12.2721 8.27214C13.3767 8.27214 14.2721 9.16757 14.2721 10.2721Z" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M5.79417 16.5183C2.19424 13.0909 2.05438 7.3941 5.48178 3.79418C8.90918 0.194258 14.6059 0.0543983 18.2059 3.48179C21.8058 6.90919 21.9457 12.606 18.5183 16.2059L12.3124 22.7241L5.79417 16.5183ZM17.0698 14.8268L12.243 19.8965L7.17324 15.0698C4.3733 12.404 4.26452 7.9732 6.93028 5.17326C9.59603 2.37332 14.0268 2.26454 16.8268 4.93029C19.6267 7.59604 19.7355 12.0269 17.0698 14.8268Z" />
+
+    <div
+        class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+        <div>
+            <img class="mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+            src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
+            alt="Photo of {{ userProfile.username }}">
+
+
+            <div class="mt-4 flex items-center">
+                <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
                 </svg>
+                <div class="text-2xl font-semibold  text-emerald-700">
+                    {{ userProfile.username }}
+                </div>
+            </div>
+
+            <div class="flex items">
+                <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
+                <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
+                <span class="inline-block w-1 h-0.5 bg-amber-400 rounded-full"></span>
+            </div>
+
+            <p class="text-gray-700 dark:text-gray-400">My name is {{ userProfile.first_name }}
+                {{userProfile.last_name}}</p>
+
+            <div class="py-2 mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                </svg>
+                {{ userProfile.description }}
+                <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                </svg>
+            </div>
+
+            <div class="flex mt-2 text-gray-700 dark:text-gray-200">
+                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+                </svg>
+
                 <h1 class="px-2 text-sm">
-                    <p>{{ userProfile.city }}</p>
+                    <p> {{ userProfile.city }}</p>
                 </h1>
             </div>
+
+            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
+                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12z"/></svg>
+
+                <h1 class="px-2 text-sm">
+                    <p>Register since {{ new Date(userProfile.createdAt).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'})}}</p>
+                </h1>
+            </div>
+
+            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200 space-x-2">
+                @if (userProfile.pet.length === 0)
+                <h1 class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.025 21.925q-3.35-3.375-5.337-5.45t-3.025-3.45t-1.35-2.35T2 8.5q0-2.3 1.6-3.9T7.5 3q1.125 0 2.175.412T11.55 4.6L10 10h3l-.85 8.375L15 9h-3l1.775-5.3q.625-.35 1.313-.525T16.5 3q2.3 0 3.9 1.6T22 8.5q0 1.2-.325 2.2T20.3 13.088t-3.025 3.45t-5.25 5.387"/></svg>
+                    <p>No Pets</p>
+                </h1>
+                @else
+                @each(pet in userProfile.pet)
+                <a href="{{ route('PetProfile', [pet.id]) }}">
+                    <h1 class="bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                        <svg class="text-emerald-700 " xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M4.5 12.125q-1.05 0-1.775-.725T2 9.625t.725-1.775T4.5 7.125t1.775.725T7 9.625T6.275 11.4t-1.775.725m4.5-4q-1.05 0-1.775-.725T6.5 5.625t.725-1.775T9 3.125t1.775.725t.725 1.775t-.725 1.775T9 8.125m6 0q-1.05 0-1.775-.725T12.5 5.625t.725-1.775T15 3.125t1.775.725t.725 1.775t-.725 1.775T15 8.125m4.5 4q-1.05 0-1.775-.725T17 9.625t.725-1.775t1.775-.725t1.775.725T22 9.625t-.725 1.775t-1.775.725m-12.85 10q-1.125 0-1.888-.862T4 19.225q0-1.3.888-2.275t1.762-1.925q.725-.775 1.25-1.687t1.25-1.713q.55-.65 1.275-1.075T12 10.125t1.575.4t1.275 1.05q.7.8 1.238 1.725t1.262 1.725q.875.95 1.762 1.925T20 19.225q0 1.175-.763 2.038t-1.887.862q-1.35 0-2.675-.225T12 21.675t-2.675.225t-2.675.225" />
+                        </svg>
+                        <p>{{ pet.name }}</p>
+                    </h1>
+                </a>
+                @endeach
+                @endif
+            </div>
+
         </div>
 
+        <div class="lg:col-span-3 mb-4">
+            <h1 class="text-2xl font-semibold lg:text-xl text-emerald-700 mb-4">The Meetups created by the user</h1>
+            <div class="space-y-4">
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="text-2xl font-semibold lg:text-xl text-emerald-700 my-4">The Meetups created by the user</h1>
+            <div class="space-y-4">
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
+                    <div class="px-4 py-4">
+                    insérer les Meetups auxquels l'user à participé
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-right space-x-2">
+                @if(userProfile.id !== auth.user.id)
+                @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
+                @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
+                @endif
+              </div>
+        </div>
     </div>
-</div>
+</section>
 @endslot
 @end
