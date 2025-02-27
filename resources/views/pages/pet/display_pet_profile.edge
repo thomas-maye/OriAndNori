@@ -68,7 +68,12 @@
     </div>
     <div class="lg:col-span-3">
       <div class="mt-5 text-2xl font-semibold text-emerald-700">
-        ⭐️⭐️⭐️⭐️⭐️  Overall rating :{{petAverageRating.toFixed(1)}}/5
+        ⭐️⭐️⭐️⭐️⭐️  Overall rating : 
+        @if(pet.petGlobalRating !== null)
+        {{pet.petGlobalRating.toFixed(1)}}/5
+      @else
+        animal non socialisé
+      @end
       </div>
       <div class="mb-4">
         <div class="flex items">
@@ -124,36 +129,60 @@
             d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
         </svg>
       </div>
-      @if(pet.petMeetups.length === 0)
-      <p class="text-gray-500">No meetups found for this pet.</p>
-    @else
-      <ul>
-        @each(meetup in pet.petMeetups)
-        <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
-          <div class="px-4 py-4 flex justify-between items-center">
-            <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="text-emerald-700 hover:underline">
-              {{ meetup.title }}
-            </a>
-            <div class="flex items-center space-x-4">
-              @if(meetup.globalRating !== null)
-                <span class="text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
-              @else
-                <span class="text-gray-400">Not rated yet</span>
-              @end
-              <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</span>
-            </div>
-          </div>
+{{-- Reviews Section --}}
+<div class="mt-8">
+  <h3 class="text-xl font-semibold text-gray-700 mb-4">Reviews</h3>
+
+  @if(pet.reviewPet && pet.reviewPet.length > 0)
+    @each(review in pet.reviewPet)
+    <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+      <div class="px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <span class="font-semibold">{{ review.user.username }}</span>
+          <span class="ml-4 text-amber-500">⭐ {{ review.rating }}/5</span>
+          <span class="ml-4">{{ review.description }}</span>
         </div>
-      @end
-      </ul>
-      <div class="mt-4 text-right space-x-2">
-        @if(auth.user.id !== pet.user.id)
+        <span>{{ new Date(review.createdAt).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</span>
+      </div>
+    </div>
+    @end
+  @else
+    <p class="text-gray-500 italic">No reviews yet</p>
+  @end
+</div>
+
+{{-- Meetups Section --}}
+<div class="mt-8">
+  <h3 class="text-xl font-semibold text-gray-700 mb-4">Meetups</h3>
+
+  @if(pet.petMeetups.length === 0)
+    <p class="text-gray-500 italic">No meetups found for this pet.</p>
+  @else
+    @each(meetup in pet.petMeetups)
+    <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+      <div class="px-4 py-4 flex justify-between items-center">
+        <div class="flex items-center">
+          <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="text-emerald-700 hover:underline">
+            {{ meetup.title }}
+          </a>
+          @if(meetup.globalRating !== null)
+            <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+          @else
+            <span class="ml-4 text-gray-400">Not rated yet</span>
+          @end
+        </div>
+        <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</span>
+      </div>
+    </div>
+    @end
+
+    <div class="mt-4 text-right space-x-2">
+      @if(auth.user.id !== pet.user.id)
         @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
         @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
-        @endif
-      </div>
-    @endif
-  </div>
+      @end
+    </div>
+  @end
 </div>
 </div>
 </div>

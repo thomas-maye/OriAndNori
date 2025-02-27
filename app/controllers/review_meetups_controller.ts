@@ -31,7 +31,7 @@ export default class ReviewMeetupsController {
       await meetup.updateGlobalRating()
 
       session.flash('success', 'Review created successfully')
-      return response.redirect().toRoute('displayMeetup', { id: meetupId })
+      return response.redirect().back()
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to create review',

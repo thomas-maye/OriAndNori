@@ -15,7 +15,7 @@ const AuthController = () => import('#controllers/auth_controller')
 const ResetPasswordController = () => import('#controllers/reset_password_controller')
 const MeetupsController = () => import('#controllers/meetups_controller')
 const ReviewMeetupsController = () => import('#controllers/review_meetups_controller')
-
+const ReviewPetsController = () => import('#controllers/review_pets_controller')
 /**
  * -------------------------------
  * Home routes
@@ -31,7 +31,7 @@ router.on('/about').render('pages/about').as('about')
 //router.on('/meetups').render('pages/meetups').as('meetups').use(middleware.auth())
 //router.on('/pets').render('pages/pets').as('pets').use(middleware.auth())
 router.on('/profile').render('pages/profile').as('profile').use(middleware.auth())
-router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth())
+//router.on('/reviews').render('pages/reviews').as('reviews').use(middleware.auth())
 
 /**
  * -------------------------------
@@ -242,4 +242,40 @@ router
 router
   .put('/review_meetups/:id', [ReviewMeetupsController, 'editReviewMeetup'])
   .as('editReviewMeetup')
+  .use(middleware.auth())
+
+/**
+ * -------------------------------
+ * Review Pet routes
+ * -------------------------------
+ */
+
+// Create ReviewPet
+router
+  .post('/review_pet', [ReviewPetsController, 'createReviewPet'])
+  .as('createReviewPet')
+  .use(middleware.auth())
+
+// Delete ReviewPet
+router
+  .delete('/review_pet/:id', [ReviewPetsController, 'deleteReviewPet'])
+  .as('deleteReviewPet')
+  .use(middleware.auth())
+
+// edit ReviewPet
+router
+  .put('/review_pet/:id', [ReviewPetsController, 'editReviewPet'])
+  .as('editReviewPet')
+  .use(middleware.auth())
+
+// Show ReviewPet Form
+router
+  .get('/reviewsForm/:id', [ReviewPetsController, 'showReviewForm'])
+  .as('showReviewForm')
+  .use(middleware.auth())
+
+//show edit review form
+router
+  .get('/editReviewForm/:id', [ReviewPetsController, 'editReviewForm'])
+  .as('showEditReviewForm')
   .use(middleware.auth())
