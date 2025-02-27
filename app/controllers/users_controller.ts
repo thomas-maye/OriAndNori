@@ -100,10 +100,10 @@ export default class UsersController {
         totalReviews += meetup.reviewMeetup.length
       }
     })
-    console.log('totalRating', totalRating)
-    console.log('totalReviews', totalReviews)
+    //console.log('totalRating', totalRating)
+    //console.log('totalReviews', totalReviews)
     const petAverageRating = totalRating / totalReviews
-    console.log('averageRating', petAverageRating)
+    //console.log('averageRating', petAverageRating)
 
     return view.render('pages/pet/display_pet_profile', { pet, petAverageRating })
   }

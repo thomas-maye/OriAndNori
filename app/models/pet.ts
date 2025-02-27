@@ -7,12 +7,14 @@ import {
   afterFetch,
   afterFind,
   manyToMany,
+  hasMany,
 } from '@adonisjs/lucid/orm'
-import type { BelongsTo, ManyToMany } from '@adonisjs/lucid/types/relations'
+import type { BelongsTo, ManyToMany, HasMany } from '@adonisjs/lucid/types/relations'
 import User from './user.js'
 import Breed from './breed.js'
 import Species from './species.js'
 import Meetup from './meetup.js'
+import ReviewPet from './review_pet.js'
 
 export const traits = [
   { trait: 'Friendly', rating: 0 },
@@ -74,6 +76,12 @@ export default class Pet extends BaseModel {
   })
   declare petMeetups: ManyToMany<typeof Meetup>
 
+  @hasMany(() => ReviewPet)
+  declare reviewPet: HasMany<typeof ReviewPet>
+
+  @column()
+  declare petGlobalRating: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
@@ -104,6 +112,15 @@ export default class Pet extends BaseModel {
       } else if (!Array.isArray(pet.personality)) {
         pet.personality = []
       }
+    }
+  }
+
+  // Method for updating the global rating of a meetup
+  public async updateGlobalRating() {
+    if (this.reviewPet && this.reviewPet.length > 0) {
+      const totalRating = this.reviewPet.reduce((sum, review) => sum + review.rating, 0)
+      this.petGlobalRating = Number((totalRating / this.reviewPet.length).toFixed(1))
+      await this.save()
     }
   }
 }

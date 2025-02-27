@@ -146,7 +146,7 @@
         @end
       </div>
     </div>
-    <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
+    {{--<div class="w-full lg:w-1/2 mt-8 border-t pt-4">
       {{--@if(meetup.date < new Date() && meetupUsers.some(meetupUser => meetupUser.id === auth.user.id))--}}
         <h3 class="font-bold text-lg mb-4">Submit Review</h3>
         <form method="POST" action="{{ route('createReviewMeetup') }}" class="space-y-4">
@@ -185,7 +185,7 @@
           </button>
         </form>
       {{--@endif--}}
-    </div>
+    </div>--}}
     <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
       <h3 class="font-bold text-lg mb-4">Reviews</h3>
       @if(reviewMeetup && reviewMeetup.length > 0)
@@ -239,6 +239,14 @@
       @else
         <p class="text-gray-500 italic">No reviews yet</p>
       @end
+      <div class="mt-4">
+        <a 
+          href="{{ route('showReviewForm', { id: meetup.id }) }}" 
+          class="inline-block w-full text-center bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600 transition"
+        >
+          Review Meetup
+        </a>
+      </div>
     </div>
   </div>
   </div>

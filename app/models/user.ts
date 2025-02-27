@@ -7,6 +7,7 @@ import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
 import Pet from './pet.js'
 import Meetup from './meetup.js'
 import ReviewMeetup from './review_meetup.js'
+import ReviewPet from './review_pet.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -81,4 +82,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
 
   @hasMany(() => ReviewMeetup)
   declare reviewMeetup: HasMany<typeof ReviewMeetup>
+
+  @hasMany(() => ReviewPet)
+  declare reviewPet: HasMany<typeof ReviewPet>
 }

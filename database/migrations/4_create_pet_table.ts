@@ -13,6 +13,7 @@ export default class extends BaseSchema {
       table.string('gender').notNullable()
       table.text('description').nullable()
       table.string('photo').nullable()
+      table.float('pet_global_rating', 3, 1).nullable()
 
       // Foreign keys
       table.integer('user_id').unsigned().references('users.id').onDelete('CASCADE')
