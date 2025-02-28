@@ -68,20 +68,38 @@
 
             <div class="mb-4">
               Edit your pet's species?
-            <div class="mb-4">
-              <input type="hidden" id="species_id" name="species_id" value="{{ pet.species.id }}">
-              <input type="select" id="species" name="species" value="{{ pet.species.name }}" class="mt-1 block w-full"
-                required>
-            </div>
+              <div class="">
+                @if(species && Array.isArray(species))
+                @!component('components/input', {
+                  type: 'select',
+                  name: 'species_id',
+                  options: species.map(species => ({ value: species.id, text: species.name })),
+                  required: true,
+                  value: pet.species.id
+                })
+              @else
+                <input type="hidden" id="species_id" name="species_id" value="{{ pet.species.id }}">
+                <input type="text" id="species" name="species" value="{{ pet.species.name }}" class="mt-1 block w-full" readonly>
+              @endif
+              </div>
             </div>
 
             <div class="mb-4">
               Edit your pet's breed?
-            <div class="mb-4">
-              <input type="hidden" id="breed_id" name="breed_id" value="{{ pet.breed.id }}">
-              <input type="text" id="breed" name="breed" value="{{ pet.breed.name }}" class="mt-1 block w-full"
-                required>
-            </div>
+              <div class="">
+                @if(breeds && Array.isArray(breeds))
+                  @!component('components/input', {
+                    type: 'select',
+                    name: 'breed_id',
+                    options: breeds.map(breed => ({ value: breed.id, text: breed.name })),
+                    required: true,
+                    value: pet.breed.id
+                  })
+                @else
+                  <input type="hidden" id="breed_id" name="breed_id" value="{{ pet.breed.id }}">
+                  <input type="text" id="breed" name="breed" value="{{ pet.breed.name }}" class="mt-1 block w-full" readonly>
+                @endif
+              </div>
             </div>
 
             <div class="mb-4">
