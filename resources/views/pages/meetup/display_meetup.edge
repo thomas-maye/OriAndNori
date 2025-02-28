@@ -1,191 +1,112 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Meetup Details</title>
-  <link href="/css/app.css" rel="stylesheet">
-</head>
-<body>
-  <div class="container mx-auto p-4">
-    <h1 class="text-3xl font-bold mb-4">{{ meetup.title }}</h1>
-    <p><strong>Description:</strong> {{ meetup.description }}</p>
-    <p><strong>Address:</strong> {{ meetup.adress }}</p>
-    <p><strong>Additional Address:</strong> {{ meetup.additionalAddress }}</p>
-    <p><strong>City:</strong> {{ meetup.city }}</p>
-    <p><strong>Type:</strong> {{ meetup.type }}</p>
-    <p><strong>Date and Time:</strong> {{ formattedDate }}</p>
-    <p><strong>Organizer:</strong> {{ meetup.organizer }}</p>
-    <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
-      <h3 class="font-bold text-lg mb-4">Global Rating</h3>
-      <p class="text-2xl font-semibold">{{ meetup.globalRating }} / 5</p>
+@layout.app({ title: "Meetup Details" })
+@slot('meta')
+<meta name="description" content="A Meetup details page made with EdgeJS">
+@endslot
+
+@slot('main')
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10  px-4">
+  <div class="container py-4">
+    <h1 class="text-2xl font-semibold lg:text-3xl text-emerald-700">Details of {{ meetup.title }}</h1>
+    <div class="flex mx-auto">
+      <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
     </div>
-    <div class="mt-2">
-      <a 
-        href="{{ route('updateMeetup', { id: meetup.id }) }}" 
-        class="inline-block w-full text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
-      >
-        Edit Meetup
-      </a>
-    </div>
+    <p class="mt-6 mb-6 text-gray-500 dark:text-gray-300">
+      Here is the details of the meetup. <br>
+      You can join or leave the meetup. <br>
+      You can also add or remove your pets from the meetup.
+      And you can also leave a review for the meetup after the meetup.
+    </p>
   </div>
-</div>
-</div>
-    <div class="w-full lg:w-1/2">
-      <h3 class="font-bold text-lg">Pets participants</h3>
-      <dl>
-        @each(pet in meetupPets)
-        <div class="flex items-baseline gap-2">
-          <dt>{{ pet.name }}</dt>
-          <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
-          @if(connectUserPet.some(userPet => userPet.id === pet.id))
-            <form action="{{ route('removePetFromMeetup', { id: meetup.id }) }}?_method=DELETE"  method="POST" class="mt-4">
-              {{ csrfField() }}
-              <input type="hidden" name="petId" value="{{ pet.id }}">
-              <button type="submit" class="text-red-500 ml-2">✖</button>
-            </form>
-          @endif
+
+  <div
+    class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+    <div>
+      <div class="container mx-auto p-4">
+        <h1 class="text-3xl font-bold mb-4">{{ meetup.title }}</h1>
+        <p><strong>Description:</strong> {{ meetup.description }}</p>
+        <p><strong>Address:</strong> {{ meetup.adress }}</p>
+        <p><strong>Additional Address:</strong> {{ meetup.additionalAddress }}</p>
+        <p><strong>City:</strong> {{ meetup.city }}</p>
+        <p><strong>Type:</strong> {{ meetup.type }}</p>
+        <p><strong>Date and Time:</strong> {{ formattedDate }}</p>
+        <p><strong>Organizer:</strong> {{ meetup.organizer }}</p>
+        <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
+          <h3 class="font-bold text-lg mb-4">Global Rating</h3>
+          <p class="text-2xl font-semibold">{{ meetup.globalRating }} / 5</p>
         </div>
-        @end
-      </dl>
-    </div>
-
-    <div class="w-full lg:w-1/2"> 
-      <h3 class="font-bold text-lg">Participants</h3>
-      <dl>
-        @each(user in meetupUsers)
-          <div class="flex items-baseline gap-2">
-            <dt>{{ user.username }}</dt>
-            <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
-          </div>
-        @end
-      </dl>
-      <div class="mt-4">
-        @if(meetupUsers.some(meetupUser => meetupUser.id === auth.user.id))
-          <div class="space-y-4">
-            <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
-              {{ csrfField() }}
-              
-              <div class="mb-4">
-                <label class="block text-gray-700 mb-2">Add other pet :</label>
-                <div class="space-y-2 border p-4 rounded-md">
-                  @if(connectUserPet && connectUserPet.length > 0)
-                    @each(pet in connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)))
-                      <div class="flex items-center">
-                        <input 
-                          type="checkbox" 
-                          id="pet-{{ pet.id }}" 
-                          name="petIds[]" 
-                          value="{{ pet.id }}"
-                          class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                        >
-                        <label for="pet-{{ pet.id }}" class="ml-2 text-gray-700">
-                          {{ pet.name }}
-                        </label>
-                      </div>
-                    @end
-                  @else
-                    <p class="text-gray-500 italic">Not more Pet</p>
-                  @end
-                </div>
-              </div>
-
-              <button 
-                type="submit"
-                class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-              >
-                Add pets
-              </button>
-            </form>
-
-            @if(meetup.userId === auth.user.id)
-            <form action="{{route('deleteMeetup', { id: meetup.id })}}?_method=DELETE" method="POST" class="mt-4">
-              {{ csrfField() }}
-              <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete Meetup</button>
-            </form>
-            @endif
-            <form action="{{ route('leaveMeetup', { id: meetup.id }) }}?_method=DELETE" method="POST" class="mt-4">
-              {{ csrfField() }}
-              <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Leave Meetup</button>
-            </form>
-          </div>
-        @else
-          <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
-            {{ csrfField() }}
-            
-            <div class="mb-4">
-              <label class="block text-gray-700 mb-2">Select your pets:</label>
-              <div class="space-y-2 border p-4 rounded-md">
-                @if(connectUserPet && connectUserPet.length > 0)
-                  @each(pet in connectUserPet)
-                    <div class="flex items-center">
-                      <input 
-                        type="checkbox" 
-                        id="pet-{{ pet.id }}" 
-                        name="petIds[]" 
-                        value="{{ pet.id }}"
-                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                      >
-                      <label for="pet-{{ pet.id }}" class="ml-2 text-gray-700">
-                        {{ pet.name }}
-                      </label>
-                    </div>
-                  @end
-                @else
-                  <p class="text-gray-500 italic">Soon your gonna adopt hapiness</p>
-                @end
-              </div>
-            </div>
-            <button 
-              type="submit"
-              class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-            >
-              Join Meetup
-            </button>
-          </form>
-        @end
+        <div class="mt-2">
+          <a href="{{ route('updateMeetup', { id: meetup.id }) }}"
+            class="inline-block w-full text-center bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+            Edit Meetup
+          </a>
+        </div>
       </div>
     </div>
-    {{--<div class="w-full lg:w-1/2 mt-8 border-t pt-4">
-      {{--@if(meetup.date < new Date() && meetupUsers.some(meetupUser => meetupUser.id === auth.user.id))--}}
-        <h3 class="font-bold text-lg mb-4">Submit Review</h3>
-        <form method="POST" action="{{ route('createReviewMeetup') }}" class="space-y-4">
+  </div>
+
+  
+  <div class="w-full lg:w-1/2">
+    <h3 class="font-bold text-lg">Pets participants</h3>
+    <dl>
+      @each(pet in meetupPets)
+      <div class="flex items-baseline gap-2">
+        <dt>{{ pet.name }}</dt>
+        <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
+        @if(connectUserPet.some(userPet => userPet.id === pet.id))
+        <form action="{{ route('removePetFromMeetup', { id: meetup.id }) }}?_method=DELETE" method="POST" class="mt-4">
           {{ csrfField() }}
-          <input type="hidden" name="meetupId" value="{{ meetup.id }}">
-  
+          <input type="hidden" name="petId" value="{{ pet.id }}">
+          <button type="submit" class="text-red-500 ml-2">✖</button>
+        </form>
+        @endif
+      </div>
+      @end
+    </dl>
+  </div>
+
+  <div class="w-full lg:w-1/2">
+    <h3 class="font-bold text-lg">Participants</h3>
+    <dl>
+      @each(user in meetupUsers)
+      <div class="flex items-baseline gap-2">
+        <dt>{{ user.username }}</dt>
+        <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
+      </div>
+      @end
+    </dl>
+    <div class="mt-4">
+      @if(meetupUsers.some(meetupUser => meetupUser.id === auth.user.id))
+      <div class="space-y-4">
+        <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
+          {{ csrfField() }}
+
           <div class="mb-4">
-            <label for="rating" class="block text-gray-700">Rating:</label>
-            <input 
-              type="number" 
-              id="rating" 
-              name="rating" 
-              min="0" 
-              max="5" 
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
-              required
-            >
+            <label class="block text-gray-700 mb-2">Add other pet :</label>
+            <div class="space-y-2 border p-4 rounded-md">
+              @if(connectUserPet && connectUserPet.length > 0)
+              @each(pet in connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)))
+              <div class="flex items-center">
+                <input type="checkbox" id="pet-{{ pet.id }}" name="petIds[]" value="{{ pet.id }}"
+                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <label for="pet-{{ pet.id }}" class="ml-2 text-gray-700">
+                  {{ pet.name }}
+                </label>
+              </div>
+              @end
+              @else
+              <p class="text-gray-500 italic">Not more Pet</p>
+              @end
+            </div>
           </div>
-  
-          <div class="mb-4">
-            <label for="description" class="block text-gray-700">Description:</label>
-            <textarea 
-              id="description" 
-              name="description" 
-              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" 
-              rows="4"
-              required
-            ></textarea>
-          </div>
-  
-          <button 
-            type="submit" 
-            class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600"
-          >
-            Submit Review
+
+          <button type="submit" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">
+            Add pets
           </button>
         </form>
       {{--@endif--}}
-    </div>--}}
+    </div>
 
     <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
       <h3 class="font-bold text-lg mb-4">Reviews</h3>
@@ -252,8 +173,44 @@
           {{--@endif--}}
         </div>
         @end
+
+        @if(meetup.userId === auth.user.id)
+        <form action="{{route('deleteMeetup', { id: meetup.id })}}?_method=DELETE" method="POST" class="mt-4">
+          {{ csrfField() }}
+          <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Delete Meetup</button>
+        </form>
+        @endif
+        <form action="{{ route('leaveMeetup', { id: meetup.id }) }}?_method=DELETE" method="POST" class="mt-4">
+          {{ csrfField() }}
+          <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Leave Meetup</button>
+        </form>
+      </div>
       @else
-        <p class="text-gray-500 italic">No reviews yet</p>
+      <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
+        {{ csrfField() }}
+
+        <div class="mb-4">
+          <label class="block text-gray-700 mb-2">Select your pets:</label>
+          <div class="space-y-2 border p-4 rounded-md">
+            @if(connectUserPet && connectUserPet.length > 0)
+            @each(pet in connectUserPet)
+            <div class="flex items-center">
+              <input type="checkbox" id="pet-{{ pet.id }}" name="petIds[]" value="{{ pet.id }}"
+                class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+              <label for="pet-{{ pet.id }}" class="ml-2 text-gray-700">
+                {{ pet.name }}
+              </label>
+            </div>
+            @end
+            @else
+            <p class="text-gray-500 italic">Soon your gonna adopt hapiness</p>
+            @end
+          </div>
+        </div>
+        <button type="submit" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">
+          Join Meetup
+        </button>
+      </form>
       @end
       <div class="mt-4">
         <a 
@@ -266,6 +223,75 @@
       </div>
     </div>
   </div>
+  <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
+    {{--@if(meetup.date < new Date() && meetupUsers.some(meetupUser=> meetupUser.id === auth.user.id))--}}
+      <h3 class="font-bold text-lg mb-4">Submit Review</h3>
+      <form method="POST" action="{{ route('createReviewMeetup') }}" class="space-y-4">
+        {{ csrfField() }}
+        <input type="hidden" name="meetupId" value="{{ meetup.id }}">
+
+        <div class="mb-4">
+          <label for="rating" class="block text-gray-700">Rating:</label>
+          <input type="number" id="rating" name="rating" min="0" max="5"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+        </div>
+
+        <div class="mb-4">
+          <label for="description" class="block text-gray-700">Description:</label>
+          <textarea id="description" name="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+            rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="bg-emerald-500 text-white px-4 py-2 rounded hover:bg-emerald-600">
+          Submit Review
+        </button>
+      </form>
+      {{--@endif--}}
   </div>
-</body>
-</html>
+  <div class="w-full lg:w-1/2 mt-8 border-t pt-4">
+    <h3 class="font-bold text-lg mb-4">Reviews</h3>
+    @if(reviewMeetup && reviewMeetup.length > 0)
+    @each(review in reviewMeetup)
+    <div class="bg-white shadow rounded-lg p-4 mb-4">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center">
+          <span class="font-semibold">{{ review.user.username }}</span>
+          <span class="ml-2 text-gray-500">⭐ {{ review.rating }}/5</span>
+        </div>
+        <span class="text-sm text-gray-500">{{ review.createdAt.toFormat('dd/MM/yyyy HH:mm') }}</span>
+      </div>
+      <p class="text-gray-700">{{ review.description }}</p>
+      @if(review.user.id === auth.user.id)
+      <div class="flex space-x-2 mt-2">
+        <form method="POST" action="{{ route('editReviewMeetup', {id: review.id})}}?_method=PUT">
+          {{ csrfField() }}
+          <div class="mb-4">
+            <label for="rating" class="block text-gray-700">Rating:</label>
+            <input type="number" id="rating" name="rating" min="0" max="5"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" required>
+          </div>
+
+          <div class="mb-4">
+            <label for="description" class="block text-gray-700">Description:</label>
+            <textarea id="description" name="description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+              rows="4" required></textarea>
+          </div>
+          <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Edit</button>
+        </form>
+        <form action="{{ route('deleteReviewMeetup', { id: review.id }) }}?_method=DELETE" method="POST">
+          {{ csrfField() }}
+          <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Delete</button>
+        </form>
+      </div>
+      @endif
+    </div>
+    @end
+    @else
+    <p class="text-gray-500 italic">No reviews yet</p>
+    @end
+  </div>
+  </div>
+  </div>
+</section>
+@endslot
+@end

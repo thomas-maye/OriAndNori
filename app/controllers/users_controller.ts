@@ -154,13 +154,15 @@ export default class UsersController {
     }
 
     const pet = await Pet.query().where('id', params.id).preload('species').preload('breed').first()
+    const breeds = await Breed.all()
+    const species = await Species.all()
 
     if (!pet) {
       return response.status(404).json({ message: 'Pet not found' })
     }
 
     const photo = pet.photo
-    return view.render('pages/pet/update_pet', { pet, photo })
+    return view.render('pages/pet/update_pet', { pet, photo, breeds, species })
   }
 
   /**
