@@ -326,6 +326,29 @@ export default class MeetupsController {
 
   /**
    * ------------------------------
+   * Display the Delete Meetup Page
+   * ------------------------------
+   */
+  async deleteMeetupView({ auth, view, params, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      return response.status(404).json({ message: 'Meetup not found' })
+    }
+
+    if (meetup.userId !== user.id) {
+      return response.status(403).json({ message: 'You are not authorized to update this meetup' })
+    }
+
+    return view.render('pages/meetup/delete_meetup', { meetup })
+  }
+
+  /**
+   * ------------------------------
    * Delete Meetup
    * ------------------------------
    */

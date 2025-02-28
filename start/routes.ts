@@ -202,6 +202,13 @@ router
   .as('removePetFromMeetup')
   .use(middleware.auth())
 
+// Display Delete Meetup Page
+router
+  .get('/meetups/delete/:id', [MeetupsController, 'deleteMeetupView'])
+  .as('deleteMeetupView')
+  .use(middleware.auth())
+
+
 // Delete Meetup
 router
   .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])
