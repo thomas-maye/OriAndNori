@@ -441,4 +441,9 @@ export default class MeetupsController {
     //session.flash('error', 'Meetup deleted successfully!')
     //return response.redirect().toRoute('myMeetups')
   }
+
+  //essaie geo
+  async geo({ view }: HttpContext) {
+    return view.render('pages/essaie_geo')
+  }
 }

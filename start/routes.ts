@@ -208,7 +208,6 @@ router
   .as('deleteMeetupView')
   .use(middleware.auth())
 
-
 // Delete Meetup
 router
   .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])
@@ -286,3 +285,6 @@ router
   .get('/editReviewForm/:id', [ReviewPetsController, 'editReviewForm'])
   .as('showEditReviewForm')
   .use(middleware.auth())
+
+//esaie geo
+router.get('/geo', [MeetupsController, 'geo']).as('geo').use(middleware.auth())
