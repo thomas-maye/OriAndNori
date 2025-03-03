@@ -262,12 +262,12 @@
 
       <div>
         @if(new Date(meetup.date) < new Date() && meetupUsers.some(user=> user.id === auth.user.id) && !reviewMeetup.some(review => review.user.id === auth.user.id))          
-        <div class="mt-4">
-            @!component('components/button-link/full', { text: 'Review', link: route('showReviewForm', { id: meetup.id
-            })})
-          </div>
-          @endif
-      </div>
+        <div class="mt-4 flex justify-center">
+          @!component('components/button-link/full', { text: 'Review', link: route('showReviewForm', { id: meetup.id
+          })})
+        </div>
+        @endif
+      </div>    
     </div>
 
 
