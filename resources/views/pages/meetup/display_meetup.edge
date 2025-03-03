@@ -151,8 +151,7 @@
       </div>
 
       <div>
-        @if(meetupUsers.some(meetupUser => meetupUser.id === auth.user.id) && new Date(meetup.date) >= new Date() &&
-        connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)).length > 0)
+        @if(new Date(meetup.date) >= new Date() && auth.user && connectUserPet.some(pet => !meetupPets.some(mp => mp.id === pet.id)))        
         <div class="space-y-4">
           <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
             {{ csrfField() }}
@@ -289,7 +288,7 @@
           @if(review.user.id === auth.user.id)
           <div class="inline-flex items-center rounded-lg text-gray-100 dark:text-gray-300 hover:text-white bg-emerald-700 focus:relative ml-2">
             <div class="inline-flex">
-
+              @if(review.user.id === auth.user.id)
               <a href="{{ route('showEditReviewForm', { id: meetup.id }) }}">
                 <button
                   class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
@@ -301,8 +300,9 @@
                   Edit
                 </button>
               </a>
+              @endif
 
-
+              @if(review.user.id === auth.user.id)
               <form action="{{ route('deleteReviewMeetup', { id: review.id }) }}?_method=DELETE" method="POST">
                 {{ csrfField() }}
                 <button
@@ -315,7 +315,7 @@
                 Delete
               </button>
               </form>
-
+              @endif
             </div>
           </div>
           @endif
