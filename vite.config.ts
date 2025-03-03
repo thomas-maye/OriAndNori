@@ -16,4 +16,11 @@ export default defineConfig({
       reload: ['resources/views/**/*.edge'],
     }),
   ],
+  build: {
+    manifest: true,
+    outDir: 'public/assets',
+    rollupOptions: {
+      input: 'resources/js/app.js',
+    },
+  },
 })
