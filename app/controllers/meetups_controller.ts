@@ -5,7 +5,6 @@ import Meetup from '#models/meetup'
 import { meetupValidator } from '#validators/meetup'
 import { DateTime } from 'luxon'
 import ReviewMeetup from '#models/review_meetup'
-//import mail from '@adonisjs/mail/services/main'
 
 export default class MeetupsController {
   /**
@@ -419,29 +418,4 @@ export default class MeetupsController {
     //session.flash('error', 'Meetup deleted successfully!')
     //return response.redirect().toRoute('myMeetups')
   }
-
-  /**
-   * ------------------------------
-   * Send Email to Participants after Meetup
-   * ------------------------------
-   */
-  /*async sendEmailToParticipants({ auth, params, response, session }: HttpContext) {
-
-    const meetup = await Meetup.find(params.id)
-
-    if (!meetup) {
-      session.flash('error', 'Meetup not found')
-      return response.redirect().toRoute('myMeetups')
-    }
-
-    if (meetup.userId !== user.id) {
-      session.flash('error', 'You are not the organizer of this meetup')
-      return response.redirect().toRoute('myMeetups')
-    }
-
-    await mail.send((message) => {
-      message
-        .to(user.email)
-        .from('
-}*/
 }
