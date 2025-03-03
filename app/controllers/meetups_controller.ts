@@ -252,6 +252,25 @@ export default class MeetupsController {
   }
   /**
    * ------------------------------
+   * Display Leave Meetup Page
+   * ------------------------------
+   */
+  async leaveMeetupView({ auth, view, params, response }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+    const meetup = await Meetup.find(params.id)
+
+    if (!meetup) {
+      return response.status(404).json({ message: 'Meetup not found' })
+    }
+
+    return view.render('pages/meetup/leave_meetup', { meetup })
+  }
+
+  /**
+   * ------------------------------
    * Leave a Meetup
    * ------------------------------
    */
