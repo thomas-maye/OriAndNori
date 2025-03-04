@@ -16,6 +16,7 @@ const ResetPasswordController = () => import('#controllers/reset_password_contro
 const MeetupsController = () => import('#controllers/meetups_controller')
 const ReviewMeetupsController = () => import('#controllers/review_meetups_controller')
 const ReviewPetsController = () => import('#controllers/review_pets_controller')
+const GeosController = () => import('#controllers/geos_controller')
 /**
  * -------------------------------
  * Home routes
@@ -287,4 +288,4 @@ router
   .use(middleware.auth())
 
 //esaie geo
-router.get('/geo', [MeetupsController, 'geo']).as('geo').use(middleware.auth())
+router.get('/geo', [GeosController, 'geo']).as('geo').use(middleware.auth())
