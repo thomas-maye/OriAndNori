@@ -20,17 +20,21 @@
   </div>
 
   <div class="px-4">
-    @if(meetups.lenght === 0)
+    @if(meetups.length === 0)
     <div class="mt-10">
       <h1 class="text-2xl font-semibold text-emerald-700 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mr-2">
           <path fill="currentColor"
             d="M12 11.5q1.625 0 2.8 1.1t1.4 2.725q.05.3.275.488T17 16t.537-.2t.188-.5q-.25-2.25-1.863-3.775T12 10t-3.863 1.525T6.275 15.3q-.05.3.188.5T7 16t.525-.187t.275-.488Q8.025 13.7 9.2 12.6t2.8-1.1m-1.45-3.975q.225-.2.213-.513T10.5 6.5t-.55-.175t-.55.225q-.4.35-.838.588t-.937.412q-.3.125-.488.375T7 8.5t.3.5t.525.075q.75-.25 1.45-.638t1.275-.912m2.9 0q.575.525 1.25.9t1.425.625q.3.1.563-.062T17 8.5t-.15-.575t-.5-.375q-.475-.175-.913-.425T14.6 6.55q-.25-.2-.55-.225t-.55.175t-.262.513t.212.512M12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" />
         </svg>
-        You haven't joined any meetups yet
+        You haven't created or joined any meetups yet
       </h1>
     </div>
+    <div class="mt-8">
+      @component('components/button-link/full', { text: 'Create a Meetup', link: route('createMeetupForm') })
+    </div>
     @end
+    @endif
   </div>
 
   <div class="container px-30 md:px-4">
@@ -40,7 +44,7 @@
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
         <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
-          src="resources/images/Location.png" alt="Location of {{ meetup.name }}">
+          src="resources/images/Location.png" alt="Location of {{ meetup.tile }}">
 
         <div class="mt-4">
           <h2 class="text-xl font-semibold text-emerald-700">{{ meetup.title }}</h2>
@@ -136,7 +140,7 @@
                     </button>
                   </a>
 
-                  @if(auth.user && meetup.userId === auth.user.id)
+                  @if(auth.user && meetup.userId === auth.user.id && new Date(meetup.date) >= new Date())
                   <a href="{{ route('updateMeetup', { id: meetup.id }) }}">
                     <button
                       class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
@@ -151,7 +155,7 @@
                   </a>
                   @end
 
-                  @if(auth.user && meetup.userId === auth.user.id)
+                  @if(auth.user && meetup.userId === auth.user.id && new Date(meetup.date) >= new Date())
                   <a href="{{ route('deleteMeetupView', { id: meetup.id }) }}">
                     <button
                       class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
