@@ -200,7 +200,11 @@
               @end
             </div>
             <div class="mt-2 flex justify-end">
-              @!component('components/button-simple/full', { text : 'Add', type: 'submit' })
+              @if(meetupUsers.some(user => user.id === auth.user.id))
+              @!component('components/button-simple/full', { text: 'Add', type: 'submit' })
+              @else
+              @!component('components/button-simple/full', { text: 'Join with', type: 'submit' })
+              @endif
             </div>
           </div>
         </form>
