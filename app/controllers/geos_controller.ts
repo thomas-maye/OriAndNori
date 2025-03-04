@@ -2,8 +2,12 @@ import { HttpContext } from '@adonisjs/core/http'
 import opencage from 'opencage-api-client'
 
 export default class GeosController {
-  async geo({ request, session, response }: HttpContext) {
+  // Handles geocoding of an address using the OpenCage API.
+  async geo({ request, session, response, view }: HttpContext) {
+    console.log('request', request.body())
+
     const address = request.input('address')
+    console.log('address', address)
 
     if (!address) {
       session.flash('error', 'Adress is required')
@@ -19,13 +23,16 @@ export default class GeosController {
 
     try {
       const addressData = await opencage.geocode({ q: address, key: apiKey })
+      console.log('addressData', addressData)
 
       if (!addressData || addressData.status.code !== 200) {
         session.flash('error', 'Address not found')
         return response.redirect().back()
       }
       const place = addressData.results[0]
-      return response.json({
+      console.log('place', place)
+
+      return view.render('pages/essaie_geo', {
         latitude: place.geometry.lat,
         longitude: place.geometry.lng,
         address: place.formatted,
@@ -35,5 +42,9 @@ export default class GeosController {
       session.flash('error', 'Something went wrong')
       return response.paymentRequired({ error: 'quota epuisee' })
     }
+  }
+
+  async showGeoForm({ view }: HttpContext) {
+    return view.render('pages/essaie_geo')
   }
 }

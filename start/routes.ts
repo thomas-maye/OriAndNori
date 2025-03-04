@@ -288,4 +288,6 @@ router
   .use(middleware.auth())
 
 //esaie geo
-router.get('/geo', [GeosController, 'geo']).as('geo').use(middleware.auth())
+router.get('/GeoForm', [GeosController, 'showGeoForm']).as('geoForm').use(middleware.auth())
+
+router.post('/geo', [GeosController, 'geo']).as('geoCoding').use(middleware.auth())
