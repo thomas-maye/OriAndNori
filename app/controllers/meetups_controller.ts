@@ -293,9 +293,13 @@ export default class MeetupsController {
       //map ID for js object for detach
       const userPetsIds = userPets.map((pet) => pet.id)
 
-      await meetup.related('meetupUsers').detach([user.id])
+      // detach only the user's pets from the meetup
+      if (userPetsIds.length > 0) {
+        await meetup.related('meetupPets').detach(userPetsIds)
+      }
 
-      await meetup.related('meetupPets').detach(userPetsIds)
+      //detach user from meetup
+      await meetup.related('meetupUsers').detach([user.id])
 
       session.flash('success', 'You have successfully leave the meetup')
       return response.redirect().toRoute('myMeetups')
