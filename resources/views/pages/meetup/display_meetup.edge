@@ -248,6 +248,7 @@
         <label class="block text-emerald-700">Participants:</label>
         <dl class="border py-2 px-2 rounded-lg mb-4 flex flex-wrap gap-2">
           @each(user in meetupUsers)
+          <a href="{{ route('auth.display_user_profile', { id: meetup.userId }) }}">
           <div
             class="flex items-center gap-2 bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg text-sm">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -257,6 +258,7 @@
             <dt>{{ user.username }}</dt>
             <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
           </div>
+          </a>
           @end
         </dl>
 

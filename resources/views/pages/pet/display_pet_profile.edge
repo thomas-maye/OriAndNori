@@ -33,7 +33,7 @@
             d="M20 5v4q0 .425-.288.713T19 10t-.712-.288T18 9V7.425l-3.975 3.95q.475.7.725 1.488T15 14.5q0 2.3-1.6 3.9T9.5 20t-3.9-1.6T4 14.5t1.6-3.9T9.5 9q.825 0 1.625.237t1.475.738L16.575 6H15q-.425 0-.712-.288T14 5t.288-.712T15 4h4q.425 0 .713.288T20 5M9.5 11q-1.45 0-2.475 1.025T6 14.5t1.025 2.475T9.5 18t2.475-1.025T13 14.5t-1.025-2.475T9.5 11" />
         </svg>
         @endif
-       
+
       </h1>
       <div class="flex mx-auto">
         <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
@@ -67,13 +67,10 @@
       </div>
     </div>
     <div class="lg:col-span-3">
-      <div class="mt-5 text-2xl font-semibold text-emerald-700">
-        ⭐️⭐️⭐️⭐️⭐️  Overall rating : 
+      <div class="text-2xl font-semibold text-emerald-700">
         @if(pet.petGlobalRating !== null)
-        {{pet.petGlobalRating.toFixed(1)}}/5
-      @else
-        animal non socialisé
-      @end
+        <div class="text-amber-500">⭐ {{ pet.petGlobalRating.toFixed(0)}}/5</div>
+        @end
       </div>
       <div class="mb-4">
         <div class="flex items">
@@ -107,14 +104,15 @@
           </p>
           <p class="mt-6 capitalize flex items-center">
             <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}">
-              <span class=" bg-amber-400 text-emerald-700 hover:bg-amber-500 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+              <span
+                class=" bg-amber-400 text-emerald-700 hover:bg-amber-500 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path fill="currentColor"
                     d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
                 </svg>
-                  {{ pet.user.username }}
+                {{ pet.user.username }}
               </span>
-              </a>
+            </a>
           </p>
         </div>
       </div>
@@ -129,63 +127,88 @@
             d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
         </svg>
       </div>
-{{-- Reviews Section --}}
-<div class="mt-8">
-  <h3 class="text-xl font-semibold text-gray-700 mb-4">Reviews</h3>
+      {{-- Reviews Section --}}
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-emerald-800 mb-4">Last Reviews about {{pet.name}}</h3>
 
-  @if(pet.reviewPet && pet.reviewPet.length > 0)
-    @each(review in pet.reviewPet)
-    <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
-      <div class="px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-          <span class="font-semibold">{{ review.user.username }}</span>
-          <span class="ml-4 text-amber-500">⭐ {{ review.rating }}/5</span>
-          <span class="ml-4">{{ review.description }}</span>
+        @if(pet.reviewPet && pet.reviewPet.length > 0)
+        @each(review in pet.reviewPet.slice(-5))
+        <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+          <div class="px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+              <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}" class="font-semibold">{{
+                review.user.username }}</a>
+              <span class="ml-4 text-amber-500">⭐ {{ review.rating }}/5</span>
+              <span class="ml-4">{{ review.description }}</span>
+            </div>
+            <span>{{ new Date(review.createdAt).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year:
+              'numeric' }) }}</span>
+          </div>
         </div>
-        <span>{{ new Date(review.createdAt).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</span>
+        @end
+
+        @else
+        <p class="text-gray-500 italic">No reviews yet</p>
+        @end
       </div>
-    </div>
-    @end
-  @else
-    <p class="text-gray-500 italic">No reviews yet</p>
-  @end
-</div>
 
-{{-- Meetups Section --}}
-<div class="mt-8">
-  <h3 class="text-xl font-semibold text-gray-700 mb-4">Meetups</h3>
-
-  @if(pet.petMeetups.length === 0)
-    <p class="text-gray-500 italic">No meetups found for this pet.</p>
-  @else
-    @each(meetup in pet.petMeetups)
-    <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
-      <div class="px-4 py-4 flex justify-between items-center">
-        <div class="flex items-center">
-          <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="text-emerald-700 hover:underline">
-            {{ meetup.title }}
-          </a>
-          @if(meetup.globalRating !== null)
-            <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+      {{-- Meetups Section --}}
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-emerald-800 mb-4">Last Meetups attended by {{pet.name}}</h3>
+        
+          @if(pet.petMeetups.length === 0 || pet.petMeetups.filter(m => new Date(m.date) < new Date()).length === 0)
+          <p class="text-gray-500 italic">No past meetups found for this pet.</p>
           @else
-            <span class="ml-4 text-gray-400">Not rated yet</span>
+          @each(meetup in pet.petMeetups.filter(m => new Date(m.date) < new Date()).slice(-5))
+          <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+            <div class="px-4 py-4 flex justify-between items-center">
+              <div class="flex items-center">
+                <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="font-semibold">
+                  {{ meetup.title }}
+                </a>
+                @if(meetup.globalRating !== null)
+                <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+                @else
+                <span class="ml-4 text-gray-400">Not rated yet</span>
+                @end
+              </div>
+              <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year:
+                'numeric' }) }}</span>
+            </div>
+          </div>
+          @end
+
+          {{--Les prochains meetups sur lesquels le pet est inscrit--}}
+
+          <h3 class="text-xl font-semibold text-emerald-800 mb-4 mt-8">Upcoming Meetups for {{pet.name}}</h3>
+          @if(pet.petMeetups.filter(m => new Date(m.date) > new Date()).length === 0)
+          <p class="text-gray-500 italic">No upcoming meetups found for this pet.</p>
+          @end
+          <div class="flex flex-wrap gap-4">
+            @each(meetup in pet.petMeetups.filter(m => new Date(m.date) > new Date()).sort((a, b) => new Date(a.date) - new Date(b.date)).slice(0, 5))
+            <div class="rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 w-auto inline-block">
+              <div class="px-4 py-3 flex items-center gap-4">
+                <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="font-semibold whitespace-nowrap">
+                  {{ meetup.title }}
+                </a>
+                <span class="whitespace-nowrap">{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year:
+                  'numeric' }) }}</span>
+              </div>
+            </div>
+            @end
+          </div>
+          @end
+
+        <div class="mt-4 text-right space-x-2">
+          @if(auth.user.id !== pet.user.id)
+          @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
+          @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
           @end
         </div>
-        <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' }) }}</span>
+        @end
       </div>
     </div>
-    @end
-
-    <div class="mt-4 text-right space-x-2">
-      @if(auth.user.id !== pet.user.id)
-        @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
-        @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
-      @end
-    </div>
-  @end
-</div>
-</div>
-</div>
+  </div>
 </section>
 @endslot
 @end
