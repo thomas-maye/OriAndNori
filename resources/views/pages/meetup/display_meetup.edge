@@ -32,7 +32,14 @@
       {{--Details of the Meetup and buttons--}}
       <div>
 
-        <h2 class="text-xl font-semibold text-emerald-700">{{ meetup.title }}</h2>
+        <div class="flex justify-between items-center w-full">
+          <h2 class="text-xl font-semibold text-emerald-700">
+            {{ meetup.title }}
+          </h2>
+          @if(meetup.globalRating !== null)
+          <div class="text-amber-500">⭐ {{ meetup.globalRating }}/5</div>
+          @end
+        </div>
 
         <div class="flex items">
           <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
