@@ -182,12 +182,12 @@
       <div>
         @if(new Date(meetup.date) >= new Date() && auth.user && connectUserPet.some(pet => !meetupPets.some(mp => mp.id
         === pet.id)))
-        <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
+        <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="">
           {{ csrfField() }}
 
           <div class="mb-4">
             <label class="block text-emerald-700">Add one or more of your pets:</label>
-            <div class="border py-2 px-4 rounded-lg">
+            <div class="border py-2.5 px-4 rounded-lg">
               @if(connectUserPet && connectUserPet.length > 0)
               @if(connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)).length > 0)
               @each(pet in connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)))
