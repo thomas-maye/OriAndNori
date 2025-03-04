@@ -2,26 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link 
+    rel="stylesheet" 
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+    crossorigin=""
+     />
+    <script 
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+    crossorigin=""></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <style>
-        #map { 
-            width: 500px; 
-            height: 500px; 
-            margin: auto;
-        }
-        </style>
+   
 </head>
 <body>
-    <h1>Essaie de carte</h1>
-    <div id="map"></div>
+    <h1 class="text-3xl font-bold text-center">Essaie de la carte</h1>
+    <div class="flex items-center space-x-2 mb-4">
+        <input
+            id="search"
+            type="text"
+            placeholder="Rechercher une adresse"
+            class="p-2 border rounded w-full"
+        />
+        <button
+            id="search-button"
+            class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+            Rechercher
+        </button>
+    </div>
+    <div id="map" class="w-mid h-[500px]"></div>
+
     <script>
-        var map = L.map('map').setView([43.6045, 1.4442], 13);;
+        var map = L.map('map').setView([43.604, 1.44305], 13);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
+
+        var marker = L.marker([43.604, 1.44305]).addTo(map);
+        marker.bindPopup("<b>Ori&Nori</b><br>avec une carte mais rien ne fonctionne encore sauf ce petit marqueur.").openPopup();
     </script>
 </body>
 </html>
