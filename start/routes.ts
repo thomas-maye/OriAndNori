@@ -291,3 +291,8 @@ router
 router.get('/GeoForm', [GeosController, 'showGeoForm']).as('geoForm').use(middleware.auth())
 
 router.post('/geo', [GeosController, 'geo']).as('geoCoding').use(middleware.auth())
+
+router
+  .get('/upcomingMeetups', [GeosController, 'displayUpcommingMeetups'])
+  .as('upcomingMeetups')
+  .use(middleware.auth())
