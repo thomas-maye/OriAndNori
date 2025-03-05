@@ -43,9 +43,54 @@
       <div>
         {{ pet.species.name }}, {{ pet.breed.name }}
       </div>
-      <img class="object-cover w-full rounded-lg aspect-square border-amber-400 border-2 mt-4"
+      <img class="object-cover w-full rounded-lg aspect-square border-amber-400 border-2 mt-4 mb-2"
         src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
         alt="Photo of {{ pet.name }}">
+
+        <div class="mb-4">
+          <div class="flex flex-wrap items-center">
+            <p class="mt-2 capitalize flex items-center">
+              <span class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M4 22q-.425 0-.712-.288T3 21v-4q0-.825.588-1.412T5 15h14q.825 0 1.413.588T21 17v4q0 .425-.288.713T20 22zm1-9v-3q0-.825.588-1.412T7 8h4V6.55q-.45-.3-.725-.725T10 4.8q0-.375.15-.738t.45-.662l1.05-1.05q.05-.05.35-.15q.05 0 .35.15L13.4 3.4q.3.3.45.662T14 4.8q0 .6-.275 1.025T13 6.55V8h4q.825 0 1.413.587T19 10v3z" />
+                </svg>
+                {{ new Date(pet.birthday).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year:
+                'numeric'})}}
+              </span>
+            </p>
+            <p class="mt-2 capitalize flex items-center">
+              <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M8 22.5L6 21v-4H5q-.825 0-1.412-.587T3 15V7.5q-.425 0-.712-.288T2 6.5t.288-.712T3 5.5h3V4h-.5q-.425 0-.712-.288T4.5 3t.288-.712T5.5 2h3q.425 0 .713.288T9.5 3t-.288.713T8.5 4H8v1.5h3q.425 0 .713.288T12 6.5t-.288.713T11 7.5V15q0 .825-.587 1.413T9 17H8zM5 15h4v-1.5H7.25q-.3 0-.525-.225T6.5 12.75t.225-.525T7.25 12H9v-1.5H7.25q-.3 0-.525-.225T6.5 9.75t.225-.525T7.25 9H9V7.5H5zm10 7q-.825 0-1.412-.587T13 20v-6.5q0-.725.25-1.2t.525-.825t.5-.562t.225-.413V10q-.425 0-.712-.287T13.5 9t.288-.712T14.5 8h5q.425 0 .713.288T20.5 9t-.288.713T19.5 10v.5q0 .2.25.45t.55.6q.275.35.488.825T21 13.5V20q0 .825-.587 1.413T19 22zm0-8h4v-.5q0-.375-.225-.65t-.5-.6t-.525-.725t-.25-1.025V10h-1v.5q0 .6-.238 1t-.512.725t-.513.613T15 13.5zm0 6h4v-1.5h-4z" />
+                </svg>
+                {{ pet.vaccined === true ? 'Vaccinated' : 'Not Vaccinated' }}
+              </span>
+            </p>
+            <p class="mt-2 capitalize flex items-center">
+              <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+                </svg>
+                {{ pet.user.city }}
+              </span>
+            </p>
+            <p class="mt-2 capitalize flex items-center">
+              <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}">
+                <span
+                  class=" bg-amber-400 text-emerald-700 hover:bg-amber-500 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
+                  </svg>
+                  {{ pet.user.username }}
+                </span>
+              </a>
+            </p>
+          </div>
+        </div>
 
       <div
         class=" bg-gray-100 dark:bg-emerald-800 p-4 rounded-lg  text-gray-500 dark:text-gray-300 border-amber-400 border-2 mt-4">
@@ -64,6 +109,17 @@
           </div>
         </div>
         @endeach
+      </div>
+      <div class="py-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+        </svg>
+        {{ pet.description }}
+        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24" viewBox="0 0 24 24">
+          <path fill="currentColor"
+            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+        </svg>
       </div>
       <div class="flex mt-3 -mx-2 justify-center">
         @if(auth.user && auth.user.id === pet.user.id)
@@ -107,65 +163,13 @@
         <div class="text-amber-500">⭐ {{ pet.petGlobalRating.toFixed(0)}}/5</div>
         @end
       </div>
-      <div class="mb-4">
-        <div class="flex items">
-          <p class="mt-6 capitalize flex items-center">
-            <span class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M4 22q-.425 0-.712-.288T3 21v-4q0-.825.588-1.412T5 15h14q.825 0 1.413.588T21 17v4q0 .425-.288.713T20 22zm1-9v-3q0-.825.588-1.412T7 8h4V6.55q-.45-.3-.725-.725T10 4.8q0-.375.15-.738t.45-.662l1.05-1.05q.05-.05.35-.15q.05 0 .35.15L13.4 3.4q.3.3.45.662T14 4.8q0 .6-.275 1.025T13 6.55V8h4q.825 0 1.413.587T19 10v3z" />
-              </svg>
-              {{ new Date(pet.birthday).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year:
-              'numeric'})}}
-            </span>
-          </p>
-          <p class="mt-6 capitalize flex items-center">
-            <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M8 22.5L6 21v-4H5q-.825 0-1.412-.587T3 15V7.5q-.425 0-.712-.288T2 6.5t.288-.712T3 5.5h3V4h-.5q-.425 0-.712-.288T4.5 3t.288-.712T5.5 2h3q.425 0 .713.288T9.5 3t-.288.713T8.5 4H8v1.5h3q.425 0 .713.288T12 6.5t-.288.713T11 7.5V15q0 .825-.587 1.413T9 17H8zM5 15h4v-1.5H7.25q-.3 0-.525-.225T6.5 12.75t.225-.525T7.25 12H9v-1.5H7.25q-.3 0-.525-.225T6.5 9.75t.225-.525T7.25 9H9V7.5H5zm10 7q-.825 0-1.412-.587T13 20v-6.5q0-.725.25-1.2t.525-.825t.5-.562t.225-.413V10q-.425 0-.712-.287T13.5 9t.288-.712T14.5 8h5q.425 0 .713.288T20.5 9t-.288.713T19.5 10v.5q0 .2.25.45t.55.6q.275.35.488.825T21 13.5V20q0 .825-.587 1.413T19 22zm0-8h4v-.5q0-.375-.225-.65t-.5-.6t-.525-.725t-.25-1.025V10h-1v.5q0 .6-.238 1t-.512.725t-.513.613T15 13.5zm0 6h4v-1.5h-4z" />
-              </svg>
-              {{ pet.vaccined === true ? 'Vaccinated' : 'Not Vaccinated' }}
-            </span>
-          </p>
-          <p class="mt-6 capitalize flex items-center">
-            <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor"
-                  d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
-              </svg>
-              {{ pet.user.city }}
-            </span>
-          </p>
-          <p class="mt-6 capitalize flex items-center">
-            <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}">
-              <span
-                class=" bg-amber-400 text-emerald-700 hover:bg-amber-500 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
-                </svg>
-                {{ pet.user.username }}
-              </span>
-            </a>
-          </p>
-        </div>
-      </div>
-      <div class="py-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
-        </svg>
-        {{ pet.description }}
-        <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
-        </svg>
-      </div>
-      {{-- Reviews Section --}}
-      <div class="mt-8">
-        <h3 class="text-xl font-semibold text-emerald-800 mb-4">Last Reviews about {{pet.name}}</h3>
 
+      {{-- Reviews Section --}}
+      <div class="mt-4">
+        <div class="flex items-center mb-4">
+          <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.475l1.9 1.15q.275.175.55-.012t.2-.513l-.5-2.175l1.7-1.475q.25-.225.15-.537t-.45-.338L13.325 8.4l-.875-2.05q-.125-.3-.45-.3t-.45.3l-.875 2.05l-2.225.175Q8.1 8.6 8 8.913t.15.537l1.7 1.475l-.5 2.175q-.075.325.2.513t.55.012zM6 18l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"/></svg>          
+          <h3 class="text-xl font-semibold text-emerald-700">Last Reviews about {{pet.name}}</h3>
+        </div>
         @if(pet.reviewPet && pet.reviewPet.length > 0)
         @each(review in pet.reviewPet.slice(-5))
         <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
@@ -189,7 +193,11 @@
 
       {{-- Meetups Section --}}
       <div class="mt-8">
-        <h3 class="text-xl font-semibold text-emerald-800 mb-4">Last Meetups attended by {{pet.name}}</h3>
+        <div class="flex items-center mb-4">
+          <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+          <h3 class="text-xl font-semibold text-emerald-700">The latest Meetups attended by
+            {{pet.name}}</h3>
+      </div>
         
           @if(pet.petMeetups.length === 0 || pet.petMeetups.filter(m => new Date(m.date) < new Date()).length === 0)
           <p class="text-gray-500 italic">No past meetups found for this pet.</p>
@@ -214,8 +222,12 @@
           @end
 
           {{--Les prochains meetups sur lesquels le pet est inscrit--}}
+          <div class="flex items-center mb-4 mt-4">
+            <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+            <h3 class="text-xl font-semibold text-emerald-700">Upcoming Meetups for
+              {{pet.name}}</h3>
+        </div>
 
-          <h3 class="text-xl font-semibold text-emerald-800 mb-4 mt-8">Upcoming Meetups for {{pet.name}}</h3>
           @if(pet.petMeetups.filter(m => new Date(m.date) > new Date()).length === 0)
           <p class="text-gray-500 italic">No upcoming meetups found for this pet.</p>
           @end

@@ -52,19 +52,7 @@
                 <p class="text-gray-700 dark:text-gray-400">My name is {{ auth.user.first_name }}
                     {{auth.user.last_name}}</p>
 
-                <div class="py-2 mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24"
-                        viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
-                    </svg>
-                    {{ auth.user.description }}
-                    <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24"
-                        viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
-                    </svg>
-                </div>
+
 
                 <div class="flex mt-2 text-gray-700 dark:text-gray-200">
                     <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -110,7 +98,7 @@
                     </h1>
                 </div>
 
-                <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200 space-x-2">
+                <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
                     @each(pet in auth.user.pet)
                     <a href="{{ route('PetProfile', [pet.id]) }}">
                         <h1 class="bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800  px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
@@ -123,6 +111,20 @@
                         </h1>
                     </a>
                     @endeach
+                </div>
+
+                <div class="py-2 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                    </svg>
+                    {{ auth.user.description }}
+                    <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24"
+                        viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1" />
+                    </svg>
                 </div>
 
                 <div class="flex mt-6 -mx-2 justify-center">
