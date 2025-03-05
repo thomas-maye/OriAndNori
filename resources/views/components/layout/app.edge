@@ -44,12 +44,12 @@
 
         <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
-          class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
+          class="space-y-1 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
           @if(auth.use('web').isAuthenticated)
-          <div class="mr-4 flex items-center gap-x-2">
+          <div class="mr-4 mt-2 flex items-center gap-x-2">
             <img class="object-cover w-10 h-10 rounded-lg" src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}" alt="Photo of {{auth.use('web').user.username}}">            <div>
-                <h1 class="font-medium text-sm text-gray-700 dark:text-gray-200">{{auth.use('web').user.username}}</h1>
+                <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200 ">{{auth.use('web').user.username}}</h1>
             </div>
           </div>
           @end
