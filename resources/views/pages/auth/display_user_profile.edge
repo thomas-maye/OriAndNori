@@ -23,12 +23,8 @@
     <div
         class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
         <div>
-            <img class="mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
-            src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
-            alt="Photo of {{ userProfile.username }}">
 
-
-            <div class="mt-4 flex items-center">
+            <div class="flex items-center">
                 <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                     viewBox="0 0 24 24">
                     <path fill="currentColor"
@@ -38,15 +34,70 @@
                     {{ userProfile.username }}
                 </div>
             </div>
-
             <div class="flex items">
                 <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
                 <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
                 <span class="inline-block w-1 h-0.5 bg-amber-400 rounded-full"></span>
             </div>
 
-            <p class="text-gray-700 dark:text-gray-400">My name is {{ userProfile.first_name }}
+            <p class="text-gray-700 dark:text-gray-400 mb-2">My name is {{ userProfile.first_name }}
                 {{userProfile.last_name}}</p>
+
+            <img class="mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+                src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
+                alt="Photo of {{ userProfile.username }}">
+
+
+            <div class="flex mt-2 text-gray-700 dark:text-gray-200">
+                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+                </svg>
+
+                <h1 class="px-2 text-sm">
+                    <p> {{ userProfile.city }}</p>
+                </h1>
+            </div>
+
+            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
+                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                        d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12z" />
+                </svg>
+
+                <h1 class="px-2 text-sm">
+                    <p>Register since {{ new Date(userProfile.createdAt).toLocaleDateString('fr-FR', {day: '2-digit',
+                        month: '2-digit', year: 'numeric'})}}</p>
+                </h1>
+            </div>
+
+            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                @if (userProfile.pet.length === 0)
+                <h1 class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M12.025 21.925q-3.35-3.375-5.337-5.45t-3.025-3.45t-1.35-2.35T2 8.5q0-2.3 1.6-3.9T7.5 3q1.125 0 2.175.412T11.55 4.6L10 10h3l-.85 8.375L15 9h-3l1.775-5.3q.625-.35 1.313-.525T16.5 3q2.3 0 3.9 1.6T22 8.5q0 1.2-.325 2.2T20.3 13.088t-3.025 3.45t-5.25 5.387" />
+                    </svg>
+                    <p>No Pets</p>
+                </h1>
+                @else
+                @each(pet in userProfile.pet)
+                <a href="{{ route('PetProfile', [pet.id]) }}">
+                    <h1
+                        class="bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+                        <svg class="text-emerald-700 " xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24">
+                            <path fill="currentColor"
+                                d="M4.5 12.125q-1.05 0-1.775-.725T2 9.625t.725-1.775T4.5 7.125t1.775.725T7 9.625T6.275 11.4t-1.775.725m4.5-4q-1.05 0-1.775-.725T6.5 5.625t.725-1.775T9 3.125t1.775.725t.725 1.775t-.725 1.775T9 8.125m6 0q-1.05 0-1.775-.725T12.5 5.625t.725-1.775T15 3.125t1.775.725t.725 1.775t-.725 1.775T15 8.125m4.5 4q-1.05 0-1.775-.725T17 9.625t.725-1.775t1.775-.725t1.775.725T22 9.625t-.725 1.775t-1.775.725m-12.85 10q-1.125 0-1.888-.862T4 19.225q0-1.3.888-2.275t1.762-1.925q.725-.775 1.25-1.687t1.25-1.713q.55-.65 1.275-1.075T12 10.125t1.575.4t1.275 1.05q.7.8 1.238 1.725t1.262 1.725q.875.95 1.762 1.925T20 19.225q0 1.175-.763 2.038t-1.887.862q-1.35 0-2.675-.225T12 21.675t-2.675.225t-2.675.225" />
+                        </svg>
+                        <p>{{ pet.name }}</p>
+                    </h1>
+                </a>
+                @endeach
+                @endif
+            </div>
 
             <div class="py-2 mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24"
@@ -62,95 +113,106 @@
                 </svg>
             </div>
 
-            <div class="flex mt-2 text-gray-700 dark:text-gray-200">
-                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                        d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
-                </svg>
-
-                <h1 class="px-2 text-sm">
-                    <p> {{ userProfile.city }}</p>
-                </h1>
-            </div>
-
-            <div class="flex mt-4 text-gray-700 dark:text-gray-200">
-                <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m8.6 22.5l-1.9-3.2l-3.6-.8l.35-3.7L1 12l2.45-2.8l-.35-3.7l3.6-.8l1.9-3.2L12 2.95l3.4-1.45l1.9 3.2l3.6.8l-.35 3.7L23 12l-2.45 2.8l.35 3.7l-3.6.8l-1.9 3.2l-3.4-1.45zm2.35-6.95L16.6 9.9l-1.4-1.45l-4.25 4.25l-2.15-2.1L7.4 12z"/></svg>
-
-                <h1 class="px-2 text-sm">
-                    <p>Register since {{ new Date(userProfile.createdAt).toLocaleDateString('fr-FR', {day: '2-digit', month: '2-digit', year: 'numeric'})}}</p>
-                </h1>
-            </div>
-
-            <div class="flex items-center mt-4 text-gray-700 dark:text-gray-200 space-x-2">
-                @if (userProfile.pet.length === 0)
-                <h1 class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12.025 21.925q-3.35-3.375-5.337-5.45t-3.025-3.45t-1.35-2.35T2 8.5q0-2.3 1.6-3.9T7.5 3q1.125 0 2.175.412T11.55 4.6L10 10h3l-.85 8.375L15 9h-3l1.775-5.3q.625-.35 1.313-.525T16.5 3q2.3 0 3.9 1.6T22 8.5q0 1.2-.325 2.2T20.3 13.088t-3.025 3.45t-5.25 5.387"/></svg>
-                    <p>No Pets</p>
-                </h1>
-                @else
-                @each(pet in userProfile.pet)
-                <a href="{{ route('PetProfile', [pet.id]) }}">
-                    <h1 class="bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
-                        <svg class="text-emerald-700 " xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                            viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M4.5 12.125q-1.05 0-1.775-.725T2 9.625t.725-1.775T4.5 7.125t1.775.725T7 9.625T6.275 11.4t-1.775.725m4.5-4q-1.05 0-1.775-.725T6.5 5.625t.725-1.775T9 3.125t1.775.725t.725 1.775t-.725 1.775T9 8.125m6 0q-1.05 0-1.775-.725T12.5 5.625t.725-1.775T15 3.125t1.775.725t.725 1.775t-.725 1.775T15 8.125m4.5 4q-1.05 0-1.775-.725T17 9.625t.725-1.775t1.775-.725t1.775.725T22 9.625t-.725 1.775t-1.775.725m-12.85 10q-1.125 0-1.888-.862T4 19.225q0-1.3.888-2.275t1.762-1.925q.725-.775 1.25-1.687t1.25-1.713q.55-.65 1.275-1.075T12 10.125t1.575.4t1.275 1.05q.7.8 1.238 1.725t1.262 1.725q.875.95 1.762 1.925T20 19.225q0 1.175-.763 2.038t-1.887.862q-1.35 0-2.675-.225T12 21.675t-2.675.225t-2.675.225" />
-                        </svg>
-                        <p>{{ pet.name }}</p>
-                    </h1>
-                </a>
-                @endeach
+            <div class="flex mt-3 -mx-2 justify-center">
+                @if(auth.user && auth.user.id === userProfile.id)                  
+                <div class="inline-flex items-center rounded-lg text-gray-100 dark:text-gray-300 hover:text-white bg-emerald-700 focus:relative">
+                    <div class="inline-flex">
+                      
+                      <a href="{{ route('auth.edit_my_profile') }}">
+                        <button
+                        class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                          </svg>
+                  
+                          Edit
+                        </button>
+                      </a>
+                  
+                      <a href="{{ route('auth.display_delete_profile')}}">
+                        <button
+                          class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="size-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                          </svg>
+                  
+                          Delete
+                        </button>
+                      </a>
+                    </div>
+                </div>
                 @endif
             </div>
 
         </div>
+        
 
-        <div class="lg:col-span-3 mb-4">
-            <h1 class="text-2xl font-semibold lg:text-xl text-emerald-700 mb-4">The Meetups created by the user</h1>
+        <div class="col-span-3">
+            <div class="flex items-center mb-4">
+                <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+                <h3 class="text-xl font-semibold text-emerald-700">The latest Meetups attended by
+                    {{userProfile.username}}</h3>
+            </div>
             <div class="space-y-4">
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
+                @if(userProfile.userMeetups.length === 0 || userProfile.userMeetups.filter(m => new Date(m.date) < new Date()).length===0)
+                <p class="text-gray-500 italic">No past meetups found.</p>
+                    @else
+                    @each(meetup in userProfile.userMeetups.filter(m => new Date(m.date) < new Date()).slice(-5)) 
+                    <div
+                        class="rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300">
+                        <div class="px-4 py-4  flex justify-between items-center">
+                            <div class="flex items-center">
+                                <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="font-semibold">
+                                    {{ meetup.title }}
+                                </a>
+                                @if(meetup.globalRating !== null)
+                                <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+                                @else
+                                <span class="ml-4 text-gray-400">Not rated yet</span>
+                                @end
+                            </div>
+                            <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month:
+                                '2-digit', year:'numeric' }) }}</span>
+                        </div>
+            </div>
+            @end
+            @end
+
+            <div class="flex items-center mb-4">
+                <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+                <h3 class="text-xl font-semibold text-emerald-700">Upcoming Meetups for
+                {{userProfile.username}}</h3>
+            </div>
+                @if(userProfile.userMeetups.filter(m => new Date(m.date) > new Date()).length === 0)
+                <p class="text-gray-500 italic">No uncomming meetups found.</p>
+                @end
+                <div class="flex flex-wrap gap-4">
+                @each(meetup in userProfile.userMeetups.filter(m => new Date(m.date) > new Date()).slice(-5))
+                <div class="rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 w-auto inline-block">
+                    <div class="px-4 py-3 flex items-center gap-4">
+                            <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="font-semibold">
+                                {{ meetup.title }}
+                            </a>
+                        <span>{{ new Date(meetup.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit',
+                            year:'numeric' }) }}</span>
                     </div>
                 </div>
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
-                    </div>
-                </div>
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
-                    </div>
-                </div>
+                @end
             </div>
 
-            <h1 class="text-2xl font-semibold lg:text-xl text-emerald-700 my-4">The Meetups created by the user</h1>
-            <div class="space-y-4">
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
-                    </div>
-                </div>
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
-                    </div>
-                </div>
-                <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 ">
-                    <div class="px-4 py-4">
-                    insérer les Meetups auxquels l'user à participé
-                    </div>
-                </div>
-            </div>
+                @end
+
 
             <div class="mt-4 text-right space-x-2">
                 @if(userProfile.id !== auth.user.id)
                 @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
                 @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
                 @endif
-              </div>
+            </div>
         </div>
     </div>
 </section>
