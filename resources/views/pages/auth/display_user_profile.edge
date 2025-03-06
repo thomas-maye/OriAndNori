@@ -153,7 +153,9 @@
 
         <div class="col-span-3">
             <div class="flex items-center mb-4">
-                <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+                <span class="mr-2 inline-flex items-center justify-center p-3 text-emerald-700 bg-amber-400 rounded-full w-12 h-12 dark:text-white">
+                    <svg class="text-emerald-700 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+                  </span>
                 <h3 class="text-xl font-semibold text-emerald-700">The latest Meetups attended by
                     {{userProfile.username}}</h3>
             </div>
@@ -170,7 +172,10 @@
                                     {{ meetup.title }}
                                 </a>
                                 @if(meetup.globalRating !== null)
-                                <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+                                <span class="ml-4 flex items-center">
+                                    <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                                    <span class="ml-1 text-amber-500">{{ meetup.globalRating }}/5</span>
+                                </span>
                                 @else
                                 <span class="ml-4 text-gray-400">Not rated yet</span>
                                 @end
@@ -183,7 +188,9 @@
             @end
 
             <div class="flex items-center mb-4">
-                <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+                <span class="mr-2 inline-flex items-center justify-center p-3 text-emerald-700 bg-amber-400 rounded-full w-12 h-12 dark:text-white">
+                    <svg class="text-emerald-700 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+                  </span>
                 <h3 class="text-xl font-semibold text-emerald-700">Upcoming Meetups for
                 {{userProfile.username}}</h3>
             </div>

@@ -27,12 +27,12 @@
         your furry friends! Connect with other pet lovers, organize playdates, share their adventures, and boost your
         pets' social life with fun features and handy resources. </p>
 
-      <div class="flex flex-col mt-6 space-y-3 lg:space-y-0 lg:flex-row lg:space-x-3">
-        @if(!auth.use('web').isAuthenticated)
-        @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
-        @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
-        @end
-      </div>
+        <div class="flex gap-3 mt-6">
+          @if(!auth.use('web').isAuthenticated)
+          @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+          @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
+          @end
+        </div>
     </div>
   </div>
 

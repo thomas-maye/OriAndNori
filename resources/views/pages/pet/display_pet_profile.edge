@@ -160,25 +160,33 @@
     <div class="lg:col-span-3">
       <div class="text-2xl font-semibold text-emerald-700">
         @if(pet.petGlobalRating !== null)
-        <div class="text-amber-500">⭐ {{ pet.petGlobalRating.toFixed(0)}}/5</div>
+        <span class="ml-4 flex items-center">
+          <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+          <span class="ml-1 text-amber-500">{{ pet.petGlobalRating.toFixed(0)}}/5</span>
+        </span>
         @end
       </div>
 
       {{-- Reviews Section --}}
       <div class="mt-4">
         <div class="flex items-center mb-4">
-          <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.475l1.9 1.15q.275.175.55-.012t.2-.513l-.5-2.175l1.7-1.475q.25-.225.15-.537t-.45-.338L13.325 8.4l-.875-2.05q-.125-.3-.45-.3t-.45.3l-.875 2.05l-2.225.175Q8.1 8.6 8 8.913t.15.537l1.7 1.475l-.5 2.175q-.075.325.2.513t.55.012zM6 18l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"/></svg>          
+          <span class="mr-2 inline-flex items-center justify-center p-3 text-emerald-700 bg-amber-400 rounded-full w-12 h-12 dark:text-white">
+            <svg class="text-emerald-700 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m12 12.475l1.9 1.15q.275.175.55-.012t.2-.513l-.5-2.175l1.7-1.475q.25-.225.15-.537t-.45-.338L13.325 8.4l-.875-2.05q-.125-.3-.45-.3t-.45.3l-.875 2.05l-2.225.175Q8.1 8.6 8 8.913t.15.537l1.7 1.475l-.5 2.175q-.075.325.2.513t.55.012zM6 18l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z"/></svg>
+          </span>
           <h3 class="text-xl font-semibold text-emerald-700">Last Reviews about {{pet.name}}</h3>
         </div>
         @if(pet.reviewPet && pet.reviewPet.length > 0)
         @each(review in pet.reviewPet.slice(-5))
-        <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+        <div class="rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
           <div class="px-4 py-4 flex justify-between items-center">
             <div class="flex items-center">
               <a href="{{ route('auth.display_user_profile', [pet.user.id]) }}" class="font-semibold">{{
                 review.user.username }}</a>
-              <span class="ml-4 text-amber-500">⭐ {{ review.rating }}/5</span>
-              <span class="ml-4">{{ review.description }}</span>
+                <span class="ml-4 flex items-center">
+                  <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                  <span class="ml-1 text-amber-500">{{ review.rating}}/5</span>
+                </span>
+              <span class="ml-4">"{{ review.description }}"</span>
             </div>
             <span>{{ new Date(review.createdAt).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year:
               'numeric' }) }}</span>
@@ -194,7 +202,9 @@
       {{-- Meetups Section --}}
       <div class="mt-8">
         <div class="flex items-center mb-4">
-          <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+          <span class="mr-2 inline-flex items-center justify-center p-3 text-emerald-700 bg-amber-400 rounded-full w-12 h-12 dark:text-white">
+            <svg class="text-emerald-700 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 17V7q0-.425.288-.712T6.5 6t.713.288T7.5 7v10q0 .425-.288.713T6.5 18t-.712-.288T5.5 17m11.45-.025l-6.2-4.15q-.225-.15-.337-.362T10.3 12t.113-.462t.337-.363l6.2-4.15q.125-.1.275-.125t.275-.025q.4 0 .7.275t.3.725v8.25q0 .45-.3.725t-.7.275q-.125 0-.275-.025t-.275-.125"/></svg>
+          </span>
           <h3 class="text-xl font-semibold text-emerald-700">The latest Meetups attended by
             {{pet.name}}</h3>
       </div>
@@ -203,14 +213,17 @@
           <p class="text-gray-500 italic">No past meetups found for this pet.</p>
           @else
           @each(meetup in pet.petMeetups.filter(m => new Date(m.date) < new Date()).slice(-5))
-          <div class="h-16 rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
+          <div class="rounded-lg bg-gray-200 text-gray-500 dark:bg-gray-800 dark:text-gray-300 mt-4">
             <div class="px-4 py-4 flex justify-between items-center">
               <div class="flex items-center">
                 <a href="{{ route('displayMeetup', { id: meetup.id }) }}" class="font-semibold">
                   {{ meetup.title }}
                 </a>
                 @if(meetup.globalRating !== null)
-                <span class="ml-4 text-amber-500">⭐ {{ meetup.globalRating }}/5</span>
+                <span class="ml-4 flex items-center">
+                  <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                  <span class="ml-1 text-amber-500">{{ meetup.globalRating }}/5</span>
+                </span>
                 @else
                 <span class="ml-4 text-gray-400">Not rated yet</span>
                 @end
@@ -223,7 +236,9 @@
 
           {{--Les prochains meetups sur lesquels le pet est inscrit--}}
           <div class="flex items-center mb-4 mt-4">
-            <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+            <span class="mr-2 inline-flex items-center justify-center p-3 text-emerald-700 bg-amber-400 rounded-full w-12 h-12 dark:text-white">
+              <svg class="text-emerald-700 w-7 h-7" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 17V7q0-.425.288-.712T17.5 6t.713.288T18.5 7v10q0 .425-.288.713T17.5 18t-.712-.288T16.5 17m-11-.875v-8.25q0-.45.3-.725t.7-.275q.125 0 .275.025t.275.125l6.2 4.15q.225.15.338.363T13.7 12t-.112.463t-.338.362l-6.2 4.15q-.125.1-.275.125t-.275.025q-.4 0-.7-.275t-.3-.725"/></svg>
+            </span>
             <h3 class="text-xl font-semibold text-emerald-700">Upcoming Meetups for
               {{pet.name}}</h3>
         </div>

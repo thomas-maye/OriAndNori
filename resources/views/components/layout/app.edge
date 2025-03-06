@@ -46,219 +46,226 @@
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
           class="space-y-1 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
-          @if(auth.use('web').isAuthenticated)
-          <div class="mr-4 mt-2 flex items-center gap-x-2">
-            <img class="object-cover w-10 h-10 rounded-lg" src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}" alt="Photo of {{auth.use('web').user.username}}">            <div>
-                <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200 ">{{auth.use('web').user.username}}</h1>
-            </div>
-          </div>
-          @end
-
-          <div x-data="{ isActive: false }" class="relative">
-            <a href="{{route('home')}}"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Home
-            </a>
-          </div>
-
-          @if(auth.use('web').isAuthenticated)
-
-          <div x-data="{ isActive: false }" class="relative">
-            <button x-on:click="isActive = !isActive"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Meetups
-              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-            </button>
-            <div
-              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
-              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-              x-on:keydown.escape.window="isActive = false">
-              <div>
-                <a href="{{route('myMeetups')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
-                  role="menuitem">
-                  My Meetups
-                </a>
-
-                <a href="{{route('createMeetupForm')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Create a Meetup
-                </a>
-
-                <a href="{{route('displayMeetupsList')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Search for a Meetup
-                </a>
-
-                {{--<a href="#"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Invitations received
-                </a>--}}
-
-              </div>
-            </div>
-          </div>
-
-          <div x-data="{ isActive: false }" class="relative">
-            <button x-on:click="isActive = !isActive"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Pets
-              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-            </button>
-            <div
-              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
-              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-              x-on:keydown.escape.window="isActive = false">
-              <div>
-                <a href="{{route('MyPets')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
-                  role="menuitem">
-                  My Pets
-                </a>
-
-                <a href="{{route('showCreatePetForm')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Create a Pet
-                </a>
-
-                <a href="{{route('petList')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Search for a Pet profile
-                </a>
-
-                <a href="#"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  My Pets's friends
-                </a>
-
-              </div>
-            </div>
-          </div>
-
-          {{--<div x-data="{ isActive: false }" class="relative">
-            <button x-on:click="isActive = !isActive"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Reviews
-              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-            </button>
-            <div
-              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
-              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-              x-on:keydown.escape.window="isActive = false">
-              <div>
-                <a href="{{route('reviews')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
-                  role="menuitem">
-                  My Reviews
-                </a>
-
-                <a href="{{route('reviews')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Post a review
-                </a>
-
-                <a href="{{route('reviews')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Reviews received
-                </a>
-
-              </div>
-            </div>
-          </div>--}}
-
-          <div x-data="{ isActive: false }" class="relative">
-            <button x-on:click="isActive = !isActive"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Profile
-              <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                fill="none" viewBox="0 0 10 6">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-            </button>
-            <div
-              class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
-              role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
-              x-on:keydown.escape.window="isActive = false">
-              <div>
-                <a href="{{route('auth.display_my_profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
-                  role="menuitem">
-                  My Profile
-                </a>
-
-                <a href="{{route('auth.display_all_users')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Search for a Profile
-                </a>
-
-                <a href="{{route('profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Messages
-                </a>
-
-                <a href="{{route('profile')}}"
-                  class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
-                  role="menuitem">
-                  Settings
-                </a>
-
-              </div>
-            </div>
-          </div>
-          @end
-
-          <div x-data="{ isActive: false }" class="relative">
-            <a href="{{route('about')}}"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              About
-            </a>
-          </div>
-
-          <div x-data="{ isActive: false }" class="relative">
-            <a href="{{route('contact')}}"
-              class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-              Contact
-            </a>
-          </div>
-
-          <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
-            {{ csrfField() }}
+          <div class="flex items-center">
             @if(auth.use('web').isAuthenticated)
-            @!component('components/button-simple/full', { text : 'Logout'})
+            <div x-data="{ isActive: false }" class="relative lg:flex lg:items-center">
+              <div class="mr-4 flex items-center gap-x-2">
+                <img class="object-cover w-10 h-10 rounded-lg"
+                  src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}"
+                  alt="Photo of {{auth.use('web').user.username}}">
+                <div>
+                  <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}
+                  </h1>
+                </div>
+              </div>
+            </div>
             @end
-          </form>
 
-          <div class="">
-            @if (!auth.use('web').isAuthenticated && request.url() !== '/')
-            @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
-            @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
+            <div x-data="{ isActive: false }" class="relative">
+              <a href="{{route('home')}}"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:text-gray-200">
+                Home
+              </a>
+            </div>
+
+            @if(auth.use('web').isAuthenticated)
+
+            <div x-data="{ isActive: false }" class="relative">
+              <button x-on:click="isActive = !isActive"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Meetups
+                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <div
+                class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+                role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+                x-on:keydown.escape.window="isActive = false">
+                <div>
+                  <a href="{{route('myMeetups')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    role="menuitem">
+                    My Meetups
+                  </a>
+
+                  <a href="{{route('createMeetupForm')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Create a Meetup
+                  </a>
+
+                  <a href="{{route('displayMeetupsList')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Search for a Meetup
+                  </a>
+
+                  {{--<a href="#"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Invitations received
+                  </a>--}}
+
+                </div>
+              </div>
+            </div>
+
+            <div x-data="{ isActive: false }" class="relative">
+              <button x-on:click="isActive = !isActive"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Pets
+                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <div
+                class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+                role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+                x-on:keydown.escape.window="isActive = false">
+                <div>
+                  <a href="{{route('MyPets')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    role="menuitem">
+                    My Pets
+                  </a>
+
+                  <a href="{{route('showCreatePetForm')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Create a Pet
+                  </a>
+
+                  <a href="{{route('petList')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Search for a Pet profile
+                  </a>
+
+                  <a href="#"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    My Pets's friends
+                  </a>
+
+                </div>
+              </div>
+            </div>
+
+            {{--<div x-data="{ isActive: false }" class="relative">
+              <button x-on:click="isActive = !isActive"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Reviews
+                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <div
+                class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+                role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+                x-on:keydown.escape.window="isActive = false">
+                <div>
+                  <a href="{{route('reviews')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    role="menuitem">
+                    My Reviews
+                  </a>
+
+                  <a href="{{route('reviews')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Post a review
+                  </a>
+
+                  <a href="{{route('reviews')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Reviews received
+                  </a>
+
+                </div>
+              </div>
+            </div>--}}
+
+            <div x-data="{ isActive: false }" class="relative">
+              <button x-on:click="isActive = !isActive"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Profile
+                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  fill="none" viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+              <div
+                class="absolute z-10 py-3 mt-2 w-56 rounded-md border border-gray-100 bg-white  dark:bg-gray-800 shadow-lg"
+                role="menu" x-cloak x-transition x-show="isActive" x-on:click.away="isActive = false"
+                x-on:keydown.escape.window="isActive = false">
+                <div>
+                  <a href="{{route('auth.display_my_profile')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    role="menuitem">
+                    My Profile
+                  </a>
+
+                  <a href="{{route('auth.display_all_users')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Search for a Profile
+                  </a>
+
+                  <a href="{{route('profile')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Messages
+                  </a>
+
+                  <a href="{{route('profile')}}"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    role="menuitem">
+                    Settings
+                  </a>
+
+                </div>
+              </div>
+            </div>
             @end
+
+            <div x-data="{ isActive: false }" class="relative">
+              <a href="{{route('about')}}"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                About
+              </a>
+            </div>
+
+            <div x-data="{ isActive: false }" class="relative">
+              <a href="{{route('contact')}}"
+                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Contact
+              </a>
+            </div>
+
+            <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
+              {{ csrfField() }}
+              @if(auth.use('web').isAuthenticated)
+              @!component('components/button-simple/full', { text : 'Logout'})
+              @end
+            </form>
+
+            <div class="">
+              @if (!auth.use('web').isAuthenticated && request.url() !== '/')
+              @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+              @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
+              @end
+            </div>
           </div>
         </div>
-      </div>
     </nav>
   </header>
 
