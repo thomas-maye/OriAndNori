@@ -1,6 +1,7 @@
 import { HttpContext } from '@adonisjs/core/http'
 import opencage from 'opencage-api-client'
 import Meetup from '#models/meetup'
+//import { DateTime } from 'luxon'
 
 export default class GeosController {
   // Handles geocoding of an address using the OpenCage API.
@@ -46,11 +47,16 @@ export default class GeosController {
   }
 
   async showGeoForm({ view }: HttpContext) {
-    return view.render('pages/essaie_geo')
+    return view.render('pages/essaie_geo', {
+      center: { latitude: 43.604, longitude: 1.44305 },
+      zoom: 13,
+      markers: [],
+    })
   }
 
   async displayUpcommingMeetups({ view, response, session }: HttpContext) {
     const meetups = await Meetup.query().where('date', '>', new Date()).orderBy('date', 'asc')
+    console.log('meetups', meetups)
 
     const apiKey = process.env.OPENCAGE_API_KEY
 
@@ -59,27 +65,42 @@ export default class GeosController {
       return response.redirect().back()
     }
 
+    const addresses = meetups.map((meetup) => `${meetup.adress}, ${meetup.city}`)
     try {
-      const coordinates = await Promise.all(
-        meetups.map(async (meetup) => {
+      const coordinates = await Promise.allSettled(
+        addresses.map(async (address, index) => {
           const addressData = await opencage.geocode({
-            q: `${meetup.adress}, ${meetup.city}`,
+            q: address,
             key: apiKey,
           })
-          if (addressData && addressData.code === 200) {
+          if (addressData && addressData.status.code === 200 && addressData.results.length > 0) {
             const adress = addressData.results[0]
             return {
-              ...meetup,
+              ...meetups[index],
               latitude: adress.geometry.lat,
               longitude: adress.geometry.lng,
+              title: meetups[index].title,
+              date: meetups[index].date,
+              description: meetups[index].description,
+              adress: meetups[index].adress,
+              city: meetups[index].city,
             }
           }
           return null
         })
       )
-      const validMeetups = coordinates.filter((coord) => coord !== null)
+      console.log('coordinates', coordinates)
+      const validMeetups = coordinates
+        .filter((result) => result.status === 'fulfilled' && result.value !== null)
+        .map((result) => {
+          const meetup = (result as PromiseFulfilledResult<any>).value
+          return meetup
+        })
+      console.log('validMeetups', validMeetups)
 
-      return view.render('pages/upcomin_meetups_map', {
+      return view.render('pages/essaie_geo', {
+        center: { latitude: 43.604, longitude: 1.44305 },
+        zoom: 13,
         meetups: validMeetups,
       })
     } catch (error) {

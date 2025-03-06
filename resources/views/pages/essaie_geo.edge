@@ -11,52 +11,29 @@ crossorigin="" />
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
 integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
 crossorigin="">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </script>
-@endslot
+@end
 
 @slot('main')
-<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10 px-4">
-  <div class="container py-4">
-    <h1 class="text-3xl font-bold text-center text-emerald-600">Essaie de la carte</h1>
-    <div class="flex items-center space-x-2 mb-4 text-white">
-        <form method="POST" action="{{ route('geoCoding') }}">
-            {{ csrfField() }}
-        <input
-          id="search"
-          name="address"
-          type="text"
-          placeholder="Rechercher une adresse"
-          class="p-2 border rounded w-full"
-        />
-        <button
-          id="search-button"
-          class="bg-blue-500 text-white px-4 py-2 rounded"
-          type="submit"
-        >
-          Rechercher
-        </button>
-      </form>
-    </div>
-    <div id="map" class="w-full h-[500px]"></div>
-  </div>
-</section>
+  @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
+  @each(meetup in meetups)
+  @component('components/map/map_marker', { 
+    latitude: meetup.latitude, 
+    longitude: meetup.longitude, 
+    label: meetup.title, 
+    description: meetup.description,
+    date: meetup.date,
+    adress: meetup.adress,
+    city: meetup.city
+  })
 
-<script>
-  var map = L.map('map').setView([43.604, 1.44305], 13);
+    
+  @end
+  @end
+    
+  @end
+  @endcomponent
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
-
-  var marker = L.marker([43.604, 1.44305]).addTo(map);
-  marker.bindPopup("<b>Ori&Nori</b><br>avec une carte mais rien ne fonctionne encore sauf ce petit marqueur.").openPopup();
-
-  // Update map with new coordinates
-  @if (latitude && longitude)
-    map.setView([{{ latitude }}, {{ longitude }}], 13);
-    marker.setLatLng([{{ latitude }}, {{ longitude }}]);
-    marker.bindPopup("<b>{{ address }}</b><br>Timezone: {{ timezone }}").openPopup();
-  @endif
-</script>
 @endslot
 @end
