@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.popup-content {
+    @apply font-sans text-sm leading-relaxed text-gray-700 dark:text-gray-500;
+}
+
+.popup-title {
+    @apply text-lg font-semibold text-emerald-700 dark:text-emerald-600 mb-1;
+}
+
+.popup-date,
+.popup-address,
+.popup-description {
+   margin-bottom: 0;
+   line-height: 1.25;
+}

@@ -9,16 +9,24 @@ document.addEventListener('alpine:init', () => {
       addMarker(map, markerData) {
         const formattedDate = DateTime.fromISO(markerData.date).toFormat('dd/MM/yyyy HH:mm');
         const popupContent = `
-          <div>
-            <h3>${markerData.label}</h3>
-            <p>${markerData.description}</p>
-            <p>${formattedDate}</p>
-            <p>${markerData.adress}</p>
-            <p>${markerData.city}</p>
+          <div class="popup-content">
+            <h4 class="popup-title">${markerData.label}</h4>
+            <p class="popup-address">${markerData.adress}, ${markerData.city}</p>
+            <p class="popup-date">${formattedDate}</p>
+            <p class="popup-description">${markerData.description}</p>
           </div>
         `
         const popup = L.popup({ offset: [0, -15] }).setContent(popupContent)
-        L.marker([markerData.latitude, markerData.longitude]).bindPopup(popup).addTo(map)
+        
+        const marker = L.marker([markerData.latitude, markerData.longitude])
+        marker.bindPopup(popup)
+        marker.on('mouseover', function (e) {
+          this.openPopup()
+        })
+        marker.on('mouseout', function (e) {
+          this.closePopup()
+        })
+        .addTo(map)
       },
 
       init() {

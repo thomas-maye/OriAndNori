@@ -16,24 +16,37 @@ crossorigin="">
 @end
 
 @slot('main')
-  @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
-  @each(meetup in meetups)
-  @component('components/map/map_marker', { 
-    latitude: meetup.latitude, 
-    longitude: meetup.longitude, 
-    label: meetup.title, 
-    description: meetup.description,
-    date: meetup.date,
-    adress: meetup.adress,
-    city: meetup.city
-  })
-
-    
-  @end
-  @end
-    
-  @end
-  @endcomponent
-
+<div x-data="{ selectedMeetup: null }" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+  <div class="h-96 md:h-[500px] border border-gray-300 rounded-md">
+    @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
+    @each(meetup in meetups)
+    @component('components/map/map_marker', { 
+      latitude: meetup.latitude, 
+      longitude: meetup.longitude, 
+      label: meetup.title, 
+      description: meetup.description,
+      date: meetup.date,
+      adress: meetup.adress,
+      city: meetup.city,
+    })
+    <div @mouseover="selectedMeetup = meetup" @mouseleave="selectedMeetup = null"></div>
+    @end
+    @end
+    @endcomponent
+  </div>
+  <div class="space-y-4">
+    @each(meetup in meetups)
+    <div 
+      :class="{ 'bg-gray-200': selectedMeetup && selectedMeetup.id === meetup.id }"
+      class="p-4 border border-gray-300 rounded-md" 
+    >
+      <h3 class="text-lg font-semibold">{{ meetup.title }}</h3>
+      <p>{{ meetup.description }}</p>
+      <p><strong>Date:</strong> {{ meetup.date }}</p>
+      <p><strong>Address:</strong> {{ meetup.adress }}, {{ meetup.city }}</p>
+    </div>
+    @end
+  </div>
+</div>
 @endslot
 @end
