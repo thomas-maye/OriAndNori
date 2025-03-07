@@ -3,6 +3,7 @@ import ReviewPet from '#models/review_pet'
 import { reviewPetValidator } from '#validators/review_pet'
 import Pet from '#models/pet'
 import Meetup from '#models/meetup'
+
 //import ReviewMeetup from '#models/review_meetup'
 
 export default class ReviewPetsController {
@@ -21,9 +22,20 @@ export default class ReviewPetsController {
       console.log(
         `description: ${request.input('description')}, type: ${typeof request.input('description')}`
       ) */
+      const petId: number = request.input('petId')
+
+            const existingReview = await ReviewPet.query()
+            .where('userId', user.id)
+            .andWhere('petId', petId)
+            .first()
+      
+          if (existingReview) {
+            session.flash('error', 'You have already left a review for this pet')
+            return response.redirect().back()
+          }
 
       const validatedData = await request.validateUsing(reviewPetValidator)
-      const petId: number = request.input('petId')
+      
       //const meetupId: number = request.input('meetupId')
 
       await ReviewPet.create({
@@ -137,6 +149,11 @@ export default class ReviewPetsController {
     }
   }
 
+  /**
+   * ------------------------------
+   * Show Review Form
+   * ------------------------------
+   */
   async showReviewForm({ view, response, auth, params }: HttpContext) {
     try {
       const user = auth.user
@@ -152,14 +169,22 @@ export default class ReviewPetsController {
       }
       //console.log(meetupId)
 
+
       const meetup = await Meetup.query()
         .where('id', meetupId)
         .preload('reviewMeetup')
         .firstOrFail()
 
       const meetupPets = await meetup.related('meetupPets').query().preload('reviewPet')
+      const userMeetupReview = await meetup.related('reviewMeetup').query().where('userId', user.id).first()
+
+      const userPetReviews = await ReviewPet.query().where('userId', user.id)
+      const userPetReviewIds = userPetReviews.map(review => review.petId)
+      
+      console.log(userPetReviewIds)
+
       //console.log(meetup)
-      return view.render('pages/reviews/reviewForm', { meetup, meetupPets, meetupId })
+      return view.render('pages/reviews/reviewForm', { meetup, meetupPets, meetupId, userMeetupReview, userPetReviews, userPetReviewIds })
     } catch (error) {
       return response.status(400).json({
         message: 'Failed to show review form',
@@ -168,6 +193,11 @@ export default class ReviewPetsController {
     }
   }
 
+  /**
+   * ------------------------------
+   * Edit Review Form
+   * ------------------------------
+   */
   async editReviewForm({ view, response, auth, params }: HttpContext) {
     try {
       const user = auth.user

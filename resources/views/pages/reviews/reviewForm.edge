@@ -6,7 +6,12 @@
 @slot('main')
 <section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10 px-4">
 
+  @!component('components/banner/error')
+  @!component('components/banner/success')
+
   {{-- Meetup Review Section --}}
+
+  @if(!userMeetupReview)
   <div class="container py-4">
     <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Review Meetup</h1>
     <div class="flex mx-auto">
@@ -56,9 +61,11 @@
         })
       </form>
     </div>
+    @endif
 
 
     {{-- Pets Review Section --}}
+    @if(meetupPets && meetupPets.filter(pet => pet.userId !== auth.user.id && !userPetReviewIds.includes(pet.id)).length > 0)
     <div class="mt-8">
       <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Review Participating Pets</h1>
       <div class="flex mx-auto mb-8">
@@ -67,9 +74,8 @@
         <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
       </div>
 
-      @if(meetupPets && meetupPets.length > 0)
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @each(pet in meetupPets.filter(pet => pet.userId !== auth.user.id))
+        @each(pet in meetupPets.filter(pet => pet.userId !== auth.user.id && !userPetReviewIds.includes(pet.id)))
         <div
           class="shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500 text-gray-500 dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
 
@@ -126,10 +132,8 @@
         </div>
         @end
       </div>
-      @else
-      <p class="text-gray-500 italic">No pets to review</p>
-      @end
     </div>
+    @endif
 
     <div class="mt-8 pb-8">
       @!component('components/button-link/empty', {

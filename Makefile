@@ -10,3 +10,5 @@ up:
 
 bash:
 	docker-compose run --rm node bash
+
+restart: down up
