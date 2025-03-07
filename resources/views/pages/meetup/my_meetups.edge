@@ -197,6 +197,8 @@
   </div>
 
   {{--History of the Meetups--}}
+  @each(meetup in meetups)
+  @if(new Date(meetup.date) <= new Date()) 
   <div class="container px-30 md:px-4 mt-10">
     <div class="flex items-center mb-4 pl-10">
       <span
@@ -210,8 +212,6 @@
       <h3 class="text-xl font-semibold text-emerald-700">My past meetups </h3>
     </div>
     <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
-      @each(meetup in meetups)
-      @if(new Date(meetup.date) <= new Date()) 
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
         <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
