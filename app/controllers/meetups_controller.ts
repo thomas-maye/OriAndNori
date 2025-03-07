@@ -5,6 +5,7 @@ import Meetup from '#models/meetup'
 import { meetupValidator } from '#validators/meetup'
 import { DateTime } from 'luxon'
 import ReviewMeetup from '#models/review_meetup'
+import opencage from 'opencage-api-client'
 
 export default class MeetupsController {
   /**
@@ -133,12 +134,11 @@ export default class MeetupsController {
    * Display Meetups List
    * ------------------------------
    */
-  async displayMeetupsList({ view, auth, response }: HttpContext) {
+  async displayMeetupsList({ view, auth, response, session }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-
     const meetups = await Meetup.query()
       .whereDoesntHave('meetupUsers', (query) => {
         query.where('user_id', user.id)
@@ -156,7 +156,55 @@ export default class MeetupsController {
         : DateTime.fromJSDate(new Date(meetup.date)).toFormat('dd/MM/yyyy HH:mm'),
     }))
 
-    return view.render('pages/meetup/meetups', { meetups: formattedMeetups })
+    const apiKey = process.env.OPENCAGE_API_KEY
+
+    if (!apiKey) {
+      session.flash('error', 'API key is missing')
+      return response.redirect().back()
+    }
+
+    const addresses = meetups.map((meetup) => `${meetup.adress}, ${meetup.city}`)
+    try {
+      const coordinates = await Promise.allSettled(
+        addresses.map(async (address, index) => {
+          const addressData = await opencage.geocode({
+            q: address,
+            key: apiKey,
+          })
+          if (addressData && addressData.status.code === 200 && addressData.results.length > 0) {
+            const adress = addressData.results[0]
+            return {
+              ...meetups[index],
+              latitude: adress.geometry.lat,
+              longitude: adress.geometry.lng,
+              title: meetups[index].title,
+              date: meetups[index].date,
+              description: meetups[index].description,
+              adress: meetups[index].adress,
+              city: meetups[index].city,
+            }
+          }
+          return null
+        })
+      )
+      console.log('coordinates', coordinates)
+      const validMeetups = coordinates
+        .filter((result) => result.status === 'fulfilled' && result.value !== null)
+        .map((result) => {
+          const meetup = (result as PromiseFulfilledResult<any>).value
+          return meetup
+        })
+
+      return view.render('pages/meetup/meetups', {
+        meetups: formattedMeetups,
+        center: { latitude: 43.604, longitude: 1.44305 },
+        zoom: 13,
+        Meetups: validMeetups,
+      })
+    } catch (error) {
+      session.flash('error', 'Error fetching coordinates')
+      return response.redirect().back()
+    }
   }
 
   /**

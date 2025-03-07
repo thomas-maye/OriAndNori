@@ -28,6 +28,7 @@ export default class GeosController {
       console.log('addressData', addressData)
 
       if (!addressData || addressData.status.code !== 200) {
+        // 200 = OK
         session.flash('error', 'Address not found')
         return response.redirect().back()
       }

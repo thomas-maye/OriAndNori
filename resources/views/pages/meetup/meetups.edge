@@ -2,6 +2,17 @@
 
 @slot('meta')
 <meta name="description" content="View all meetups">
+<link 
+rel="stylesheet" 
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+crossorigin="" />
+<script 
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+crossorigin="">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</script>
 @endslot
 
 @slot('main')
@@ -39,9 +50,6 @@
       @if(new Date(meetup.date) >= new Date())
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-        <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
-          src="resources/images/Location.png" alt="Location of {{ meetup.name }}">
-
         <div class="mt-4">
           <h2 class="text-xl font-semibold text-emerald-700">{{ meetup.title }}</h2>
           <div class="flex items">
@@ -152,6 +160,7 @@
                   @endif
 
                   @if(auth.user && meetup.userId === auth.user.id)
+
                   <a href="{{ route('deleteMeetupView', { id: meetup.id }) }}">
                     <button
                       class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
@@ -174,6 +183,22 @@
       </div>
       @endif
       @endeach
+    </div>
+    <div class="h-96 md:h-[500px] border border-gray-300 rounded-md">
+      @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
+      @each(meetup in Meetups)
+      @component('components/map/map_marker', { 
+        latitude: meetup.latitude, 
+        longitude: meetup.longitude, 
+        label: meetup.title, 
+        description: meetup.description,
+        date: meetup.date,
+        adress: meetup.adress,
+        city: meetup.city,
+      })
+      @end
+      @end
+      @endcomponent
     </div>
   </div>
 
