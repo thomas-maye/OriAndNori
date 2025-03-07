@@ -23,8 +23,8 @@
 
       <div class="px-4 py-4 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg bg-white dark:bg-gray-800">
         <div class="flex items-end">
-        <img src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
-          alt="Photo of {{ pet.name }}" class="mx-4 my-4 w-64 h-64 object-cover rounded-xl aspect-square border-amber-400 border-2">
+        <img src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/Pet_default.png') }}"
+          alt="Photo of {{ pet.name }}" class="dark:bg-gray-800 mx-4 my-4 w-64 h-64 object-cover rounded-xl aspect-square border-amber-400 border-2">
           <div class="mb-4 text-emerald-700 text-lg">
             Upload a photo of your pet
             <div class="">

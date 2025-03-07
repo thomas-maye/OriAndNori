@@ -43,8 +43,8 @@
       <div>
         {{ pet.species.name }}, {{ pet.breed.name }}
       </div>
-      <img class="object-cover w-full rounded-lg aspect-square border-amber-400 border-2 mt-4 mb-2"
-        src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+      <img class="dark:bg-gray-800 object-cover w-full rounded-lg aspect-square border-amber-400 border-2 mt-4 mb-2"
+        src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/Pet_default.png') }}"
         alt="Photo of {{ pet.name }}">
 
         <div class="mb-4">

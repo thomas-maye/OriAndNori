@@ -37,7 +37,7 @@
             @each(user in users)
             <div
                 class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500 text-gray-500 dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-                <img class="mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+                <img class="dark:bg-gray-800 mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
                 src="{{ user.profile_picture ? 'storage/' + await driveUrl(user.profile_picture) : 'resources/images/1077114.png' }}"
                 alt="Photo of {{ user.username }}">
 

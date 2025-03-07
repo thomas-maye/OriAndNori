@@ -36,8 +36,8 @@
       @each(pet in pets)
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-        <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
-          src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+        <img class="dark: object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
+          src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/Pet_default.png') }}"
           alt="Photo of {{ pet.name }}">
 
         <div class="p-4">
