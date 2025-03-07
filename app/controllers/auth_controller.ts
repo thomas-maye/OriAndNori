@@ -287,6 +287,8 @@ export default class AuthController {
     const userProfile = await User.findOrFail(params.id)
 
     await userProfile.load('pet')
+    await userProfile.load('meetup')
+    await userProfile.load('userMeetups')
 
     return view.render('pages/auth/display_user_profile', { userProfile })
   }

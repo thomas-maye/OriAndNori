@@ -15,11 +15,11 @@
     </div>
     <p class="mt-6 text-gray-500 dark:text-gray-300">
       Here is the list of all meetups you can join.<br>
-      Click on a meetup to view more details et join it.
+      Click on a meetup to view more details and join it.
   </div>
 
   <div class="px-4">
-    @if(meetups.lenght === 0)
+    @if(meetups.length === 0)
     <div class="mt-10">
       <h1 class="text-2xl font-semibold text-emerald-700 flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="mr-2">
@@ -29,13 +29,14 @@
         No meetups available yet
       </h1>
     </div>
-    @end
+    @endif
   </div>
 
   <div class="container px-30 md:px-4">
     <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
 
       @each(meetup in meetups)
+      @if(new Date(meetup.date) >= new Date())
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
         <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
@@ -83,7 +84,7 @@
                 </svg>
                 @if(meetup.adress)
                 {{ meetup.adress }} -
-                @end
+                @endif
                 {{ meetup.city }}
               </span>
             </p>
@@ -92,7 +93,7 @@
             @if(meetup.meetupPets.length === 0)
             <h3 class="font-medium mb-2">Participating Pets:</h3>
             <p class="text-gray-500">No pets have joined this meetup yet</p>
-            @end
+            @endif
 
             @if(meetup.meetupPets && meetup.meetupPets.length)
 
@@ -105,7 +106,7 @@
               <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs  bg-emerald-700 text-amber-400">
                 {{ breed }}
               </span>
-              @end
+              @endeach
             </div>
 
             <div class="flex flex-wrap gap-2 mt-2">
@@ -114,9 +115,9 @@
               <span class="inline-flex items-center px-2 py-1 rounded-lg text-xs  bg-amber-400 text-emerald-700 mb-4">
                 {{ species }}
               </span>
-              @end
+              @endeach
             </div>
-            @end
+            @endif
 
             <div class="flex mt-3 -mx-2 justify-center">
               <div
@@ -148,7 +149,7 @@
                       Edit
                     </button>
                   </a>
-                  @end
+                  @endif
 
                   @if(auth.user && meetup.userId === auth.user.id)
                   <a href="{{ route('deleteMeetupView', { id: meetup.id }) }}">
@@ -163,7 +164,7 @@
                       Delete
                     </button>
                   </a>
-                  @end
+                  @endif
 
                 </div>
               </div>
@@ -171,7 +172,8 @@
           </div>
         </div>
       </div>
-      @end
+      @endif
+      @endeach
     </div>
   </div>
 

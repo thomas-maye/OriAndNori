@@ -36,8 +36,8 @@
       @each(pet in pets)
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-        <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
-          src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+        <img class="dark: object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
+          src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/Pet_default.png') }}"
           alt="Photo of {{ pet.name }}">
 
         <div class="p-4">
@@ -124,6 +124,11 @@
             </div>
           </div>
           @endeach
+        </div>
+        <div class="px-4 py-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1"/></svg>
+          {{ pet.description }}
+          <svg xmlns="http://www.w3.org/2000/svg" class=" text-amber-400 " width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6.55 16.5L8 14q-1.65 0-2.825-1.175T4 10t1.175-2.825T8 6t2.825 1.175T12 10q0 .575-.137 1.063T11.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1m9 0L17 14q-1.65 0-2.825-1.175T13 10t1.175-2.825T17 6t2.825 1.175T21 10q0 .575-.137 1.063T20.45 12l-3.175 5.5q-.125.225-.35.363t-.5.137q-.575 0-.862-.5t-.013-1"/></svg>
         </div>
         <div class="mt-4 flex items-center justify-center">
           <a href="{{ route('PetProfile', [pet.id]) }}">
