@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   </script>
 </head>
 
-<body>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-200 vh-screen">
   @eval(await auth.use('web').check())
   <header class="bg-white dark:bg-gray-900">
     <nav x-data="{ isOpen: false }" class="py-4 mx-auto max-w-screen-2xl px-4">
