@@ -19,6 +19,11 @@
   </div>
 
   <div class="px-4">
+    @!component('components/banner/success')
+    @!component('components/banner/error')
+  </div>
+
+  <div class="px-4">
     @if(pets.length === 0)
       <div class="mt-10">
         <h1 class="text-2xl font-semibold text-emerald-700 flex items-center">
@@ -40,7 +45,7 @@
       @each(pet in pets)
       <div
         class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-        <img class="dark:bg-gray-800 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+        <img class="dark:bg-gray-800 bg-white object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
           src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/Pet_default.png') }}"
           alt="Photo of {{ pet.name }}">
 

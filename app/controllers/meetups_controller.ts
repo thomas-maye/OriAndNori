@@ -504,12 +504,9 @@ export default class MeetupsController {
       session.flash('success', 'Meetup updated successfully!')
       return response.redirect().toRoute('myMeetups')
     } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to delete review',
-        error: error.messages || error.message,
-      })
+      session.flash('error', 'Error updating meetup')
+      return response.redirect().toRoute('myMeetups')
     }
-    //session.flash('error', 'Meetup deleted successfully!')
-    //return response.redirect().toRoute('myMeetups')
+    
   }
 }

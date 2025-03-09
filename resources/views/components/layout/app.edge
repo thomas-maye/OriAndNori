@@ -12,6 +12,32 @@
   @vite(['resources/css/app.css', 'resources/js/app.js'])
   <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script>
+// Script for toggling dark mode
+function toggleDarkMode() {
+  const isDarkMode = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('dark-mode', isDarkMode);
+  updateDarkModeButtons(isDarkMode);
+}
+
+function updateDarkModeButtons(isDarkMode) {
+  document.querySelectorAll('#dark-mode-button').forEach(button => {
+    button.style.display = isDarkMode ? 'none' : 'block';
+  });
+  document.querySelectorAll('#light-mode-button').forEach(button => {
+    button.style.display = isDarkMode ? 'block' : 'none';
+  });
+}
+
+// Apply dark mode if it was previously set
+document.addEventListener('DOMContentLoaded', () => {
+  const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+  if (isDarkMode) {
+    document.documentElement.classList.add('dark');
+  }
+  updateDarkModeButtons(isDarkMode);
+});
+  </script>
 </head>
 
 <body>
@@ -19,13 +45,68 @@
   <header class="bg-white dark:bg-gray-900">
     <nav x-data="{ isOpen: false }" class="py-4 mx-auto max-w-screen-2xl px-4">
       <div class="lg:items-center lg:justify-between lg:flex">
-        <div class="flex items-center">
-          <a href="{{route('home')}}" class="mx-auto">
+        <div class="flex justify-between items-center w-full">
+          <a href="{{route('home')}}" class="ml-2">
             <img class="w-auto h-20 md:h-max" src="{{ asset('resources/images/Ori&Nori - Logo3.png') }}" alt='Ori&Nori'>
           </a>
 
+          @if(auth.use('web').isAuthenticated)
+          <div class="hidden lg:flex mr-4 items-center gap-x-2">
+            <div>
+              <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}</h1>
+            </div>
+            <img class="object-cover w-10 h-10 rounded-lg"
+              src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}"
+              alt="Photo of {{auth.use('web').user.username}}">
+          </div>
+          @end
+
           <!-- Mobile menu button -->
-          <div class="lg:hidden">
+          <div class="lg:hidden flex justify-end">
+
+            @if(auth.use('web').isAuthenticated)
+            <div class="mr-4 flex items-center gap-x-2">
+              <div>
+                <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}
+                </h1>
+              </div>
+              <img class="object-cover w-10 h-10 rounded-lg"
+                src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}"
+                alt="Photo of {{auth.use('web').user.username}}">
+            </div>
+            @end
+
+            <div class=" lg:flex justify-start items-center">
+              <button id="dark-mode-button" onclick="toggleDarkMode()" type="button"
+                class="block lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 mr-4 p-0.5">
+                <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                  </svg>
+                </span>
+              </button>
+              <button id="light-mode-button" onclick="toggleDarkMode()" type="button"
+                class="hidden lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 mr-4 p-0.5">
+                <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                  </svg>
+                </span>
+              </button>
+            </div>
+
             <button x-cloak @click="isOpen = !isOpen" type="button"
               class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400"
               aria-label="toggle menu">
@@ -46,35 +127,48 @@
         <div x-cloak :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
           class="space-y-1 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center">
 
-          <div class="flex items-center">
-            @if(auth.use('web').isAuthenticated)
-            <div x-data="{ isActive: false }" class="relative lg:flex lg:items-center">
-              <div class="mr-4 flex items-center gap-x-2">
-                <img class="object-cover w-10 h-10 rounded-lg"
-                  src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}"
-                  alt="Photo of {{auth.use('web').user.username}}">
-                <div>
-                  <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}
-                  </h1>
-                </div>
-              </div>
+          <div class="flex flex-col lg:flex-row items-center">
+
+            <div
+            class="w-full lg:w-auto flex flex-col space-y-1 justify-start lg:space-y-0 lg:space-x-1 lg:flex-row lg:mr-2 mb-2 lg:mb-0">
+            @if (!auth.use('web').isAuthenticated && request.url() !== '/')
+            <div class="w-auto">
+              @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+            </div>
+            <div class="w-auto">
+              @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
             </div>
             @end
+          </div>
 
-            <div x-data="{ isActive: false }" class="relative">
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
               <a href="{{route('home')}}"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:text-gray-200">
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:text-gray-200">
                 Home
+              </a>
+            </div>
+
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
+              <a href="{{route('about')}}"
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                About
+              </a>
+            </div>
+
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
+              <a href="{{route('contact')}}"
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                Contact
               </a>
             </div>
 
             @if(auth.use('web').isAuthenticated)
 
-            <div x-data="{ isActive: false }" class="relative">
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
               <button x-on:click="isActive = !isActive"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
                 Meetups
-                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-2.5 h-2.5 ms-3 text-amber-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 10 6">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="m1 1 4 4 4-4" />
@@ -86,25 +180,25 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div>
                   <a href="{{route('myMeetups')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
                     role="menuitem">
                     My Meetups
                   </a>
 
                   <a href="{{route('createMeetupForm')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Create a Meetup
                   </a>
 
                   <a href="{{route('displayMeetupsList')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Search for a Meetup
                   </a>
 
                   {{--<a href="#"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Invitations received
                   </a>--}}
@@ -113,11 +207,11 @@
               </div>
             </div>
 
-            <div x-data="{ isActive: false }" class="relative">
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
               <button x-on:click="isActive = !isActive"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
                 Pets
-                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-2.5 h-2.5 ms-3 text-amber-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 10 6">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="m1 1 4 4 4-4" />
@@ -129,25 +223,25 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div>
                   <a href="{{route('MyPets')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
                     role="menuitem">
                     My Pets
                   </a>
 
                   <a href="{{route('showCreatePetForm')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Create a Pet
                   </a>
 
                   <a href="{{route('petList')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Search for a Pet profile
                   </a>
 
                   <a href="#"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     My Pets's friends
                   </a>
@@ -156,9 +250,9 @@
               </div>
             </div>
 
-            {{--<div x-data="{ isActive: false }" class="relative">
+            {{--<div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
               <button x-on:click="isActive = !isActive"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                class="w-full lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
                 Reviews
                 <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 10 6">
@@ -193,11 +287,11 @@
               </div>
             </div>--}}
 
-            <div x-data="{ isActive: false }" class="relative">
+            <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
               <button x-on:click="isActive = !isActive"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
                 Profile
-                <svg class="w-2.5 h-2.5 ms-3 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                <svg class="w-2.5 h-2.5 ms-3 text-amber-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                   fill="none" viewBox="0 0 10 6">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="m1 1 4 4 4-4" />
@@ -209,61 +303,73 @@
                 x-on:keydown.escape.window="isActive = false">
                 <div>
                   <a href="{{route('auth.display_my_profile')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-600"
                     role="menuitem">
                     My Profile
                   </a>
 
                   <a href="{{route('auth.display_all_users')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Search for a Profile
                   </a>
 
                   <a href="{{route('profile')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Messages
                   </a>
 
                   <a href="{{route('profile')}}"
-                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 hover:bg-gray-100 hover:text-gray-700"
+                    class="block px-4 py-2 text-sm text-gray-500 dark:text-gray-100 dark:hover:text-gray-700 hover:bg-gray-100 hover:text-gray-700"
                     role="menuitem">
                     Settings
                   </a>
+
+                  <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
+                    {{ csrfField() }}
+                    <button
+                      class="block w-full px-4 py-2 text-sm bg-emerald-700 text-gray-100 hover:bg-emerald-800 text-left"
+                      type='submit'>Logout
+                    </button>
+                  </form>
 
                 </div>
               </div>
             </div>
             @end
 
-            <div x-data="{ isActive: false }" class="relative">
-              <a href="{{route('about')}}"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-                About
-              </a>
+            <div class="hidden lg:flex justify-start items-center">
+              <button id="dark-mode-button" onclick="toggleDarkMode()" type="button"
+                class="block lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 p-0.5">
+                <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                  </svg>
+                </span>
+              </button>
+              <button id="light-mode-button" onclick="toggleDarkMode()" type="button"
+                class="hidden lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800  focus:outline-hidden focus:bg-gray-200 p-0.5">
+                <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                  <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4"></circle>
+                    <path d="M12 2v2"></path>
+                    <path d="M12 20v2"></path>
+                    <path d="m4.93 4.93 1.41 1.41"></path>
+                    <path d="m17.66 17.66 1.41 1.41"></path>
+                    <path d="M2 12h2"></path>
+                    <path d="M20 12h2"></path>
+                    <path d="m6.34 17.66-1.41 1.41"></path>
+                    <path d="m19.07 4.93-1.41 1.41"></path>
+                  </svg>
+                </span>
+              </button>
             </div>
 
-            <div x-data="{ isActive: false }" class="relative">
-              <a href="{{route('contact')}}"
-                class="mr-2 text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
-                Contact
-              </a>
-            </div>
-
-            <form method="POST" action="{{route('auth.logout')}}?_method=DELETE">
-              {{ csrfField() }}
-              @if(auth.use('web').isAuthenticated)
-              @!component('components/button-simple/full', { text : 'Logout'})
-              @end
-            </form>
-
-            <div class="">
-              @if (!auth.use('web').isAuthenticated && request.url() !== '/')
-              @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
-              @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
-              @end
-            </div>
           </div>
         </div>
     </nav>
@@ -279,9 +385,8 @@
         <div>
           <div class="flex justify-between items-center">
             <a id="back-to-top"
-              class="inline-block rounded-lg bg-emerald-700 p-4 text-white shadow-sm transition hover:bg-emerald-800"
+              class="inline-block p-2.5 rounded-lg bg-emerald-700 text-amber-400 shadow-sm transition hover:bg-emerald-800"
               href="#">
-              <span class="sr-only">Back to top</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd"
                   d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
@@ -300,17 +405,17 @@
 
         <ul class="flex flex-wrap  gap-1 justify-end">
           <li>
-            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
+            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
               href="{{route('about')}}"> About </a>
           </li>
 
           <li>
-            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
+            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
               href="{{route('contact')}}"> Contact </a>
           </li>
 
           <li>
-            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
+            <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800"
               href="#"> FAQs</a>
           </li>
 

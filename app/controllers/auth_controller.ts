@@ -5,6 +5,8 @@ import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
 import mail from '@adonisjs/mail/services/main'
+import { dd } from '@adonisjs/core/services/dumper'
+
 
 export default class AuthController {
   /**
@@ -96,7 +98,7 @@ export default class AuthController {
 
   async logout({ auth, session, response }: HttpContext) {
     await auth.use('web').logout()
-    session.flash('success', 'You have successfully logged out')
+    session.flash('warning', 'You are logged out')
     return response.redirect().toRoute('home')
   }
 
@@ -290,6 +292,39 @@ export default class AuthController {
     await userProfile.load('meetup')
     await userProfile.load('userMeetups')
 
-    return view.render('pages/auth/display_user_profile', { userProfile })
+    return view.render('pages/auth/display_user_profile', { user, userProfile })
+  }
+
+  /**
+   * ---------------------------
+   * Purpose a Meetup to an User
+   * ---------------------------
+   */
+  async purposeMeetupUser({ session, response, auth, params }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      session.flash('error', 'You must be logged in to view this page')
+      return response.redirect().toRoute('auth.login')
+    }
+
+    const userToMeet = await User.findOrFail(params.id)
+
+    if (!userToMeet) {
+      session.flash('error', 'User not found')
+      return response.redirect().back()
+    }
+
+    const profileUrl = `http://localhost:3333/users/${user.id}`
+
+    await mail.send((message) => {
+      message
+        .to(userToMeet.email)
+        .from('no-reply@oriandnori.org')
+        .subject('Proposition of Meetup')
+        .htmlView('emails/purpose_meetup_to_user', { userToMeet, user, profileUrl })
+    })
+
+    session.flash('success', 'An email has been sent to the user')
+    return response.redirect().back()
   }
 }

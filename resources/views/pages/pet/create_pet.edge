@@ -18,6 +18,8 @@
     </p>
   </div>
 
+  @!component('components/banner/error')
+
   <div class="container mx-auto p-4">
   <form method="POST" action="{{ route('createPet') }}" enctype="multipart/form-data">
     {{ csrfField() }}

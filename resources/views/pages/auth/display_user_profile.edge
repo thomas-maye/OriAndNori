@@ -19,6 +19,8 @@
         </p>
     </div>
 
+    @!component('components/banner/success')
+    @!component('components/banner/error')
 
     <div
         class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
@@ -43,7 +45,7 @@
             <p class="text-gray-700 dark:text-gray-400 mb-2">My name is {{ userProfile.first_name }}
                 {{userProfile.last_name}}</p>
 
-            <img class="dark:bg-gray-800 mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+            <img class="dark:bg-gray-800 bg-white mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
                 src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
                 alt="Photo of {{ userProfile.username }}">
 
@@ -211,15 +213,17 @@
                 @end
             </div>
 
-                @end
-
-
+            <form action="{{ route('purposeMeetupUser', { id: userProfile.id }) }}" method="POST">
+                {{ csrfField() }}
             <div class="mt-4 text-right space-x-2">
                 @if(userProfile.id !== auth.user.id)
                 @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
-                @!component('components/button-simple/full', { text: 'Purpose a Meetup', link: '#'})
-                @endif
-            </div>
+                <button type="submit" class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring">Purpose a Meetup</button>
+                @end
+                </div>
+              </form>
+
+                @end
         </div>
     </div>
 </section>
