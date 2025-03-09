@@ -8,9 +8,9 @@
 <div>
     <section class="bg-white dark:bg-gray-900">
         <div class="container px-6 py-10 mx-auto">
-            <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">Discover our platform <span class="text-emerald-700 dark:text-emerald-700">Ori&Nori</span></h1>
+            <h1 class="text-center text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">Discover our platform <span class="text-emerald-700 dark:text-emerald-700">Ori&Nori</span></h1>
     
-            <p class="mt-4 text-gray-500 xl:mt-6 dark:text-gray-300">
+            <p class="text-center mt-4 text-gray-500 xl:mt-6 dark:text-gray-300">
                 Ori&Nori is designed to help pet owners foster socialization for their furry companions.
             </p>
     
@@ -69,8 +69,133 @@
                     <p class="text-gray-500 dark:text-gray-300">Organize and join pet-friendly events easily.</p>
                 </div>
             </div>
+        </div> 
+    </section>
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="container flex flex-col items-center px-4 py-12 mx-auto xl:flex-row">
+            <div class="flex justify-center xl:w-1/2">
+                <img class="h-80 w-80 sm:w-[28rem] sm:h-[28rem] flex-shrink-0 object-cover rounded-full" src="/resources/images/cajeo-zhang-wOt6yjkXsDk-unsplash.jpg" alt="">
+            </div>
+    
+            <div class="flex flex-col items-center mt-6 xl:items-start xl:w-1/2 xl:mt-0">
+                <h2 class="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl dark:text-white">
+                    Don't wait any longer, <span class="text-emerald-700 dark:text-emerald-700">Join Us</span>!
+                </h2>
+    
+                <p class="block max-w-2xl mt-4 text-gray-500 dark:text-gray-300">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut corporis esse dolorum, illum, consectetur earum provident alias dolore omnis quis tempore voluptatum excepturi ea numquam? Aperiam fugiat consequuntur nostrum odio. </p>
+    
+                <div class="mt-6 sm:-mx-2">
+                    <div class="flex space-x-2 mt-6">
+                        @!component('components/button-link/empty', { text : 'Login', link : route('auth.login') })
+                        @!component('components/button-link/full', { text: 'Register', link: route('auth.register') })
+                      </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <section>
+    <div class="container px-6 py-10 mx-auto">
+        <h2 class="mt-10 mb-4 text-center text-2xl font-bold dark:text-white text-black md:text-3xl">
+            What Our <span class="text-emerald-700">Users</span> Say!
+        </h2>
+        <div class="mb-10 text-center">They've posted comments, and we love them for it. Don't hesitate to share your own experience!</div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                <div class="flex items-center gap-4">
+                  <img
+                    alt="Paul Starr"
+                    src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                    class="size-14 rounded-full object-cover"
+                  />
+              
+                  <div>
+                    <span class="flex items-center">
+                        <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                        <span class="ml-1 text-amber-500">5/5</span>
+                      </span>
+              
+                    <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Paul Starr</p>
+                  </div>
+                </div>
+              
+                <p class="mt-4 text-gray-700 dark:text-gray-500">
+                    Ori&Nori has completely changed the way I socialize my dog, Max! I used to struggle to find reliable playmates for him, but thanks to this platform, we've met so many amazing pet owners. Max is happier, more confident, and I've made some great friends too. Highly recommend!        </p>
+              </blockquote>
+              
+              <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                <div class="flex items-center gap-4">
+                  <img
+                    alt="Sophie Martin"
+                    src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                    class="size-14 rounded-full object-cover"
+                  />
+              
+                  <div>
+                      <span class="flex items-center">
+                        <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                        <span class="ml-1 text-amber-500">5/5</span>
+                      </span>
+              
+                      <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Sophie Martin</p>
+                  </div>
+                </div>
+              
+                <p class="mt-4 text-gray-700 dark:text-gray-500">
+                    I love how easy it is to connect with other pet lovers through Ori&Nori. My cat, Luna, was always a bit shy, but after a few meetups, she's become much more playful and social. It's a fantastic way to help pets and owners alike!        </p>
+              </blockquote>
+              
+              <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                <div class="flex items-center gap-4">
+                  <img
+                    alt="Lucas Morel"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1180&q=80"
+                    class="size-14 rounded-full object-cover"
+                  />
+              
+                  <div>
+                    <span class="flex items-center">
+                        <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+                        <span class="ml-1 text-amber-500">4/5</span>
+                      </span>
+              
+                      <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Lucas Morel</p>
+                  </div>
+                </div>
+              
+                <p class="mt-4 text-gray-700 dark:text-gray-500">
+                    Ori&Nori is a game-changer! My schedule is often packed, but this platform helped me find local dog owners who share the same routine. Now, my Labrador, Rocky, enjoys regular playdates, and I get to meet like-minded people. A win-win!        </p>
+              </blockquote>
+        </div>
+    </div>
+</section>
+
+    <section class="bg-white dark:bg-gray-900">
+        <div class="p-8 md:p-12 lg:px-16 lg:py-24">
+            <div class="mx-auto max-w-lg text-center">
+                <h2 class="text-2xl font-bold dark:text-white text-black md:text-3xl">
+                    Join <span class="text-emerald-700">Ori&Nori</span> and connect your pet!
+                </h2>
+                <p class="hidden text-gray-500 sm:mt-4 sm:block">
+                    Find playmates for your pet and discover activities tailored to their well-being.
+                </p>
+            </div>
+            <div class="mx-auto mt-8 max-w-xl">
+                <form action="#" class="flex items-center gap-4">
+                    <div class="flex-grow">
+                        @!component('components/input', { name: 'email', type: 'email', placeholder: 'Enter your email', required: true })
+                    </div>
+                    <div class="flex-shrink-0">
+                        @!component('components/button-simple/full', { text: "Register" })
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
 </div>
+
 @endslot
 @end
