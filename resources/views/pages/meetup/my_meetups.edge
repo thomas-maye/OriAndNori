@@ -19,6 +19,14 @@
     </p>
   </div>
 
+
+  <div class="px-4">
+  @!component('components/banner/success')
+  @!component('components/banner/error')
+  </div>
+
+  {{--No meetups--}}
+
   <div class="px-4">
     @if(meetups.length === 0)
     <div class="mt-10">

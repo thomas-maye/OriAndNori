@@ -96,7 +96,7 @@ export default class AuthController {
 
   async logout({ auth, session, response }: HttpContext) {
     await auth.use('web').logout()
-    session.flash('success', 'You have successfully logged out')
+    session.flash('warning', 'You are logged out')
     return response.redirect().toRoute('home')
   }
 

@@ -33,14 +33,12 @@ export default class ReviewMeetupsController {
       session.flash('success', 'Review created successfully')
       return response.redirect().back()
     } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to create review',
-        error: error.messages || error.message,
-        //session.flash('error', 'Review not found')
-        // return response.redirect().toRoute('displayMeetup', { id: meetupId })
-      })
+      const meetupId = request.input('meetupId')
+      session.flash('error', 'Review not found')
+      return response.redirect().toRoute('displayMeetup', { id: meetupId })
     }
   }
+
 
   /**
    * ------------------------------
@@ -48,37 +46,39 @@ export default class ReviewMeetupsController {
    * ------------------------------
    */
   async deleteReviewMeetup({ auth, params, response, session }: HttpContext) {
-    try {
-      const user = auth.user
-      if (!user) {
-        return response.unauthorized({ message: 'User not authenticated' })
-      }
-
-      const reviewMeetup = await ReviewMeetup.find(params.id)
-      if (!reviewMeetup) {
-        return response.notFound({ message: 'Review not found' })
-      }
-
-      if (reviewMeetup.userId !== user.id) {
-        return response.unauthorized({ message: 'Unauthorized to delete review' })
-      }
-      const meetupId = reviewMeetup.meetupId
-      await reviewMeetup.delete()
-
-      //update global rating
-      const meetup = await Meetup.findOrFail(meetupId)
-      await meetup.load('reviewMeetup')
-      await meetup.updateGlobalRating()
-
-      session.flash('success', 'Review deleted successfully')
-      return response.redirect().toRoute('myMeetups')
-    } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to delete review',
-        error: error.messages || error.message,
-      })
+  try {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
     }
+
+    const reviewMeetup = await ReviewMeetup.find(params.id)
+    if (!reviewMeetup) {
+      session.flash('error', 'Review not found')
+      return response.redirect().toRoute('displayMeetup', { id: params.id })
+    }
+
+    const meetupId = reviewMeetup.meetupId
+
+    if (reviewMeetup.userId !== user.id) {
+      session.flash('error', 'You are not authorized to update this review')
+      return response.redirect().toRoute('displayMeetup', { id: meetupId })
+    }
+    await reviewMeetup.delete()
+
+    //update global rating
+    const meetup = await Meetup.findOrFail(meetupId)
+    await meetup.load('reviewMeetup')
+    await meetup.updateGlobalRating()
+
+    session.flash('success', 'Review deleted successfully')
+    return response.redirect().toRoute('myMeetups')
+  } catch (error) {
+    session.flash('error', 'Failed to delete review')
+    return response.redirect().toRoute('displayMeetup', { id: params.id })
   }
+}
+
 
   /**
    * ------------------------------
@@ -86,46 +86,41 @@ export default class ReviewMeetupsController {
    * ------------------------------
    */
   async editReviewMeetup({ auth, params, request, response, session }: HttpContext) {
-    try {
-      const user = auth.user
-      if (!user) {
-        return response.unauthorized({ message: 'User not authenticated' })
-      }
-
-      const reviewMeetup = await ReviewMeetup.find(params.id)
-
-      if (!reviewMeetup) {
-        //session.flash('error', 'Review not found')
-        // return response.redirect().toRoute('displayMeetup', { id: meetupId })
-        return response.notFound({ message: 'Review not found' })
-      }
-
-      const meetupId = reviewMeetup.meetupId
-
-      if (reviewMeetup.userId !== user.id) {
-        session.flash('error', 'You are not authorized to update this review')
-        return response.redirect().toRoute('displayMeetup', { id: meetupId })
-      }
-
-      const validatedData = await request.validateUsing(reviewMeetupValidator)
-
-      reviewMeetup.merge(validatedData)
-      await reviewMeetup.save()
-
-      //update global rating
-      const meetup = await Meetup.findOrFail(meetupId)
-      await meetup.load('reviewMeetup')
-      await meetup.updateGlobalRating()
-
-      session.flash('success', 'Review updated successfully')
-      return response.redirect().toRoute('displayMeetup', { id: meetupId })
-    } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to update review',
-        error: error.messages || error.message,
-      })
-      // session.flash('error', 'Failed to update review')
-      // return response.redirect().toRoute('displayMeetup', { id: meetupId })
+  try {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
     }
+
+    const reviewMeetup = await ReviewMeetup.find(params.id)
+
+    if (!reviewMeetup) {
+      session.flash('error', 'Review not found')
+      return response.redirect().toRoute('displayMeetup', { id: params.id })
+    }
+
+    const meetupId = reviewMeetup.meetupId
+
+    if (reviewMeetup.userId !== user.id) {
+      session.flash('error', 'You are not authorized to update this review')
+      return response.redirect().toRoute('displayMeetup', { id: meetupId })
+    }
+
+    const validatedData = await request.validateUsing(reviewMeetupValidator)
+
+    reviewMeetup.merge(validatedData)
+    await reviewMeetup.save()
+
+    //update global rating
+    const meetup = await Meetup.findOrFail(meetupId)
+    await meetup.load('reviewMeetup')
+    await meetup.updateGlobalRating()
+
+    session.flash('success', 'Review updated successfully')
+    return response.redirect().toRoute('displayMeetup', { id: meetupId })
+  } catch (error) {
+    session.flash('error', 'Failed to update review')
+    return response.redirect().toRoute('displayMeetup', { id: params.id })
   }
+}
 }
