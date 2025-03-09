@@ -45,7 +45,7 @@
             <p class="text-gray-700 dark:text-gray-400 mb-2">My name is {{ userProfile.first_name }}
                 {{userProfile.last_name}}</p>
 
-            <img class="dark:bg-gray-800 mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
+            <img class="dark:bg-gray-800 bg-white mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
                 src="{{ asset(userProfile.profile_picture ? `storage/${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
                 alt="Photo of {{ userProfile.username }}">
 
