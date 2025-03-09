@@ -2,10 +2,12 @@ import type { HttpContext } from '@adonisjs/core/http'
 import Pet, { traits } from '#models/pet'
 import Species from '#models/species'
 import Breed from '#models/breed'
+import User from '#models/user'
 import { createPetValidator } from '#validators/create_pet'
 import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
 import app from '@adonisjs/core/services/app'
+import mail from '@adonisjs/mail/services/main'
 
 export default class UsersController {
   /**
@@ -290,5 +292,47 @@ export default class UsersController {
     await pet.delete()
     session.flash('success', 'Pet deleted successfully!')
     return response.redirect().toRoute('MyPets')
+  }
+
+  /**
+ * ------------------------------
+ * Purpose a Meetup
+ * ------------------------------
+ */
+
+  async purposeMeetup({ request, session, response, auth }: HttpContext) {
+
+
+    const petId = request.param('id') 
+    const pet = await Pet.find(petId)
+
+    if (!pet) {
+      session.flash('error', 'Pet not found')
+      return response.redirect().back()
+    }
+
+    const owner = await User.find(pet.userId)
+    if (!owner) {
+      session.flash('error', 'Owner not found')
+      return response.redirect().back()
+    }
+
+    const user = auth.user
+    if (!user) {
+      session.flash('error', 'User not authenticated')
+      return response.redirect().back()
+    }
+    const profileUrl = `http://localhost:3333/users/${user.id}`
+
+    await mail.send((message) => {
+      message
+        .to(owner.email)
+        .from('no-reply@oriandnori.org')
+        .subject('Proposition of Meetup')
+        .htmlView('emails/purpose_meetup', { owner, user, profileUrl })
+    })
+
+    session.flash('success', 'Notification sent to the pet owner')
+    return response.redirect().back()
   }
 }

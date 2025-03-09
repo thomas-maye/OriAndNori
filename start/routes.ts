@@ -149,6 +149,13 @@ router
   .get('/pets/:id', [UsersController, 'displayPetProfile'])
   .as('PetProfile')
   .use(middleware.auth())
+
+// Purpose a Meetup
+router
+.post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
+  .as('purposeMeetup')
+  .use(middleware.auth())
+
 /**
  * -------------------------------
  * Meetups routes
