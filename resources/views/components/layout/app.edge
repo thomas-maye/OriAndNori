@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div>
               <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}</h1>
             </div>
-            <img class="object-cover w-10 h-10 rounded-lg"
+            <img class="dark:bg-gray-800 bg-white object-cover w-10 h-10 rounded-lg"
               src="{{ asset(auth.use('web').user.profile_picture ? `storage/${await driveUrl(auth.use('web').user.profile_picture)}` : 'resources/images/1077114.png') }}"
               alt="Photo of {{auth.use('web').user.username}}">
           </div>
