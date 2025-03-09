@@ -329,10 +329,10 @@ export default class UsersController {
         .to(owner.email)
         .from('no-reply@oriandnori.org')
         .subject('Proposition of Meetup')
-        .htmlView('emails/purpose_meetup', { owner, user, profileUrl })
+        .htmlView('emails/purpose_meetup_to_owner', { owner, user, profileUrl })
     })
 
-    session.flash('success', 'Notification sent to the pet owner')
+    session.flash('success', 'An email has been sent to the owner')
     return response.redirect().back()
   }
 }
