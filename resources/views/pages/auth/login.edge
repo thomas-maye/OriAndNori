@@ -26,7 +26,7 @@
 
           @!component('components/input', { name: 'email', label: 'Email address', type: 'email', required: true })
           @!component('components/input', { name: 'password', label: 'Password', type: 'password', required: true })
-          <div class="flex justify-end text-sm/6 font-semibold text-emerald-600 hover:text-emerald-500">
+          <div class="flex justify-end text-sm/6 font-semibold text-emerald-700 hover:text-emerald-600">
             <a href="{{route('auth.forgot_password')}}">Forgot password?</a>
           </div>
 
@@ -37,7 +37,7 @@
 
         <p class="mt-10 text-center text-sm/6 text-gray-500">
           Not a member?
-          <a href="{{route('auth.register')}}" class="font-semibold text-emerald-600 hover:text-emerald-500">Create an
+          <a href="{{route('auth.register')}}" class="font-semibold text-emerald-700 hover:text-emerald-600">Create an
             account</a>
         </p>
       </div>
