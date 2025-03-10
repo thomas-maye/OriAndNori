@@ -1,6 +1,17 @@
 @layout.app({ title: "Meetup Details" })
 @slot('meta')
 <meta name="description" content="A Meetup details page made with EdgeJS">
+<link 
+rel="stylesheet" 
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+crossorigin="" />
+<script 
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+crossorigin="">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</script>
 @endslot
 
 @slot('main')
@@ -24,9 +35,19 @@
     class="shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
     <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
       {{--Location--}}
-      <div>
-        <img class="object-cover w-full rounded-xl aspect-square border-amber-400 border-2"
-          src="{{ asset('resources/images/Location.png') }}" alt="Location of {{ meetup.title }}">
+      <div class="object-cover w-full aspect-square border-amber-400 border-2 rounded-md">
+        @component('components/map/display_map', { center: center, zoom: zoom, markers: markers })
+          @component('components/map/map_marker', { 
+            latitude: meetupCoordinate.latitude, 
+            longitude: meetupCoordinate.longitude, 
+            label: meetup.title, 
+            description: meetup.description,
+            date: meetup.date,
+            adress: meetup.adress,
+            city: meetup.city,
+          })
+          @end
+        @end
       </div>
 
       {{--Details of the Meetup and buttons--}}

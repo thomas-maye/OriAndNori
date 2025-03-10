@@ -117,7 +117,7 @@ router
 
 // Purpose a Meetup to an User
 router
-.post('/users/:id/meetup', [AuthController, 'purposeMeetupUser'])
+  .post('/users/:id/meetup', [AuthController, 'purposeMeetupUser'])
   .as('purposeMeetupUser')
   .use(middleware.auth())
 
@@ -158,7 +158,7 @@ router
 
 // Purpose a Meetup
 router
-.post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
+  .post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
   .as('purposeMeetup')
   .use(middleware.auth())
 
@@ -179,6 +179,18 @@ router
   .as('createMeetup')
   .use(middleware.auth())
 
+//Display My upcomming Meetups
+router
+  .get('/meetups/upcomming', [MeetupsController, 'displayUpcommingMeetups'])
+  .as('myMeetups')
+  .use(middleware.auth())
+
+//Display Meetup History
+router
+  .get('/meetups/history', [MeetupsController, 'displayMeetupHistory'])
+  .as('meetupsHistory')
+  .use(middleware.auth())
+
 //Display Meetups by ID
 router
   .get('/meetups/:id', [MeetupsController, 'displayOneMeetup'])
@@ -189,12 +201,6 @@ router
 router
   .get('/meetups', [MeetupsController, 'displayMeetupsList'])
   .as('displayMeetupsList')
-  .use(middleware.auth())
-
-//Display My Meetups
-router
-  .get('/my-meetups', [MeetupsController, 'displayMyMeetups'])
-  .as('myMeetups')
   .use(middleware.auth())
 
 // Join Meetup
@@ -226,7 +232,7 @@ router
   .get('/meetups/leave/:id', [MeetupsController, 'leaveMeetupView'])
   .as('leaveMeetupView')
   .use(middleware.auth())
-  
+
 // Delete Meetup
 router
   .delete('/meetups/delete/:id', [MeetupsController, 'deleteMeetup'])

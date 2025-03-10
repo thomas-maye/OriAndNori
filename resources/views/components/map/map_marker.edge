@@ -1,0 +1,23 @@
+{{-- Make sure the marker component is a child of the map component --}}
+@if(!$context.map)
+  @newError(
+    'The map.marker component should be nested within the map component',
+    $caller.filename,
+    $caller.line,
+    $caller.col
+  )
+@end
+
+{{-- Push props as a marker with the map --}}
+@eval($context.map.markers.push({ latitude, longitude, label, description, date, adress, city}))
+
+<div x-data="{
+  latitude: {{ latitude }},
+  longitude: {{ longitude }},
+  label: '{{ label }}',
+  description: '{{ description }}'
+  date: '{{ date }}'
+  adress: '{{ adress }}'
+  city: '{{ city }}'
+}" x-init="addMarker(map, { latitude, longitude, label, description, date})">
+</div>
