@@ -63,7 +63,7 @@ crossorigin="">
           @if(new Date(meetup.date) >= new Date())
             <div
               class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-              <div class="mt-4">
+              <div >
                 <h2 class="text-xl font-semibold text-emerald-700">{{ meetup.title }}</h2>
                 <div class="flex items">
                   <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
@@ -118,7 +118,7 @@ crossorigin="">
 
                   @if(meetup.meetupPets && meetup.meetupPets.length)
 
-                  <h3 class="font-medium dark:text-gray-200 mb-2">{{ meetup.meetupPets.length }} Pet{{
+                  <h3 class="font-medium text-gray-500 dark:text-gray-200 mb-2">{{ meetup.meetupPets.length }} Pet{{
                     meetup.meetupPets.length > 1 ? 's' : '' }} have joined this Meetup:</h3>
 
                   <div class="flex flex-wrap gap-2">
