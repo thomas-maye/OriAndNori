@@ -17,8 +17,8 @@ crossorigin="">
 
 @slot('main')
 <section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
-  <div class="container px-4 py-0 flex">
-    <div class="w-2/3 pr-4 overflow-y-auto h-screen no-scrollbar">
+  <div class="container px-4 py-0 flex flex-col lg:flex-row">
+    <div class="w-full lg:w-2/3 pr-0 lg:pr-4 overflow-y-auto h-screen no-scrollbar">
       <h1 class="text-2xl font-semibold  lg:text-3xl text-emerald-700">Meetups History</h1>
       <div class="flex mx-auto">
         <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
@@ -58,7 +58,7 @@ crossorigin="">
       <div class="container px-30 md:px-4 mt-10">
         <div class="flex items-center mb-4 pl-10">
         </div>
-        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
+        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           @each(meetup in meetups)
           @if(new Date(meetup.date) <= new Date())
             <div
@@ -198,9 +198,9 @@ crossorigin="">
       </div>
     </div>
     @if(meetups.length > 0)
-    <div class="w-1/3 pl-4 mt-35">
+    <div class="w-full lg:w-1/3 mt-4 lg:mt-0">
       <div class="sticky top-0">
-        <div class="h-screen md:h-[500px] border border-gray-300 rounded-md">
+        <div class="h-[300px] lg:h-[500px] border border-gray-300 rounded-md">
           @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
           @each(meetup in pastMeetups)
           @component('components/map/map_marker', { 
@@ -216,9 +216,6 @@ crossorigin="">
           @end
           @endcomponent
         </div>
-      </div>
-    </div>
-        <div id="map" class="h-screen bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg"></div>
       </div>
     </div>
     @endif
