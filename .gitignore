@@ -12,6 +12,9 @@ tmp
 # Frontend assets compiled code
 public/assets
 
+# Uploads
+storage/uploads
+
 # Build tools specific
 npm-debug.log
 yarn-error.log
@@ -23,3 +26,6 @@ yarn-error.log
 
 # Platform specific
 .DS_Store
+
+# Photo uploads
+storage/uploads/
