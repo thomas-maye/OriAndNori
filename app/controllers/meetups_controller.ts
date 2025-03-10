@@ -313,8 +313,8 @@ export default class MeetupsController {
 
       return view.render('pages/meetup/my_meetups', {
         meetups: formattedMeetups,
-        center: { latitude: 43.604, longitude: 1.44305 },
-        zoom: 13,
+        center: { latitude: 46.729, longitude: 2.505 },
+        zoom: 5.5,
         upcomingMeetups: validUpcommingMeetups,
       })
     } catch (error) {
@@ -674,8 +674,8 @@ export default class MeetupsController {
         })
       return view.render('pages/meetup/meetup_history', {
         meetups: formattedMeetups,
-        center: { latitude: 43.604, longitude: 1.44305 },
-        zoom: 13,
+        center: { latitude: 46.729, longitude: 2.505 },
+        zoom: 5.5,
         pastMeetups: validPastMeetups,
       })
     } catch (error) {
