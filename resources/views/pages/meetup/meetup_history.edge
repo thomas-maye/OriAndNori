@@ -1,7 +1,7 @@
-@layout.app({ title: "Upcomming Meetups" })
+@layout.app({ title: "Meetups History" })
 
 @slot('meta')
-<meta name="description" content="View your upcomming meetups">
+<meta name="description" content="View your meetups history">
 <link 
 rel="stylesheet" 
 href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
@@ -19,15 +19,15 @@ crossorigin="">
 <section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
   <div class="container px-4 py-0 flex">
     <div class="w-2/3 pr-4 overflow-y-auto h-screen no-scrollbar">
-      <h1 class="text-2xl font-semibold  lg:text-3xl text-emerald-700"> My Upcomming Meetups</h1>
+      <h1 class="text-2xl font-semibold  lg:text-3xl text-emerald-700">Meetups History</h1>
       <div class="flex mx-auto">
         <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
         <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
         <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
       </div>
       <p class="mt-6 text-gray-500 dark:text-gray-300 mb-6">
-        Here you can find all the meetups you have joined or created.<br>
-        Click on a meetup to view more details (or edit it if you are the creator).
+        Here you can find all the meetups you have already Participating.<br>
+        Click on a meetup to view more details.
       </p>
 
       <div class="px-4">
@@ -54,13 +54,13 @@ crossorigin="">
         @endif
       </div>
 
-      {{--Upcomming Meetups--}}
+      {{--History of the Meetups--}}
       <div class="container px-30 md:px-4 mt-10">
         <div class="flex items-center mb-4 pl-10">
         </div>
-        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4">
           @each(meetup in meetups)
-          @if(new Date(meetup.date) >= new Date())
+          @if(new Date(meetup.date) <= new Date())
             <div
               class="max-width mx-auto shadow-lg hover:shadow-xl flex flex-col p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-xl dark:border-gray-500  text-gray-500  dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
               <div class="mt-4">
@@ -202,7 +202,7 @@ crossorigin="">
       <div class="sticky top-0">
         <div class="h-screen md:h-[500px] border border-gray-300 rounded-md">
           @component('components/map/display_map', { center: center, zoom: zoom, markers: markers }) 
-          @each(meetup in upcomingMeetups)
+          @each(meetup in pastMeetups)
           @component('components/map/map_marker', { 
             latitude: meetup.latitude, 
             longitude: meetup.longitude, 

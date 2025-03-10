@@ -17,6 +17,19 @@ document.addEventListener('alpine:init', () => {
           </div>
         `
         const popup = L.popup({ offset: [0, -15] }).setContent(popupContent)
+
+       /* var MarkerIcon = L.Icon.extend({
+          options: {
+              iconSize:     [25, 41],
+              iconAnchor:   [12, 41],
+              popupAnchor:  [1, -34]
+          }
+      });
+
+      var greenMarker = new MarkerIcon({iconUrl: 'resources/images/marker-icon-green.png'});
+      var redMarker = new MarkerIcon({iconUrl: 'resources/images/marker-icon-red.png'});
+
+      const markerIcon = new Date(markerData.date) >= new Date() ? greenMarker : redMarker;*/
         
         const marker = L.marker([markerData.latitude, markerData.longitude])
         marker.bindPopup(popup)

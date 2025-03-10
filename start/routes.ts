@@ -16,7 +16,6 @@ const ResetPasswordController = () => import('#controllers/reset_password_contro
 const MeetupsController = () => import('#controllers/meetups_controller')
 const ReviewMeetupsController = () => import('#controllers/review_meetups_controller')
 const ReviewPetsController = () => import('#controllers/review_pets_controller')
-const GeosController = () => import('#controllers/geos_controller')
 /**
  * -------------------------------
  * Home routes
@@ -118,7 +117,7 @@ router
 
 // Purpose a Meetup to an User
 router
-.post('/users/:id/meetup', [AuthController, 'purposeMeetupUser'])
+  .post('/users/:id/meetup', [AuthController, 'purposeMeetupUser'])
   .as('purposeMeetupUser')
   .use(middleware.auth())
 
@@ -159,7 +158,7 @@ router
 
 // Purpose a Meetup
 router
-.post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
+  .post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
   .as('purposeMeetup')
   .use(middleware.auth())
 
@@ -180,6 +179,18 @@ router
   .as('createMeetup')
   .use(middleware.auth())
 
+//Display My upcomming Meetups
+router
+  .get('/meetups/upcomming', [MeetupsController, 'displayUpcommingMeetups'])
+  .as('myMeetups')
+  .use(middleware.auth())
+
+//Display Meetup History
+router
+  .get('/meetups/history', [MeetupsController, 'displayMeetupHistory'])
+  .as('meetupsHistory')
+  .use(middleware.auth())
+
 //Display Meetups by ID
 router
   .get('/meetups/:id', [MeetupsController, 'displayOneMeetup'])
@@ -190,12 +201,6 @@ router
 router
   .get('/meetups', [MeetupsController, 'displayMeetupsList'])
   .as('displayMeetupsList')
-  .use(middleware.auth())
-
-//Display My Meetups
-router
-  .get('/my-meetups', [MeetupsController, 'displayMyMeetups'])
-  .as('myMeetups')
   .use(middleware.auth())
 
 // Join Meetup
@@ -304,14 +309,4 @@ router
 router
   .get('/editReviewForm/:id', [ReviewPetsController, 'editReviewForm'])
   .as('showEditReviewForm')
-  .use(middleware.auth())
-
-//esaie geo
-router.get('/GeoForm', [GeosController, 'showGeoForm']).as('geoForm').use(middleware.auth())
-
-router.post('/geo', [GeosController, 'geo']).as('geoCoding').use(middleware.auth())
-
-router
-  .get('/upcomingMeetups', [GeosController, 'displayUpcommingMeetups'])
-  .as('upcomingMeetups')
   .use(middleware.auth())

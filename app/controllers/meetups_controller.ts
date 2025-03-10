@@ -187,7 +187,7 @@ export default class MeetupsController {
           return null
         })
       )
-      console.log('coordinates', coordinates)
+
       const validMeetups = coordinates
         .filter((result) => result.status === 'fulfilled' && result.value !== null)
         .map((result) => {
@@ -212,7 +212,7 @@ export default class MeetupsController {
    * Display My Meetups
    * ------------------------------
    */
-  async displayMyMeetups({ view, auth, response }: HttpContext) {
+  async displayUpcommingMeetups({ view, auth, response, session }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
@@ -228,6 +228,10 @@ export default class MeetupsController {
       })
       .orderBy('date', 'asc')
 
+    const upcomingMeetups = await Meetup.query().whereHas('meetupUsers', (query) => {
+      query.where('user_id', user.id).where('date', '>', new Date())
+    })
+
     // pour avoir une date a bien formatté
     const formattedMeetups = meetups.map((meetup) => ({
       ...meetup.serialize(),
@@ -235,7 +239,62 @@ export default class MeetupsController {
         ? meetup.date
         : DateTime.fromJSDate(new Date(meetup.date)).toFormat('dd/MM/yyyy HH:mm'),
     }))
-    return view.render('pages/meetup/my_meetups', { meetups: formattedMeetups })
+
+    const apiKey = process.env.OPENCAGE_API_KEY
+
+    if (!apiKey) {
+      session.flash('error', 'API key is missing')
+      return response.redirect().back()
+    }
+
+    const upcommingAddresses = upcomingMeetups.map(
+      (upcomingMeetup) => `${upcomingMeetup.adress}, ${upcomingMeetup.city}`
+    )
+
+    try {
+      const upcomingCoordinates = await Promise.allSettled(
+        upcommingAddresses.map(async (address, index) => {
+          const upcommingAddressesData = await opencage.geocode({
+            q: address,
+            key: apiKey,
+          })
+          if (
+            upcommingAddressesData &&
+            upcommingAddressesData.status.code === 200 &&
+            upcommingAddressesData.results.length > 0
+          ) {
+            const upcomingAdress = upcommingAddressesData.results[0]
+            return {
+              ...upcomingMeetups[index],
+              latitude: upcomingAdress.geometry.lat,
+              longitude: upcomingAdress.geometry.lng,
+              title: upcomingMeetups[index].title,
+              date: upcomingMeetups[index].date,
+              description: upcomingMeetups[index].description,
+              adress: upcomingMeetups[index].adress,
+              city: upcomingMeetups[index].city,
+            }
+          }
+          return null
+        })
+      )
+      const validUpcommingMeetups = upcomingCoordinates
+        .filter((result) => result.status === 'fulfilled' && result.value !== null)
+        .map((result) => {
+          const upcommingMeetup = (result as PromiseFulfilledResult<any>).value
+          return upcommingMeetup
+        })
+
+      return view.render('pages/meetup/my_meetups', {
+        meetups: formattedMeetups,
+        center: { latitude: 43.604, longitude: 1.44305 },
+        zoom: 13,
+        upcomingMeetups: validUpcommingMeetups,
+      })
+    } catch (error) {
+      session.flash('error', 'Error fetching coordinates')
+      return response.redirect().back()
+    }
   }
 
   /**
@@ -507,6 +566,95 @@ export default class MeetupsController {
       session.flash('error', 'Error updating meetup')
       return response.redirect().toRoute('myMeetups')
     }
-    
+  }
+
+  /**
+   * ------------------------------
+   * Display Meetup History
+   * ------------------------------
+   */
+  async displayMeetupHistory({ view, response, session, auth }: HttpContext) {
+    const user = auth.user
+    if (!user) {
+      return response.unauthorized({ message: 'User not authenticated' })
+    }
+
+    const meetups = await Meetup.query()
+      .whereHas('meetupUsers', (query) => {
+        query.where('user_id', user.id).where('date', '<', new Date())
+      })
+      .preload('meetupPets', (query) => {
+        query.preload('breed')
+        query.preload('species')
+      })
+      .orderBy('date', 'asc')
+
+    const pastMeetups = await Meetup.query().whereHas('meetupUsers', (query) => {
+      query.where('user_id', user.id).where('date', '<', new Date())
+    })
+
+    // pour avoir une date a bien formatté
+    const formattedMeetups = meetups.map((meetup) => ({
+      ...meetup.serialize(),
+      formattedDate: DateTime.isDateTime(meetup.date)
+        ? meetup.date
+        : DateTime.fromJSDate(new Date(meetup.date)).toFormat('dd/MM/yyyy HH:mm'),
+    }))
+
+    const apiKey = process.env.OPENCAGE_API_KEY
+
+    if (!apiKey) {
+      session.flash('error', 'API key is missing')
+      return response.redirect().back()
+    }
+
+    const pastAddresses = pastMeetups.map(
+      (pastMeetup) => `${pastMeetup.adress}, ${pastMeetup.city}`
+    )
+
+    try {
+      const pastCoordinates = await Promise.allSettled(
+        pastAddresses.map(async (address, index) => {
+          const pastAddressesData = await opencage.geocode({
+            q: address,
+            key: apiKey,
+          })
+          if (
+            pastAddressesData &&
+            pastAddressesData.status.code === 200 &&
+            pastAddressesData.results.length > 0
+          ) {
+            const pastAddress = pastAddressesData.results[0]
+            return {
+              ...pastMeetups[index],
+              latitude: pastAddress.geometry.lat,
+              longitude: pastAddress.geometry.lng,
+              title: pastMeetups[index].title,
+              date: pastMeetups[index].date,
+              description: pastMeetups[index].description,
+              adress: pastMeetups[index].adress,
+              city: pastMeetups[index].city,
+            }
+          }
+          return null
+        })
+      )
+
+      const validPastMeetups = pastCoordinates
+        .filter((result) => result.status === 'fulfilled' && result.value !== null)
+        .map((result) => {
+          const pastMeetup = (result as PromiseFulfilledResult<any>).value
+          return pastMeetup
+        })
+      return view.render('pages/meetup/meetup_history', {
+        meetups: formattedMeetups,
+        center: { latitude: 43.604, longitude: 1.44305 },
+        zoom: 13,
+        pastMeetups: validPastMeetups,
+      })
+    } catch (error) {
+      session.flash('error', 'Error fetching coordinates')
+      return response.redirect().back()
+    }
   }
 }
