@@ -1,11 +1,1599 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coucou</title>
-</head>
-<body>
-    Coucou
-</body>
-</html>
+<html lang="en" class="dark"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon48x48.svg">
+  
+  
+    <meta name="description" content="About Page of Ori&amp;Nori"><link rel="stylesheet" href="/resources/css/app.css">
+  <script type="module" src="/@vite/client"></script>
+  <script type="module" defer="" src="/resources/js/app.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script><style>/*! tailwindcss v4.0.12 | MIT License | https://tailwindcss.com */
+  @layer theme, base, components, utilities;
+  @layer theme {
+    :root, :host {
+      --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+      'Noto Color Emoji';
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace;
+      --color-amber-400: oklch(0.828 0.189 84.429);
+      --color-amber-500: oklch(0.769 0.188 70.08);
+      --color-emerald-600: oklch(0.596 0.145 163.225);
+      --color-emerald-700: oklch(0.508 0.118 165.612);
+      --color-emerald-800: oklch(0.432 0.095 166.913);
+      --color-blue-800: oklch(0.424 0.199 265.638);
+      --color-gray-50: oklch(0.985 0.002 247.839);
+      --color-gray-200: oklch(0.928 0.006 264.531);
+      --color-gray-300: oklch(0.872 0.01 258.338);
+      --color-gray-400: oklch(0.707 0.022 261.325);
+      --color-gray-500: oklch(0.551 0.027 264.364);
+      --color-gray-600: oklch(0.446 0.03 256.802);
+      --color-gray-700: oklch(0.373 0.034 259.733);
+      --color-gray-800: oklch(0.278 0.033 256.848);
+      --color-gray-900: oklch(0.21 0.034 264.665);
+      --color-black: #000;
+      --color-white: #fff;
+      --spacing: 0.25rem;
+      --breakpoint-2xl: 96rem;
+      --container-lg: 32rem;
+      --container-xl: 36rem;
+      --container-2xl: 42rem;
+      --text-sm: 0.875rem;
+      --text-sm--line-height: calc(1.25 / 0.875);
+      --text-lg: 1.125rem;
+      --text-lg--line-height: calc(1.75 / 1.125);
+      --text-xl: 1.25rem;
+      --text-xl--line-height: calc(1.75 / 1.25);
+      --text-2xl: 1.5rem;
+      --text-2xl--line-height: calc(2 / 1.5);
+      --text-3xl: 1.875rem;
+      --text-3xl--line-height: calc(2.25 / 1.875);
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+      --tracking-tight: -0.025em;
+      --radius-lg: 0.5rem;
+      --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+      --default-transition-duration: 150ms;
+      --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      --default-font-family: var(--font-sans);
+      --default-font-feature-settings: var(--font-sans--font-feature-settings);
+      --default-font-variation-settings: var(--font-sans--font-variation-settings);
+      --default-mono-font-family: var(--font-mono);
+      --default-mono-font-feature-settings: var(--font-mono--font-feature-settings);
+      --default-mono-font-variation-settings: var(--font-mono--font-variation-settings);
+    }
+  }
+  @layer base {
+    *, ::after, ::before, ::backdrop, ::file-selector-button {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      border: 0 solid;
+    }
+    html, :host {
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      tab-size: 4;
+      font-family: var( --default-font-family, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' );
+      font-feature-settings: var(--default-font-feature-settings, normal);
+      font-variation-settings: var(--default-font-variation-settings, normal);
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      line-height: inherit;
+    }
+    hr {
+      height: 0;
+      color: inherit;
+      border-top-width: 1px;
+    }
+    abbr:where([title]) {
+      -webkit-text-decoration: underline dotted;
+      text-decoration: underline dotted;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-size: inherit;
+      font-weight: inherit;
+    }
+    a {
+      color: inherit;
+      -webkit-text-decoration: inherit;
+      text-decoration: inherit;
+    }
+    b, strong {
+      font-weight: bolder;
+    }
+    code, kbd, samp, pre {
+      font-family: var( --default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace );
+      font-feature-settings: var(--default-mono-font-feature-settings, normal);
+      font-variation-settings: var(--default-mono-font-variation-settings, normal);
+      font-size: 1em;
+    }
+    small {
+      font-size: 80%;
+    }
+    sub, sup {
+      font-size: 75%;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+    sub {
+      bottom: -0.25em;
+    }
+    sup {
+      top: -0.5em;
+    }
+    table {
+      text-indent: 0;
+      border-color: inherit;
+      border-collapse: collapse;
+    }
+    :-moz-focusring {
+      outline: auto;
+    }
+    progress {
+      vertical-align: baseline;
+    }
+    summary {
+      display: list-item;
+    }
+    ol, ul, menu {
+      list-style: none;
+    }
+    img, svg, video, canvas, audio, iframe, embed, object {
+      display: block;
+    }
+    img, video {
+      max-width: 100%;
+      height: auto;
+    }
+    button, input, select, optgroup, textarea, ::file-selector-button {
+      font: inherit;
+      font-feature-settings: inherit;
+      font-variation-settings: inherit;
+      letter-spacing: inherit;
+      color: inherit;
+      border-radius: 0;
+      background-color: transparent;
+      opacity: 1;
+    }
+    :where(select:is([multiple], [size])) optgroup {
+      font-weight: bolder;
+    }
+    :where(select:is([multiple], [size])) optgroup option {
+      padding-inline-start: 20px;
+    }
+    ::file-selector-button {
+      margin-inline-end: 4px;
+    }
+    ::placeholder {
+      opacity: 1;
+      color: color-mix(in oklab, currentColor 50%, transparent);
+    }
+    textarea {
+      resize: vertical;
+    }
+    ::-webkit-search-decoration {
+      -webkit-appearance: none;
+    }
+    ::-webkit-date-and-time-value {
+      min-height: 1lh;
+      text-align: inherit;
+    }
+    ::-webkit-datetime-edit {
+      display: inline-flex;
+    }
+    ::-webkit-datetime-edit-fields-wrapper {
+      padding: 0;
+    }
+    ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+      padding-block: 0;
+    }
+    :-moz-ui-invalid {
+      box-shadow: none;
+    }
+    button, input:where([type='button'], [type='reset'], [type='submit']), ::file-selector-button {
+      appearance: button;
+    }
+    ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+      height: auto;
+    }
+    [hidden]:where(:not([hidden='until-found'])) {
+      display: none !important;
+    }
+  }
+  @layer utilities {
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+    .absolute {
+      position: absolute;
+    }
+    .relative {
+      position: relative;
+    }
+    .inset-x-0 {
+      inset-inline: calc(var(--spacing) * 0);
+    }
+    .z-20 {
+      z-index: 20;
+    }
+    .container {
+      width: 100%;
+      @media (width >= 40rem) {
+        max-width: 40rem;
+      }
+      @media (width >= 48rem) {
+        max-width: 48rem;
+      }
+      @media (width >= 64rem) {
+        max-width: 64rem;
+      }
+      @media (width >= 80rem) {
+        max-width: 80rem;
+      }
+      @media (width >= 96rem) {
+        max-width: 96rem;
+      }
+    }
+    .mx-auto {
+      margin-inline: auto;
+    }
+    .mt-0\.5 {
+      margin-top: calc(var(--spacing) * 0.5);
+    }
+    .mt-1 {
+      margin-top: calc(var(--spacing) * 1);
+    }
+    .mt-2 {
+      margin-top: calc(var(--spacing) * 2);
+    }
+    .mt-4 {
+      margin-top: calc(var(--spacing) * 4);
+    }
+    .mt-6 {
+      margin-top: calc(var(--spacing) * 6);
+    }
+    .mt-8 {
+      margin-top: calc(var(--spacing) * 8);
+    }
+    .mt-10 {
+      margin-top: calc(var(--spacing) * 10);
+    }
+    .mr-2 {
+      margin-right: calc(var(--spacing) * 2);
+    }
+    .mr-4 {
+      margin-right: calc(var(--spacing) * 4);
+    }
+    .mb-2 {
+      margin-bottom: calc(var(--spacing) * 2);
+    }
+    .mb-4 {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+    .mb-10 {
+      margin-bottom: calc(var(--spacing) * 10);
+    }
+    .ml-1 {
+      margin-left: calc(var(--spacing) * 1);
+    }
+    .ml-2 {
+      margin-left: calc(var(--spacing) * 2);
+    }
+    .block {
+      display: block;
+    }
+    .flex {
+      display: flex;
+    }
+    .grid {
+      display: grid;
+    }
+    .hidden {
+      display: none;
+    }
+    .inline-block {
+      display: inline-block;
+    }
+    .inline-flex {
+      display: inline-flex;
+    }
+    .size-4 {
+      width: calc(var(--spacing) * 4);
+      height: calc(var(--spacing) * 4);
+    }
+    .size-5 {
+      width: calc(var(--spacing) * 5);
+      height: calc(var(--spacing) * 5);
+    }
+    .size-6 {
+      width: calc(var(--spacing) * 6);
+      height: calc(var(--spacing) * 6);
+    }
+    .size-9 {
+      width: calc(var(--spacing) * 9);
+      height: calc(var(--spacing) * 9);
+    }
+    .size-14 {
+      width: calc(var(--spacing) * 14);
+      height: calc(var(--spacing) * 14);
+    }
+    .h-6 {
+      height: calc(var(--spacing) * 6);
+    }
+    .h-20 {
+      height: calc(var(--spacing) * 20);
+    }
+    .h-80 {
+      height: calc(var(--spacing) * 80);
+    }
+    .h-90 {
+      height: calc(var(--spacing) * 90);
+    }
+    .w-6 {
+      width: calc(var(--spacing) * 6);
+    }
+    .w-80 {
+      width: calc(var(--spacing) * 80);
+    }
+    .w-90 {
+      width: calc(var(--spacing) * 90);
+    }
+    .w-auto {
+      width: auto;
+    }
+    .w-full {
+      width: 100%;
+    }
+    .max-w-2xl {
+      max-width: var(--container-2xl);
+    }
+    .max-w-lg {
+      max-width: var(--container-lg);
+    }
+    .max-w-none {
+      max-width: none;
+    }
+    .max-w-screen-2xl {
+      max-width: var(--breakpoint-2xl);
+    }
+    .max-w-xl {
+      max-width: var(--container-xl);
+    }
+    .flex-shrink-0 {
+      flex-shrink: 0;
+    }
+    .shrink-0 {
+      flex-shrink: 0;
+    }
+    .flex-grow {
+      flex-grow: 1;
+    }
+    .-translate-x-full {
+      --tw-translate-x: -100%;
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    .grid-cols-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    .flex-col {
+      flex-direction: column;
+    }
+    .flex-wrap {
+      flex-wrap: wrap;
+    }
+    .items-center {
+      align-items: center;
+    }
+    .justify-between {
+      justify-content: space-between;
+    }
+    .justify-center {
+      justify-content: center;
+    }
+    .justify-end {
+      justify-content: flex-end;
+    }
+    .justify-start {
+      justify-content: flex-start;
+    }
+    .gap-1 {
+      gap: calc(var(--spacing) * 1);
+    }
+    .gap-4 {
+      gap: calc(var(--spacing) * 4);
+    }
+    .gap-6 {
+      gap: calc(var(--spacing) * 6);
+    }
+    .gap-8 {
+      gap: calc(var(--spacing) * 8);
+    }
+    .space-y-1 {
+      :where(& > :not(:last-child)) {
+        --tw-space-y-reverse: 0;
+        margin-block-start: calc(calc(var(--spacing) * 1) * var(--tw-space-y-reverse));
+        margin-block-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+      }
+    }
+    .space-y-3 {
+      :where(& > :not(:last-child)) {
+        --tw-space-y-reverse: 0;
+        margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));
+        margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
+      }
+    }
+    .space-x-2 {
+      :where(& > :not(:last-child)) {
+        --tw-space-x-reverse: 0;
+        margin-inline-start: calc(calc(var(--spacing) * 2) * var(--tw-space-x-reverse));
+        margin-inline-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-x-reverse)));
+      }
+    }
+    .rounded-full {
+      border-radius: calc(infinity * 1px);
+    }
+    .rounded-lg {
+      border-radius: var(--radius-lg);
+    }
+    .border {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+    .border-gray-200 {
+      border-color: var(--color-gray-200);
+    }
+    .bg-amber-400 {
+      background-color: var(--color-amber-400);
+    }
+    .bg-emerald-700 {
+      background-color: var(--color-emerald-700);
+    }
+    .bg-gray-50 {
+      background-color: var(--color-gray-50);
+    }
+    .bg-white {
+      background-color: var(--color-white);
+    }
+    .object-cover {
+      object-fit: cover;
+    }
+    .p-0\.5 {
+      padding: calc(var(--spacing) * 0.5);
+    }
+    .p-2\.5 {
+      padding: calc(var(--spacing) * 2.5);
+    }
+    .p-3 {
+      padding: calc(var(--spacing) * 3);
+    }
+    .p-6 {
+      padding: calc(var(--spacing) * 6);
+    }
+    .p-8 {
+      padding: calc(var(--spacing) * 8);
+    }
+    .px-4 {
+      padding-inline: calc(var(--spacing) * 4);
+    }
+    .px-5 {
+      padding-inline: calc(var(--spacing) * 5);
+    }
+    .px-6 {
+      padding-inline: calc(var(--spacing) * 6);
+    }
+    .py-2\.5 {
+      padding-block: calc(var(--spacing) * 2.5);
+    }
+    .py-4 {
+      padding-block: calc(var(--spacing) * 4);
+    }
+    .py-8 {
+      padding-block: calc(var(--spacing) * 8);
+    }
+    .py-10 {
+      padding-block: calc(var(--spacing) * 10);
+    }
+    .py-12 {
+      padding-block: calc(var(--spacing) * 12);
+    }
+    .text-center {
+      text-align: center;
+    }
+    .text-right {
+      text-align: right;
+    }
+    .text-2xl {
+      font-size: var(--text-2xl);
+      line-height: var(--tw-leading, var(--text-2xl--line-height));
+    }
+    .text-lg {
+      font-size: var(--text-lg);
+      line-height: var(--tw-leading, var(--text-lg--line-height));
+    }
+    .text-sm {
+      font-size: var(--text-sm);
+      line-height: var(--tw-leading, var(--text-sm--line-height));
+    }
+    .text-xl {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+    .font-bold {
+      --tw-font-weight: var(--font-weight-bold);
+      font-weight: var(--font-weight-bold);
+    }
+    .font-medium {
+      --tw-font-weight: var(--font-weight-medium);
+      font-weight: var(--font-weight-medium);
+    }
+    .font-semibold {
+      --tw-font-weight: var(--font-weight-semibold);
+      font-weight: var(--font-weight-semibold);
+    }
+    .tracking-tight {
+      --tw-tracking: var(--tracking-tight);
+      letter-spacing: var(--tracking-tight);
+    }
+    .text-amber-400 {
+      color: var(--color-amber-400);
+    }
+    .text-amber-500 {
+      color: var(--color-amber-500);
+    }
+    .text-black {
+      color: var(--color-black);
+    }
+    .text-emerald-700 {
+      color: var(--color-emerald-700);
+    }
+    .text-gray-500 {
+      color: var(--color-gray-500);
+    }
+    .text-gray-700 {
+      color: var(--color-gray-700);
+    }
+    .text-gray-800 {
+      color: var(--color-gray-800);
+    }
+    .text-gray-900 {
+      color: var(--color-gray-900);
+    }
+    .text-white {
+      color: var(--color-white);
+    }
+    .capitalize {
+      text-transform: capitalize;
+    }
+    .opacity-0 {
+      opacity: 0%;
+    }
+    .shadow-md {
+      --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .shadow-sm {
+      --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .shadow-xs {
+      --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .outline {
+      outline-style: var(--tw-outline-style);
+      outline-width: 1px;
+    }
+    .outline-1 {
+      outline-style: var(--tw-outline-style);
+      outline-width: 1px;
+    }
+    .-outline-offset-1 {
+      outline-offset: calc(1px * -1);
+    }
+    .outline-gray-300 {
+      outline-color: var(--color-gray-300);
+    }
+    .transition {
+      transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
+      transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+      transition-duration: var(--tw-duration, var(--default-transition-duration));
+    }
+    .transition-all {
+      transition-property: all;
+      transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+      transition-duration: var(--tw-duration, var(--default-transition-duration));
+    }
+    .duration-300 {
+      --tw-duration: 300ms;
+      transition-duration: 300ms;
+    }
+    .ease-in-out {
+      --tw-ease: var(--ease-in-out);
+      transition-timing-function: var(--ease-in-out);
+    }
+    .placeholder\:text-gray-400 {
+      &::placeholder {
+        color: var(--color-gray-400);
+      }
+    }
+    .hover\:bg-emerald-700 {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-emerald-700);
+        }
+      }
+    }
+    .hover\:bg-emerald-800 {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-emerald-800);
+        }
+      }
+    }
+    .hover\:bg-gray-300 {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-gray-300);
+        }
+      }
+    }
+    .hover\:text-emerald-800 {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-emerald-800);
+        }
+      }
+    }
+    .hover\:text-gray-600 {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-gray-600);
+        }
+      }
+    }
+    .hover\:text-gray-700\/75 {
+      &:hover {
+        @media (hover: hover) {
+          color: color-mix(in oklab, var(--color-gray-700) 75%, transparent);
+        }
+      }
+    }
+    .hover\:text-white {
+      &:hover {
+        @media (hover: hover) {
+          color: var(--color-white);
+        }
+      }
+    }
+    .focus\:bg-gray-200 {
+      &:focus {
+        background-color: var(--color-gray-200);
+      }
+    }
+    .focus\:text-gray-600 {
+      &:focus {
+        color: var(--color-gray-600);
+      }
+    }
+    .focus\:ring {
+      &:focus {
+        --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+    .focus\:ring-4 {
+      &:focus {
+        --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(4px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentColor);
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+    .focus\:outline-hidden {
+      &:focus {
+        --tw-outline-style: none;
+        outline-style: none;
+        @media (forced-colors: active) {
+          outline: 2px solid transparent;
+          outline-offset: 2px;
+        }
+      }
+    }
+    .focus\:outline {
+      &:focus {
+        outline-style: var(--tw-outline-style);
+        outline-width: 1px;
+      }
+    }
+    .focus\:outline-2 {
+      &:focus {
+        outline-style: var(--tw-outline-style);
+        outline-width: 2px;
+      }
+    }
+    .focus\:-outline-offset-2 {
+      &:focus {
+        outline-offset: calc(2px * -1);
+      }
+    }
+    .focus\:outline-emerald-700 {
+      &:focus {
+        outline-color: var(--color-emerald-700);
+      }
+    }
+    .focus\:outline-none {
+      &:focus {
+        --tw-outline-style: none;
+        outline-style: none;
+      }
+    }
+    .sm\:-mx-2 {
+      @media (width >= 40rem) {
+        margin-inline: calc(var(--spacing) * -2);
+      }
+    }
+    .sm\:mt-4 {
+      @media (width >= 40rem) {
+        margin-top: calc(var(--spacing) * 4);
+      }
+    }
+    .sm\:block {
+      @media (width >= 40rem) {
+        display: block;
+      }
+    }
+    .sm\:h-\[28rem\] {
+      @media (width >= 40rem) {
+        height: 28rem;
+      }
+    }
+    .sm\:w-\[28rem\] {
+      @media (width >= 40rem) {
+        width: 28rem;
+      }
+    }
+    .sm\:p-8 {
+      @media (width >= 40rem) {
+        padding: calc(var(--spacing) * 8);
+      }
+    }
+    .sm\:text-sm {
+      @media (width >= 40rem) {
+        font-size: var(--text-sm);
+        line-height: var(--tw-leading, var(--text-sm--line-height));
+      }
+    }
+    .md\:h-max {
+      @media (width >= 48rem) {
+        height: max-content;
+      }
+    }
+    .md\:grid-cols-2 {
+      @media (width >= 48rem) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    .md\:p-12 {
+      @media (width >= 48rem) {
+        padding: calc(var(--spacing) * 12);
+      }
+    }
+    .md\:text-3xl {
+      @media (width >= 48rem) {
+        font-size: var(--text-3xl);
+        line-height: var(--tw-leading, var(--text-3xl--line-height));
+      }
+    }
+    .lg\:relative {
+      @media (width >= 64rem) {
+        position: relative;
+      }
+    }
+    .lg\:top-0 {
+      @media (width >= 64rem) {
+        top: calc(var(--spacing) * 0);
+      }
+    }
+    .lg\:mt-0 {
+      @media (width >= 64rem) {
+        margin-top: calc(var(--spacing) * 0);
+      }
+    }
+    .lg\:mr-2 {
+      @media (width >= 64rem) {
+        margin-right: calc(var(--spacing) * 2);
+      }
+    }
+    .lg\:mb-0 {
+      @media (width >= 64rem) {
+        margin-bottom: calc(var(--spacing) * 0);
+      }
+    }
+    .lg\:flex {
+      @media (width >= 64rem) {
+        display: flex;
+      }
+    }
+    .lg\:hidden {
+      @media (width >= 64rem) {
+        display: none;
+      }
+    }
+    .lg\:w-auto {
+      @media (width >= 64rem) {
+        width: auto;
+      }
+    }
+    .lg\:translate-x-0 {
+      @media (width >= 64rem) {
+        --tw-translate-x: calc(var(--spacing) * 0);
+        translate: var(--tw-translate-x) var(--tw-translate-y);
+      }
+    }
+    .lg\:grid-cols-3 {
+      @media (width >= 64rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .lg\:flex-row {
+      @media (width >= 64rem) {
+        flex-direction: row;
+      }
+    }
+    .lg\:items-center {
+      @media (width >= 64rem) {
+        align-items: center;
+      }
+    }
+    .lg\:justify-between {
+      @media (width >= 64rem) {
+        justify-content: space-between;
+      }
+    }
+    .lg\:justify-start {
+      @media (width >= 64rem) {
+        justify-content: flex-start;
+      }
+    }
+    .lg\:space-y-0 {
+      @media (width >= 64rem) {
+        :where(& > :not(:last-child)) {
+          --tw-space-y-reverse: 0;
+          margin-block-start: calc(calc(var(--spacing) * 0) * var(--tw-space-y-reverse));
+          margin-block-end: calc(calc(var(--spacing) * 0) * calc(1 - var(--tw-space-y-reverse)));
+        }
+      }
+    }
+    .lg\:space-x-1 {
+      @media (width >= 64rem) {
+        :where(& > :not(:last-child)) {
+          --tw-space-x-reverse: 0;
+          margin-inline-start: calc(calc(var(--spacing) * 1) * var(--tw-space-x-reverse));
+          margin-inline-end: calc(calc(var(--spacing) * 1) * calc(1 - var(--tw-space-x-reverse)));
+        }
+      }
+    }
+    .lg\:bg-transparent {
+      @media (width >= 64rem) {
+        background-color: transparent;
+      }
+    }
+    .lg\:p-0 {
+      @media (width >= 64rem) {
+        padding: calc(var(--spacing) * 0);
+      }
+    }
+    .lg\:px-16 {
+      @media (width >= 64rem) {
+        padding-inline: calc(var(--spacing) * 16);
+      }
+    }
+    .lg\:py-24 {
+      @media (width >= 64rem) {
+        padding-block: calc(var(--spacing) * 24);
+      }
+    }
+    .lg\:text-3xl {
+      @media (width >= 64rem) {
+        font-size: var(--text-3xl);
+        line-height: var(--tw-leading, var(--text-3xl--line-height));
+      }
+    }
+    .lg\:opacity-100 {
+      @media (width >= 64rem) {
+        opacity: 100%;
+      }
+    }
+    .lg\:shadow-none {
+      @media (width >= 64rem) {
+        --tw-shadow: 0 0 #0000;
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+    .xl\:mt-0 {
+      @media (width >= 80rem) {
+        margin-top: calc(var(--spacing) * 0);
+      }
+    }
+    .xl\:mt-6 {
+      @media (width >= 80rem) {
+        margin-top: calc(var(--spacing) * 6);
+      }
+    }
+    .xl\:mt-12 {
+      @media (width >= 80rem) {
+        margin-top: calc(var(--spacing) * 12);
+      }
+    }
+    .xl\:w-1\/2 {
+      @media (width >= 80rem) {
+        width: calc(1/2 * 100%);
+      }
+    }
+    .xl\:grid-cols-3 {
+      @media (width >= 80rem) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .xl\:flex-row {
+      @media (width >= 80rem) {
+        flex-direction: row;
+      }
+    }
+    .xl\:items-start {
+      @media (width >= 80rem) {
+        align-items: flex-start;
+      }
+    }
+    .xl\:gap-16 {
+      @media (width >= 80rem) {
+        gap: calc(var(--spacing) * 16);
+      }
+    }
+    .xl\:text-3xl {
+      @media (width >= 80rem) {
+        font-size: var(--text-3xl);
+        line-height: var(--tw-leading, var(--text-3xl--line-height));
+      }
+    }
+    .dark\:bg-emerald-700 {
+      @media (prefers-color-scheme: dark) {
+        background-color: var(--color-emerald-700);
+      }
+    }
+    .dark\:bg-gray-800 {
+      @media (prefers-color-scheme: dark) {
+        background-color: var(--color-gray-800);
+      }
+    }
+    .dark\:bg-gray-900 {
+      @media (prefers-color-scheme: dark) {
+        background-color: var(--color-gray-900);
+      }
+    }
+    .dark\:bg-transparent {
+      @media (prefers-color-scheme: dark) {
+        background-color: transparent;
+      }
+    }
+    .dark\:text-emerald-700 {
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-emerald-700);
+      }
+    }
+    .dark\:text-gray-200 {
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-gray-200);
+      }
+    }
+    .dark\:text-gray-300 {
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-gray-300);
+      }
+    }
+    .dark\:text-gray-500 {
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-gray-500);
+      }
+    }
+    .dark\:text-white {
+      @media (prefers-color-scheme: dark) {
+        color: var(--color-white);
+      }
+    }
+    .dark\:hover\:bg-emerald-600 {
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          @media (hover: hover) {
+            background-color: var(--color-emerald-600);
+          }
+        }
+      }
+    }
+    .dark\:hover\:bg-emerald-700 {
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          @media (hover: hover) {
+            background-color: var(--color-emerald-700);
+          }
+        }
+      }
+    }
+    .dark\:hover\:text-gray-400 {
+      @media (prefers-color-scheme: dark) {
+        &:hover {
+          @media (hover: hover) {
+            color: var(--color-gray-400);
+          }
+        }
+      }
+    }
+    .dark\:focus\:text-gray-400 {
+      @media (prefers-color-scheme: dark) {
+        &:focus {
+          color: var(--color-gray-400);
+        }
+      }
+    }
+    .dark\:focus\:ring-blue-800 {
+      @media (prefers-color-scheme: dark) {
+        &:focus {
+          --tw-ring-color: var(--color-blue-800);
+        }
+      }
+    }
+    .lg\:dark\:bg-transparent {
+      @media (width >= 64rem) {
+        @media (prefers-color-scheme: dark) {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+  @property --tw-translate-x {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0;
+  }
+  @property --tw-translate-y {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0;
+  }
+  @property --tw-translate-z {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0;
+  }
+  @property --tw-space-y-reverse {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0;
+  }
+  @property --tw-space-x-reverse {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0;
+  }
+  @property --tw-border-style {
+    syntax: "*";
+    inherits: false;
+    initial-value: solid;
+  }
+  @property --tw-font-weight {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-tracking {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-shadow {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0 0 0000;
+  }
+  @property --tw-shadow-color {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-inset-shadow {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0 0 0000;
+  }
+  @property --tw-inset-shadow-color {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-ring-color {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-ring-shadow {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0 0 0000;
+  }
+  @property --tw-inset-ring-color {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-inset-ring-shadow {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0 0 0000;
+  }
+  @property --tw-ring-inset {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-ring-offset-width {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+  }
+  @property --tw-ring-offset-color {
+    syntax: "*";
+    inherits: false;
+    initial-value: fff;
+  }
+  @property --tw-ring-offset-shadow {
+    syntax: "*";
+    inherits: false;
+    initial-value: 0 0 0000;
+  }
+  @property --tw-outline-style {
+    syntax: "*";
+    inherits: false;
+    initial-value: solid;
+  }
+  @property --tw-duration {
+    syntax: "*";
+    inherits: false;
+  }
+  @property --tw-ease {
+    syntax: "*";
+    inherits: false;
+  }
+  </style>
+    <script defer="" src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script>
+  // Script for toggling dark mode
+  function toggleDarkMode() {
+    const isDarkMode = document.documentElement.classList.toggle('dark');
+    localStorage.setItem('dark-mode', isDarkMode);
+    updateDarkModeButtons(isDarkMode);
+  }
+  
+  function updateDarkModeButtons(isDarkMode) {
+    document.querySelectorAll('dark-mode-button').forEach(button => {
+      button.style.display = isDarkMode ? 'none' : 'block';
+    });
+    document.querySelectorAll('light-mode-button').forEach(button => {
+      button.style.display = isDarkMode ? 'block' : 'none';
+    });
+  }
+  
+  // Apply dark mode if it was previously set
+  document.addEventListener('DOMContentLoaded', () => {
+    const isDarkMode = localStorage.getItem('dark-mode') === 'true';
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    }
+    updateDarkModeButtons(isDarkMode);
+  });
+    </script>
+  </head>
+  
+  <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-200 vh-screen">  <header class="bg-white dark:bg-gray-900">
+      <nav x-data="{ isOpen: false }" class="py-4 mx-auto max-w-screen-2xl px-4">
+        <div class="lg:items-center lg:justify-between lg:flex">
+          <div class="flex justify-between items-center w-full">
+            <a href="/" class="ml-2">
+              <img class="w-auto h-20 md:h-max" src="/resources/images/Ori&amp;Nori - Logo3.png" alt="Ori&amp;Nori">
+            </a>
+  
+  
+            <!-- Mobile menu button -->
+            <div class="lg:hidden flex justify-end">
+  
+  
+              <div class=" lg:flex justify-start items-center">
+                <button id="dark-mode-button" onclick="toggleDarkMode()" type="button" class="block lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 mr-4 p-0.5" style="display: none;">
+                  <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                  </span>
+                </button>
+                <button id="light-mode-button" onclick="toggleDarkMode()" type="button" class="hidden lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 mr-4 p-0.5" style="display: block;">
+                  <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="4"></circle>
+                      <path d="M12 2v2"></path>
+                      <path d="M12 20v2"></path>
+                      <path d="m4.93 4.93 1.41 1.41"></path>
+                      <path d="m17.66 17.66 1.41 1.41"></path>
+                      <path d="M2 12h2"></path>
+                      <path d="M20 12h2"></path>
+                      <path d="m6.34 17.66-1.41 1.41"></path>
+                      <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+  
+              <button @click="isOpen = !isOpen" type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
+                <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16"></path>
+                </svg>
+  
+                <svg x-show="isOpen" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+  
+          <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
+          <div :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" class="space-y-1 absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white shadow-md lg:bg-transparent lg:dark:bg-transparent lg:shadow-none dark:bg-gray-900 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center opacity-0 -translate-x-full">
+  
+            <div class="flex flex-col lg:flex-row items-center">
+  
+              <div class="w-full lg:w-auto flex flex-col space-y-1 justify-start lg:space-y-0 lg:space-x-1 lg:flex-row lg:mr-2 mb-2 lg:mb-0">
+              <div class="w-auto"><a href="/login" class="inline-block rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition hover:text-emerald-800 hover:bg-gray-300 focus:outline-none focus:ring" type="submit">
+  Login
+  </a>
+              </div>
+              <div class="w-auto"><a href="/register" class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring" type="submit">
+  Register</a>
+              </div>
+            </div>
+  
+              <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
+                <a href="/" class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:text-gray-200">
+                  Home
+                </a>
+              </div>
+  
+              <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
+                <a href="/about" class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                  About
+                </a>
+              </div>
+  
+              <div x-data="{ isActive: false }" class="relative w-full lg:w-auto">
+                <a href="/contact" class="lg:w-auto mr-2 text-gray-500 hover:bg-emerald-700 dark:hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent  dark:text-gray-200">
+                  Contact
+                </a>
+              </div>
+  
+  
+              <div class="hidden lg:flex justify-start items-center">
+                <button id="dark-mode-button" onclick="toggleDarkMode()" type="button" class="block lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 p-0.5" style="display: none;">
+                  <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                    </svg>
+                  </span>
+                </button>
+                <button id="light-mode-button" onclick="toggleDarkMode()" type="button" class="hidden lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800  focus:outline-hidden focus:bg-gray-200 p-0.5" style="display: block;">
+                  <span class="group inline-flex shrink-0 justify-center items-center size-9">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="4"></circle>
+                      <path d="M12 2v2"></path>
+                      <path d="M12 20v2"></path>
+                      <path d="m4.93 4.93 1.41 1.41"></path>
+                      <path d="m17.66 17.66 1.41 1.41"></path>
+                      <path d="M2 12h2"></path>
+                      <path d="M20 12h2"></path>
+                      <path d="m6.34 17.66-1.41 1.41"></path>
+                      <path d="m19.07 4.93-1.41 1.41"></path>
+                    </svg>
+                  </span>
+                </button>
+              </div>
+  
+            </div>
+          </div>
+      </div></nav>
+    </header>
+  
+    <main class="bg-white dark:bg-gray-900 py-8">
+      <div>
+      <section class="bg-white dark:bg-gray-900">
+          <section class="bg-white dark:bg-gray-900">
+              <div class="container flex flex-col items-center px-4 py-12 mx-auto xl:flex-row">
+  
+          
+                  <div class="flex flex-col items-center mt-6 xl:items-start xl:w-1/2 xl:mt-0">
+                      <h2 class="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl dark:text-white">
+                          A Pet, A Meetup! That's all you need to <span class="text-emerald-700 dark:text-emerald-700">Socialise </span> your pet.
+                      </h2>
+          
+                      <p class="block max-w-2xl mt-4 text-gray-500 dark:text-gray-300">A simple meetup can make a world of difference for your pet! At Ori&amp;Nori, we believe that socialization is the key to a happy and well-balanced companion. Whether it's a playful romp in the park, a relaxed stroll with new furry friends, or an exciting discovery of shared activities, our platform connects pet owners to create meaningful encounters. Find the perfect playmate for your pet, schedule meetups effortlessly, and watch their confidence grow. Because a well-socialized pet is a joyful pet!</p>
+          
+                  </div>
+                  <div class="flex justify-center xl:w-1/2">
+                      <img class="h-90 w-90 flex-shrink-0 object-cover" src="/resources/images/InsertionLandingPage.png" alt="">
+                  </div>
+              </div>
+          </section>
+  
+          <div class="container px-6 py-10 mx-auto">
+              <h1 class="text-center text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">Discover our platform <span class="text-emerald-700 dark:text-emerald-700">Ori&amp;Nori</span></h1>
+      
+              <p class="text-center mt-4 text-gray-500 xl:mt-6 dark:text-gray-300">
+                  Ori&amp;Nori is designed to help pet owners foster socialization for their furry companions.
+              </p>
+      
+              <div class="grid grid-cols-1 gap-8 mt-8 xl:mt-12 xl:gap-16 md:grid-cols-2 xl:grid-cols-3">
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M7 21v-2h4v-3.1q-1.225-.275-2.187-1.037T7.4 12.95q-1.875-.225-3.137-1.637T3 8V7q0-.825.588-1.412T5 5h2V3h10v2h2q.825 0 1.413.588T21 7v1q0 1.9-1.263 3.313T16.6 12.95q-.45 1.15-1.412 1.913T13 15.9V19h4v2zm0-10.2V7H5v1q0 .95.55 1.713T7 10.8m10 0q.9-.325 1.45-1.088T19 8V7h-2z"></path></svg>                    
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Find Playmates</h1>
+                      <p class="text-gray-500 dark:text-gray-300">
+                          Connect with other pet owners and arrange meetups suited to your pet.
+                      </p>
+                  </div>
+      
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M21 16v-5.9l-8.05 4.375q-.45.25-.95.25t-.95-.25l-8.45-4.6q-.275-.15-.388-.375T2.1 9t.113-.5t.387-.375l8.45-4.6q.225-.125.463-.188T12 3.275t.488.063t.462.187l9.525 5.2q.25.125.388.363T23 9.6V16q0 .425-.288.713T22 17t-.712-.288T21 16m-9.95 4.475l-5-2.7q-.5-.275-.775-.75T5 16v-3.8l6.05 3.275q.45.25.95.25t.95-.25L19 12.2V16q0 .55-.275 1.025t-.775.75l-5 2.7q-.225.125-.462.188t-.488.062t-.488-.062t-.462-.188"></path></svg>
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Educational Resources</h1>
+                      <p class="text-gray-500 dark:text-gray-300">
+                          Discover tips, guides, and tricks to enhance your pet's well-being.
+                      </p>
+                  </div>
+      
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                          </svg>
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Advanced Search &amp; Filters</h1>
+                      <p class="text-gray-500 dark:text-gray-300">Find companions using customized search criteria.</p>
+                  </div>
+      
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 18q-.825 0-1.412-.587T2 16V8q0-.825.588-1.412T4 6h16q.825 0 1.413.588T22 8v8q0 .825-.587 1.413T20 18zm3-3h2v-2h2v-2H9V9H7v2H5v2h2zm7.5 0q.625 0 1.063-.437T16 13.5t-.437-1.062T14.5 12t-1.062.438T13 13.5t.438 1.063T14.5 15m3-3q.625 0 1.063-.437T19 10.5t-.437-1.062T17.5 9t-1.062.438T16 10.5t.438 1.063T17.5 12"></path></svg>
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Gamification &amp; Challenges</h1>
+                      <p class="text-gray-500 dark:text-gray-300">Engage in fun activities and challenges with rewards.</p>
+                  </div>
+      
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-3.475-.875-5.738-3.988T4 11.1V5l8-3l8 3v6.1q0 3.8-2.262 6.913T12 22m0-2.1q2.425-.75 4.05-2.963T17.95 12H12V4.125l-6 2.25v5.175q0 .175.05.45H12z"></path></svg>
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Secure &amp; Private Communication</h1>
+                      <p class="text-gray-500 dark:text-gray-300">Send messages securely within the platform.</p>
+                  </div>
+      
+                  <div class="space-y-3">
+                      <span class="inline-block p-3 text-emerald-700 bg-amber-400 rounded-full dark:text-white dark:bg-emerald-700">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5 8h14V6H5zm0 0V6zm0 14q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V3q0-.425.288-.712T7 2t.713.288T8 3v1h8V3q0-.425.288-.712T17 2t.713.288T18 3v1h1q.825 0 1.413.588T21 6v4.675q0 .425-.288.713t-.712.287t-.712-.288t-.288-.712V10H5v10h5.8q.425 0 .713.288T11.8 21t-.288.713T10.8 22zm13 1q-2.075 0-3.537-1.463T13 18t1.463-3.537T18 13t3.538 1.463T23 18t-1.463 3.538T18 23m.5-5.2v-2.3q0-.2-.15-.35T18 15t-.35.15t-.15.35v2.275q0 .2.075.388t.225.337l1.525 1.525q.15.15.35.15t.35-.15t.15-.35t-.15-.35z"></path></svg>
+                      </span>
+                      <h1 class="text-xl font-semibold text-gray-700 capitalize dark:text-white">Event &amp; Meetup Management</h1>
+                      <p class="text-gray-500 dark:text-gray-300">Organize and join pet-friendly events easily.</p>
+                  </div>
+              </div>
+          </div> 
+      </section>
+  
+      <section class="bg-white dark:bg-gray-900">
+          <div class="container flex flex-col items-center px-4 py-12 mx-auto xl:flex-row">
+              <div class="flex justify-center xl:w-1/2">
+                  <img class="h-80 w-80 sm:w-[28rem] sm:h-[28rem] flex-shrink-0 object-cover rounded-full" src="/resources/images/cajeo-zhang-wOt6yjkXsDk-unsplash.jpg" alt="">
+              </div>
+      
+              <div class="flex flex-col items-center mt-6 xl:items-start xl:w-1/2 xl:mt-0">
+                  <h2 class="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl dark:text-white">
+                      Don't wait any longer, <span class="text-emerald-700 dark:text-emerald-700">Join Us</span>!
+                  </h2>
+      
+                  <p class="block max-w-2xl mt-4 text-gray-500 dark:text-gray-300">Give your pet the social life they deserve! Ori&amp;Nori makes it easy to connect with other pet owners nearby for fun and enriching meetups. Whether you're looking for a playmate for your furry friend or simply want to meet like-minded people, our platform is here to help. Don't wait any longer—join a community that cares about animal well-being and socialization!</p>
+      
+                  <div class="mt-6 sm:-mx-2">
+                      <div class="flex space-x-2 mt-6"><a href="/login" class="inline-block rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition hover:text-emerald-800 hover:bg-gray-300 focus:outline-none focus:ring" type="submit">
+  Login
+  </a>
+  <a href="/register" class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring" type="submit">
+  Register</a>
+                        </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+  
+      <section>
+      <div class="container px-6 py-10 mx-auto">
+          <h2 class="mt-10 mb-4 text-center text-2xl font-bold dark:text-white text-black md:text-3xl">
+              What Our <span class="text-emerald-700">Users</span> Say!
+          </h2>
+          <div class="mb-10 text-center">They've posted comments, and we love them for it. Don't hesitate to share your own experience!</div>
+  
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                  <div class="flex items-center gap-4">
+                    <img alt="Paul Starr" src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1180&amp;q=80" class="size-14 rounded-full object-cover">
+                
+                    <div>
+                      <span class="flex items-center">
+                          <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"></path></svg>
+                          <span class="ml-1 text-amber-500">5/5</span>
+                        </span>
+                
+                      <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Paul Starr</p>
+                    </div>
+                  </div>
+                
+                  <p class="mt-4 text-gray-700 dark:text-gray-500">
+                      Ori&amp;Nori has completely changed the way I socialize my dog, Max! I used to struggle to find reliable playmates for him, but thanks to this platform, we've met so many amazing pet owners. Max is happier, more confident, and I've made some great friends too. Highly recommend!        </p>
+                </blockquote>
+                
+                <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                  <div class="flex items-center gap-4">
+                    <img alt="Sophie Martin" src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1180&amp;q=80" class="size-14 rounded-full object-cover">
+                
+                    <div>
+                        <span class="flex items-center">
+                          <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"></path></svg>
+                          <span class="ml-1 text-amber-500">5/5</span>
+                        </span>
+                
+                        <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Sophie Martin</p>
+                    </div>
+                  </div>
+                
+                  <p class="mt-4 text-gray-700 dark:text-gray-500">
+                      I love how easy it is to connect with other pet lovers through Ori&amp;Nori. My cat, Luna, was always a bit shy, but after a few meetups, she's become much more playful and social. It's a fantastic way to help pets and owners alike!        </p>
+                </blockquote>
+                
+                <blockquote class="rounded-lg bg-gray-50 p-6 shadow-xs sm:p-8 dark:bg-gray-800">
+                  <div class="flex items-center gap-4">
+                    <img alt="Lucas Morel" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1180&amp;q=80" class="size-14 rounded-full object-cover">
+                
+                    <div>
+                      <span class="flex items-center">
+                          <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"></path></svg>
+                          <span class="ml-1 text-amber-500">4/5</span>
+                        </span>
+                
+                        <p class="mt-0.5 text-lg font-medium text-gray-900 dark:text-gray-200">Lucas Morel</p>
+                    </div>
+                  </div>
+                
+                  <p class="mt-4 text-gray-700 dark:text-gray-500">
+                      Ori&amp;Nori is a game-changer! My schedule is often packed, but this platform helped me find local dog owners who share the same routine. Now, my Labrador, Rocky, enjoys regular playdates, and I get to meet like-minded people. A win-win!        </p>
+                </blockquote>
+          </div>
+      </div>
+  </section>
+  
+      <section class="bg-white dark:bg-gray-900">
+          <div class="p-8 md:p-12 lg:px-16 lg:py-24">
+              <div class="mx-auto max-w-lg text-center">
+                  <h2 class="text-2xl font-bold dark:text-white text-black md:text-3xl">
+                      Join <span class="text-emerald-700">Ori&amp;Nori</span> and connect your pet!
+                  </h2>
+                  <p class="hidden text-gray-500 sm:mt-4 sm:block">
+                      Find playmates for your pet and discover activities tailored to their well-being.
+                  </p>
+              </div>
+              <div class="mx-auto mt-8 max-w-xl">
+                  <form action="#" class="flex items-center gap-4">
+                      <div class="flex-grow"><div class="text-sm text-gray-900 dark:text-white mt-2">
+    <label for="email"></label>
+    <div class="mt-1">
+      <input type="email" name="email" id="email" autocomplete="email" placeholder="Enter your email" value="" required="" class="block mt-2 w-full rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 
+        placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-emerald-700 sm:text-sm">
+    </div>
+  </div>
+  
+  
+                      </div>
+                      <div class="flex-shrink-0"><button class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring" type="submit">Register</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </section>
+      
+  </div>
+  
+    </main>
+  
+    <footer class="bg-white dark:bg-gray-900 py-8">
+      <div class="relative py-4 mx-auto max-w-screen-2xl px-4">
+        <div class="">
+          <div>
+            <div class="flex justify-between items-center">
+              <a id="back-to-top" class="inline-block p-2.5 rounded-lg bg-emerald-700 text-amber-400 shadow-sm transition hover:bg-emerald-800" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+                </svg>
+              </a>
+              <a href="/">
+                <img class="w-auto h-20" src="/resources/images/Ori&amp;Nori - Logo3.png" alt="Ori&amp;Nori">
+              </a>
+            </div>
+  
+            <p class="py-4 text-gray-500 dark:text-gray-300 text-right">
+              Ori&amp;Nori is a platform that allows you to socialize your pets and meet other pet owners.
+            </p>
+          </div>
+  
+          <ul class="flex flex-wrap  gap-1 justify-end">
+            <li>
+              <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800" href="/about"> About </a>
+            </li>
+  
+            <li>
+              <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800" href="/contact"> Contact </a>
+            </li>
+  
+            <li>
+              <a class=" text-gray-500 hover:bg-emerald-700 hover:text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-transparent dark:hover:bg-emerald-600 dark:text-gray-200 dark:focus:ring-blue-800" href="#"> FAQs</a>
+            </li>
+  
+          </ul>
+        </div>
+  
+        <div class="mx-auto max-w-none flex justify-between items-center">
+          <div class="flex justify-center gap-4 lg:justify-start">
+            <a class="text-gray-700 transition hover:text-gray-700/75" href="#" target="_blank" rel="noreferrer">
+              <span class="sr-only"> Facebook </span>
+              <svg class="size-6 text-emerald-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a class="text-gray-700 transition hover:text-gray-700/75" href="#" target="_blank" rel="noreferrer">
+              <span class="sr-only"> Instagram </span>
+              <svg class="size-6 text-emerald-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a class="text-gray-700 transition hover:text-gray-700/75" href="#" target="_blank" rel="noreferrer">
+              <span class="sr-only"> Twitter </span>
+              <svg class="size-6 text-emerald-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+              </svg>
+            </a>
+            <a class="text-gray-700 transition hover:text-gray-700/75" href="https://github.com/thomas-maye/OriAndNori" target="_blank" rel="noreferrer">
+              <span class="sr-only"> GitHub </span>
+              <svg class="size-6 text-emerald-700" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+          </div>
+          <p class="mt-4 text-sm text-gray-500 dark:text-gray-200 text-right">
+            Copyright © 2025. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      document.getElementById('back-to-top').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    </script>
+  
+  
+  </body></html>
