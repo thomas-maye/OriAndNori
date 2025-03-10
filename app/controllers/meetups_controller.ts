@@ -113,16 +113,42 @@ export default class MeetupsController {
 
       // les pets de l'user connecté
       const connectUserPet = await Pet.query().where('user_id', user.id).select(['id', 'name'])
-      //console.log(connectUserPet)
 
-      return view.render('pages/meetup/display_meetup', {
-        meetup,
-        meetupUsers,
-        meetupPets,
-        formattedDate,
-        connectUserPet,
-        reviewMeetup,
+      const apiKey = process.env.OPENCAGE_API_KEY
+
+      if (!apiKey) {
+        session.flash('error', 'API key is missing')
+        return response.redirect().back()
+      }
+
+      const address = `${meetup.adress}, ${meetup.city}`
+      const addressData = await opencage.geocode({
+        q: address,
+        key: apiKey,
       })
+
+      if (!addressData || addressData.status.code !== 200 || addressData.results.length === 0) {
+        session.flash('error', 'Error fetching coordinates')
+        return response.redirect().back()
+      } else {
+        const location = addressData.results[0]
+        const meetupCoordinate = {
+          ...meetup,
+          latitude: location.geometry.lat,
+          longitude: location.geometry.lng,
+        }
+        return view.render('pages/meetup/display_meetup', {
+          meetup,
+          meetupUsers,
+          meetupPets,
+          formattedDate,
+          connectUserPet,
+          reviewMeetup,
+          meetupCoordinate,
+          center: { latitude: location.geometry.lat, longitude: location.geometry.lng },
+          zoom: 13,
+        })
+      }
     } catch (error) {
       session.flash('error', 'Meetup not found') // a affiché un message d'erreur mais voir comment._.
       return response.redirect().toRoute('myMeetups')
