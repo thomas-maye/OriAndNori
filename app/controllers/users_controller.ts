@@ -296,11 +296,11 @@ export default class UsersController {
 
   /**
  * ------------------------------
- * Purpose a Meetup
+ * Propose a Meetup
  * ------------------------------
  */
 
-  async purposeMeetup({ request, session, response, auth }: HttpContext) {
+  async proposeMeetup({ request, session, response, auth }: HttpContext) {
 
 
     const petId = request.param('id') 
@@ -329,7 +329,7 @@ export default class UsersController {
         .to(owner.email)
         .from('no-reply@oriandnori.org')
         .subject('Proposition of Meetup')
-        .htmlView('emails/purpose_meetup_to_owner', { owner, user, profileUrl })
+        .htmlView('emails/propose_meetup_to_owner', { owner, user, profileUrl })
     })
 
     session.flash('success', 'An email has been sent to the owner')

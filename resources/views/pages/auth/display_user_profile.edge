@@ -213,12 +213,12 @@
                 @end
             </div>
 
-            <form action="{{ route('purposeMeetupUser', { id: userProfile.id }) }}" method="POST">
+            <form action="{{ route('proposeMeetupUser', { id: userProfile.id }) }}" method="POST">
                 {{ csrfField() }}
             <div class="mt-4 text-right space-x-2">
                 @if(userProfile.id !== auth.user.id)
                 @!component('components/button-simple/full', { text: 'Add friend', link: '#'})
-                <button type="submit" class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring">Purpose a Meetup</button>
+                <button type="submit" class="inline-block rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-emerald-800 focus:outline-none focus:ring">Propose a Meetup</button>
                 @end
                 </div>
               </form>
