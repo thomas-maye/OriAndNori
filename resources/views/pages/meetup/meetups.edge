@@ -59,7 +59,7 @@ crossorigin="">
       <div class="container px-30 md:px-4 mt-10">
         <div class="flex items-center mb-4 pl-10">
         </div>
-        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3">
+        <div class="grid gap-8 mt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-3">
           @each(meetup in meetups)
           @if(new Date(meetup.date) >= new Date())
             <div
