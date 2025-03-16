@@ -33,10 +33,10 @@ crossorigin="">
 
   <div
     class="shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
-    <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
       {{--Location--}}
       <div class="object-cover w-full aspect-square border-amber-400 border-2 rounded-md">
-        @component('components/map/display_map', { center: center, zoom: zoom, markers: markers })
+        @component('components/map/display_map', { center: center, zoom: zoom, markers: markers, style: 'min-height: 300px;', class: 'lg:h-[350px]' })
           @component('components/map/map_marker', { 
             latitude: meetupCoordinate.latitude, 
             longitude: meetupCoordinate.longitude, 
