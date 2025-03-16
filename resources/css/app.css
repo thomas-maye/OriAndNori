@@ -25,3 +25,11 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
+  
+  select[multiple] option:checked {
+    @apply bg-emerald-100 text-emerald-700;
+  }
+  
+  select[multiple] option:hover {
+    @apply bg-emerald-50;
+  }

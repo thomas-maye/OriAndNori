@@ -157,7 +157,7 @@ export default class MeetupsController {
 
   /**
    * ------------------------------
-   * Display Meetups List
+   * Displays list of available meetups with their locations on a map
    * ------------------------------
    */
   async displayMeetupsList({ view, auth, response, session }: HttpContext) {
@@ -165,6 +165,7 @@ export default class MeetupsController {
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
+    // Get meetups user hasn't joined yet
     const meetups = await Meetup.query()
       .whereDoesntHave('meetupUsers', (query) => {
         query.where('user_id', user.id)
@@ -175,6 +176,7 @@ export default class MeetupsController {
       })
       .orderBy('date', 'asc')
 
+    // Format dates for display
     const formattedMeetups = meetups.map((meetup) => ({
       ...meetup.serialize(),
       formattedDate: DateTime.isDateTime(meetup.date)
@@ -189,14 +191,17 @@ export default class MeetupsController {
       return response.redirect().back()
     }
 
+    // Geocode addresses to get coordinates
     const addresses = meetups.map((meetup) => `${meetup.adress}, ${meetup.city}`)
     try {
+      // Process all geocoding requests in parallel
       const coordinates = await Promise.allSettled(
         addresses.map(async (address, index) => {
           const addressData = await opencage.geocode({
             q: address,
             key: apiKey,
           })
+          // Return meetup with coordinates if geocoding successful
           if (addressData && addressData.status.code === 200 && addressData.results.length > 0) {
             const adress = addressData.results[0]
             return {
@@ -214,6 +219,7 @@ export default class MeetupsController {
         })
       )
 
+      // Filter out failed geocoding attempts
       const validMeetups = coordinates
         .filter((result) => result.status === 'fulfilled' && result.value !== null)
         .map((result) => {
@@ -223,7 +229,7 @@ export default class MeetupsController {
 
       return view.render('pages/meetup/meetups', {
         meetups: formattedMeetups,
-        center: { latitude: 46.729, longitude: 2.505 },
+        center: { latitude: 46.729, longitude: 2.505 }, // Saint-Amand-Montrond
         zoom: 5.5,
         Meetups: validMeetups,
       })

@@ -29,7 +29,6 @@ export default class UsersController {
   async createPet({ auth, request, response, session }: HttpContext) {
     try {
       const validatedData = await request.validateUsing(createPetValidator)
-      console.log('validateddata', validatedData)
       const user = auth.user
       let fileName = ''
 
@@ -103,21 +102,43 @@ export default class UsersController {
    * Display the Pet List
    * ------------------------------
    */
-  async displayPetList({ auth, view, response }: HttpContext) {
+  async displayPetList({ auth, view, response, request }: HttpContext) {
     const user = auth.user
     if (!user) {
       return response.unauthorized({ message: 'User not authenticated' })
     }
-    const pets = await Pet.query()
+
+    const species = await Species.all()
+    const breeds = await Breed.all()
+    const selectedSpecies = request.input('species', [])
+    const selectedBreed = request.input('breed', [])
+
+    let query = Pet.query()
       .whereNot('userId', user.id)
       .preload('user')
       .preload('species')
       .preload('breed')
 
+    if (selectedSpecies.length > 0) {
+      await query.whereIn('speciesId', selectedSpecies)
+    }
+
+    if (selectedBreed.length > 0) {
+      query.whereIn('breedId', selectedBreed)
+    }
+
+    const pets = await query.exec()
     if (!pets) {
       return response.status(404).json({ message: 'No pets found' })
     }
-    return view.render('pages/pet/display_pet_list', { pets })
+
+    return view.render('pages/pet/display_pet_list', {
+      pets,
+      species,
+      breeds,
+      selectedSpecies,
+      selectedBreed,
+    })
   }
 
   /**
@@ -295,15 +316,13 @@ export default class UsersController {
   }
 
   /**
- * ------------------------------
- * Purpose a Meetup
- * ------------------------------
- */
+   * ------------------------------
+   * Purpose a Meetup
+   * ------------------------------
+   */
 
   async purposeMeetup({ request, session, response, auth }: HttpContext) {
-
-
-    const petId = request.param('id') 
+    const petId = request.param('id')
     const pet = await Pet.find(petId)
 
     if (!pet) {
