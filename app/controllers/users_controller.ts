@@ -295,15 +295,13 @@ export default class UsersController {
   }
 
   /**
- * ------------------------------
- * Propose a Meetup
- * ------------------------------
- */
+   * ------------------------------
+   * Propose a Meetup
+   * ------------------------------
+   */
 
   async proposeMeetup({ request, session, response, auth }: HttpContext) {
-
-
-    const petId = request.param('id') 
+    const petId = request.param('id')
     const pet = await Pet.find(petId)
 
     if (!pet) {
