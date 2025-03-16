@@ -115,10 +115,10 @@ router
   .as('auth.display_user_profile')
   .use(middleware.auth())
 
-// Purpose a Meetup to an User
+// Propose a Meetup to an User
 router
-  .post('/users/:id/meetup', [AuthController, 'purposeMeetupUser'])
-  .as('purposeMeetupUser')
+  .post('/users/:id/meetup', [AuthController, 'proposeMeetupUser'])
+  .as('proposeMeetupUser')
   .use(middleware.auth())
 
 /**
@@ -156,10 +156,10 @@ router
   .as('PetProfile')
   .use(middleware.auth())
 
-// Purpose a Meetup
+// Propose a Meetup
 router
-  .post('/pets/:id/meetup', [UsersController, 'purposeMeetup'])
-  .as('purposeMeetup')
+  .post('/pets/:id/meetup', [UsersController, 'proposeMeetup'])
+  .as('proposeMeetup')
   .use(middleware.auth())
 
 /**

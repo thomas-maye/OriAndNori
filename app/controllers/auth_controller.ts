@@ -297,10 +297,10 @@ export default class AuthController {
 
   /**
    * ---------------------------
-   * Purpose a Meetup to an User
+   * Propose a Meetup to an User
    * ---------------------------
    */
-  async purposeMeetupUser({ session, response, auth, params }: HttpContext) {
+  async proposeMeetupUser({ session, response, auth, params }: HttpContext) {
     const user = auth.user
     if (!user) {
       session.flash('error', 'You must be logged in to view this page')
@@ -321,7 +321,7 @@ export default class AuthController {
         .to(userToMeet.email)
         .from('no-reply@oriandnori.org')
         .subject('Proposition of Meetup')
-        .htmlView('emails/purpose_meetup_to_user', { userToMeet, user, profileUrl })
+        .htmlView('emails/propose_meetup_to_user', { userToMeet, user, profileUrl })
     })
 
     session.flash('success', 'An email has been sent to the user')
