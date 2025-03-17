@@ -110,8 +110,8 @@ export default class UsersController {
 
     const species = await Species.all()
     const breeds = await Breed.all()
-    const selectedSpecies = request.input('species', [])
-    const selectedBreed = request.input('breed', [])
+    const selectedSpecies = request.input('species', []).filter((id: number | string) => id !== '')
+    const selectedBreed = request.input('breed', []).filter((id: number | string) => id !== '')
 
     let query = Pet.query()
       .whereNot('userId', user.id)

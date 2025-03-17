@@ -20,29 +20,29 @@
   </div>
 
   <form class="filter-form mt-6 flex flex-col md:flex-row gap-4" method="GET">
-    <div class="form-group flex flex-col">
-      <label for="species" class="text-gray-700 dark:text-gray-300">Species</label>
-      <select name="species[]" id="species" multiple class="mt-1 block w-full rounded-lg bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 no-scrollbar">
-        <option value="">All Species</option>
-        @each(specie in species)
-          <option value="{{ specie.id }}" {{ selectedSpecies.includes(specie.id) ? 'selected' : '' }}>
-            {{ specie.name }}
-          </option>
-        @end
-      </select>
+    @!component('components/input', {
+      type: 'select',
+      name: 'species[]',
+      multiple: true,
+      options: [
+        { value: '', text: 'All Species' },
+        ...species.map(specie => ({ value: specie.id, text: specie.name }))
+      ],
+      required: false
+    })
     </div>
   
-    <div class="form-group flex flex-col">
-      <label for="breed" class="text-gray-700 dark:text-gray-300">Breed</label>
-      <select name="breed[]" id="breed" multiple class="mt-1 block w-full rounded-lg bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300 border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 no-scrollbar">
-        <option value="">All Breeds</option>
-        @each(breed in breeds)
-          <option value="{{ breed.id }}" data-species-id="{{ breed.speciesId }}" {{ selectedBreed.includes(breed.id) ? 'selected' : '' }}>
-            {{ breed.name }}
-          </option>
-        @end
-      </select>
-    </div>
+
+      @!component('components/input', {
+        type: 'select', 
+        name: 'breed[]',
+        multiple: true,
+        options: [
+          { value: '', text: 'All Breeds' },
+          ...breeds.map(breed => ({ value: breed.id, text: breed.name, 'data-species-id': breed.speciesId }))
+        ],
+        required: false
+      })
     
     <div class="flex items-end">
       <button type="submit" class="inline-flex items-center px-4 py-2 bg-emerald-700 text-white rounded-lg hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500">
@@ -51,40 +51,52 @@
     </div>
   </form>
 
-  {{-- Active filters --}}
-  <div class="mt-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
-    <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-300">Active Filters</h2>
-    <div class="mt-2">
-      <p class="text-gray-600 dark:text-gray-400">
-        <strong>Species:</strong>
-        @if(selectedSpecies.length > 0)
-          @each(specie in species)
-          @if(selectedSpecies.includes(String(specie.id)) || selectedSpecies.includes(Number(specie.id)))
-              <span class="inline-block bg-emerald-200 text-emerald-800 rounded-full px-2 py-1 text-xs font-semibold mr-2">
-                {{ specie.name }}
-              </span>
-            @endif
-          @end
-        @else
-          <span class="text-emerald-800">All Species</span>
-        @endif
-      </p>
-      <p class="text-gray-600 dark:text-gray-400 mt-2">
-        <strong>Breed:</strong>
-        @if(selectedBreed.length > 0)
-          @each(breed in breeds)
-            @if(selectedBreed.includes(String(breed.id)) || selectedBreed.includes(Number(breed.id)))
-              <span class="inline-block bg-emerald-200 text-emerald-800 rounded-full px-2 py-1 text-xs font-semibold mr-2">
-                {{ breed.name }}
-              </span>
-            @endif
-          @end
-        @else
-          <span class="text-emerald-800">All Breeds</span>
-        @endif
-      </p>
+{{-- Active filters --}}
+<div class="mt-8 flex flex-col md:flex-row gap-4 max-w-3xl mx-left">
+  <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border-2 border-amber-400 w-full">
+    <div class="flex flex-wrap gap-6">
+      <div class="flex items-center">
+        <span class="text-emerald-700 dark:text-emerald-700 font-semibold mr-3">Species:</span>
+        <div class="flex flex-wrap gap-2">
+          @if(selectedSpecies.length > 0)
+            @each(specie in species)
+              @if(selectedSpecies.includes(String(specie.id)))
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-amber-400 text-emerald-700">
+                  {{ specie.name }}
+                </span>
+              @endif
+            @end
+          @else
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-amber-400 text-emerald-700">
+              All Species
+            </span>
+          @endif
+        </div>
+      </div>
+
+      <div class="flex items-center">
+        <span class="text-emerald-700 dark:text-emerald-700 font-semibold mr-3">Breeds:</span>
+        <div class="flex flex-wrap gap-2">
+          @if(selectedBreed.length > 0)
+            @each(breed in breeds)
+              @if(selectedBreed.includes(String(breed.id)))
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-amber-400 text-emerald-700">
+                  {{ breed.name }}
+                </span>
+              @endif
+            @end
+          @else
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm bg-amber-400 text-emerald-700">
+              All Breeds
+            </span>
+          @endif
+        </div>
+      </div>
     </div>
   </div>
+</div>
+
+
   {{-- Display the pets --}}
   <div class="px-4">
     @if(pets.length === 0)
@@ -217,43 +229,5 @@
       </div>
     </div>
 </section>
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const speciesSelect = document.getElementById('species');
-    const breedSelect = document.getElementById('breed');
-    const breedOptions = Array.from(breedSelect.options);
-  
-    // Function to filter breeds based on selected species
-    const filterBreeds = () => {
-      const selectedSpecies = Array.from(speciesSelect.selectedOptions).map(option => option.value);
-      
-      // Reset breeds
-      breedSelect.innerHTML = '';
-      
-      // Always add "All Breeds" option
-      const allBreedsOption = document.createElement('option');
-      allBreedsOption.value = '';
-      allBreedsOption.text = 'All Breeds';
-      breedSelect.add(allBreedsOption);
-      
-      // Filter and add breeds for selected species
-      breedOptions.forEach(option => {
-        if (option.value === '') return; // Skip "All Breeds" option
-        
-        const speciesId = option.getAttribute('data-species-id');
-        if (selectedSpecies.length === 0 || selectedSpecies.includes(speciesId)) {
-          const newOption = option.cloneNode(true);
-          breedSelect.add(newOption);
-        }
-      });
-    };
-  
-    // Update breeds when species selection changes
-    speciesSelect.addEventListener('change', filterBreeds);
-    
-    // Initial filter
-    filterBreeds();
-  });
-</script>
 @endslot
 @end

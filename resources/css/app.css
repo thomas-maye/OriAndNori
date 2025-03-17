@@ -26,10 +26,11 @@
     scrollbar-width: none;  /* Firefox */
   }
   
+  /* This is useless since i use component for display breed and species i let it here in case of */
   select[multiple] option:checked {
-    @apply bg-emerald-100 text-emerald-700;
+    @apply bg-amber-400 text-emerald-700;
   }
   
   select[multiple] option:hover {
-    @apply bg-emerald-50;
+    @apply bg-amber-400 text-emerald-700;
   }
