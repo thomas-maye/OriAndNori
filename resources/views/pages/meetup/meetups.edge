@@ -57,7 +57,7 @@
         <div class="sticky top-20">
           <div class="border-2 border-gray-300 rounded-lg">
             @component('components/map/display_map', { center: center, zoom: zoom, markers: markers, style: 'min-height: 300px;', class: 'lg:h-[500px]' })
-            @each(meetup in pastMeetups)
+            @each(meetup in Meetups)
             @component('components/map/map_marker', {
             latitude: meetup.latitude,
             longitude: meetup.longitude,
@@ -67,8 +67,8 @@
             adress: meetup.adress,
             city: meetup.city,
             })
-            @end
-            @end
+            @endcomponent
+            @endeach
             @endcomponent
           </div>
         </div>
