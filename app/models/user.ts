@@ -1,8 +1,13 @@
 import { DateTime } from 'luxon'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, hasMany, manyToMany } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
+import type { HasMany, ManyToMany } from '@adonisjs/lucid/types/relations'
+import Pet from './pet.js'
+import Meetup from './meetup.js'
+import ReviewMeetup from './review_meetup.js'
+import ReviewPet from './review_pet.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -14,7 +19,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare fullName: string | null
+  declare username: string
 
   @column()
   declare email: string
@@ -22,9 +27,62 @@ export default class User extends compose(BaseModel, AuthFinder) {
   @column({ serializeAs: null })
   declare password: string
 
+  @hasMany(() => Pet)
+  declare pet: HasMany<typeof Pet>
+
+  @column()
+  declare first_name: string
+
+  @column()
+  declare last_name: string
+
+  @column()
+  declare longitude: number
+
+  @column()
+  declare latitude: number
+
+  @column()
+  declare address_1: string
+
+  @column()
+  declare address_2: string
+
+  @column()
+  declare postal_code: string
+
+  @column()
+  declare city: string
+
+  @column()
+  declare phone: string
+
+  @column()
+  declare description: string
+
+  @hasMany(() => Meetup)
+  declare meetup: HasMany<typeof Meetup>
+  @column()
+  declare profile_picture: string
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime | null
+
+  @manyToMany(() => Meetup, {
+    //localKey: 'id',
+    //pivotForeignKey: 'user_id',
+    //relatedKey: 'id',
+    pivotTable: 'user_meetups',
+    pivotColumns: ['user_name', 'sort_order'],
+  })
+  declare userMeetups: ManyToMany<typeof Meetup>
+
+  @hasMany(() => ReviewMeetup)
+  declare reviewMeetup: HasMany<typeof ReviewMeetup>
+
+  @hasMany(() => ReviewPet)
+  declare reviewPet: HasMany<typeof ReviewPet>
 }

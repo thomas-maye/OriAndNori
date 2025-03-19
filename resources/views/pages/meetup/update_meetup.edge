@@ -1,0 +1,86 @@
+@layout.app({ title: "Update Meetup" })
+@slot('meta')
+<meta name="description" content="Update your meetup details">
+@endslot
+
+@slot('main')
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl 2xl:px-0 pt-10">
+  <div class="container px-4 py-0">
+    <h1 class="text-2xl font-semibold capitalize lg:text-3xl text-emerald-700">Update a Meetup</h1>
+    <div class="flex mx-auto">
+      <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
+    </div>
+    <p class="mt-6 pb-10 text-gray-500 dark:text-gray-300">
+      Here you can update a Meetup you have created. Please be sure to update it.
+    </p>
+  </div>
+
+  <div class="container mx-auto p-4">
+    <form method="POST" action="{{ route('updateMeetup', { id: meetup.id }) }}?_method=PUT"
+      enctype="multipart/form-data">
+      {{ csrfField() }}
+      <div class="px-4 py-4 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg bg-white dark:bg-gray-800">
+
+        <div class=" text-emerald-700 text-lg grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <div class="mb-4">
+              Edit the title of your meetup
+              <div class="">
+                @!component('components/input', { name: 'title', placeholder: 'Enter the title of your meetup', type:
+                'text', value: meetup.title, required: true})
+              </div>
+            </div>
+
+            <div class="mb-4">
+              Edit the type of your meetup
+              @!component('components/input', { name: 'type', type: 'select', value: meetup.type, required: true,
+              options: [
+              { value: 'Walk', text: 'Walk', selected: meetup.type === 'Walk' },
+              { value: 'Sociabiliation', text: 'Sociabiliation', selected: meetup.type === 'Sociabibility' }
+              ]})
+            </div>
+
+            <div class="">
+              Edit your date and time of your meetup
+              <input
+                class="text-sm block mt-2 w-full  rounded-lg bg-white px-5 py-2.5 text-gray-700 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400  focus:border-emerald-700 focus:outline-emerald-700 focus:outline focus:outline-2 focus:-outline-offset-2"
+                type="datetime-local" id="date" name="date"
+                value="{{ new Date(meetup.date).toISOString().slice(0, 16) }}" class="mt-1 block w-full" required>
+            </div>
+          </div>
+
+          <div>
+            <div class="">
+              Update the location of your meetup
+              <div class="">
+                @!component('components/input', { name: 'adress', placeholder: 'Address', type:'text', value:
+                meetup.adress })
+                @!component('components/input', { name: 'additional_address', placeholder: 'Complement address', type:
+                'text', value: meetup.additionalAddress})
+                @!component('components/input', { name: 'city', placeholder: 'City', type: 'text', value: meetup.city})
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <div class="text-emerald-700 text-lg mt-4 ">
+            Edit the description of your meetup
+            <div class="">
+              @!component('components/input', { name: 'description', placeholder: 'Description', type: 'textarea',
+              value: meetup.description, required: true})
+            </div>
+          </div>
+
+
+      </div>
+
+      <div class="flex justify-center mt-4">
+        @!component('components/button-simple/full', { text: "Update" })
+      </div>
+
+    </form>
+  </div>
+  @endslot
+  @end

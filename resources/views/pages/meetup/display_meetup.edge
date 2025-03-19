@@ -1,0 +1,373 @@
+@layout.app({ title: "Meetup Details" })
+@slot('meta')
+<meta name="description" content="A Meetup details page made with EdgeJS">
+<link 
+rel="stylesheet" 
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+crossorigin="" />
+<script 
+src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+crossorigin="">
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</script>
+@endslot
+
+@slot('main')
+<section class="bg-white dark:bg-gray-900 mx-auto max-w-screen-2xl pt-10  px-4">
+  <div class="container py-4">
+    <h1 class="text-2xl font-semibold lg:text-3xl text-emerald-700">Details of {{ meetup.title }}</h1>
+    <div class="flex mx-auto">
+      <span class="inline-block w-40 h-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-3 h-1 mx-1 bg-amber-400 rounded-full"></span>
+      <span class="inline-block w-1 h-1 bg-amber-400 rounded-full"></span>
+    </div>
+    <p class="mt-6 mb-6 text-gray-500 dark:text-gray-300">
+      Here is the details of the meetup. <br>
+      You can join or leave the meetup. <br>
+      You can also add or remove your pets from the meetup.
+      And you can also leave a review for the meetup after the meetup.
+    </p>
+  </div>
+
+  <div
+    class="shadow-lg hover:shadow-xl p-4 border-2 border-gray-200 hover:border-gray-400 sm:p-6 rounded-lg dark:border-gray-500  text-gray-500 capitalize dark:text-gray-300 transition duration-150 ease-in-out hover:-translate-y-px">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-8">
+      {{--Location--}}
+      <div class="object-cover w-full aspect-square border-amber-400 border-2 rounded-md">
+        @component('components/map/display_map', { center: center, zoom: zoom, markers: markers, style: 'min-height: 300px;', class: 'lg:h-[350px]' })
+          @component('components/map/map_marker', { 
+            latitude: meetupCoordinate.latitude, 
+            longitude: meetupCoordinate.longitude, 
+            label: meetup.title, 
+            description: meetup.description,
+            date: meetup.date,
+            adress: meetup.adress,
+            city: meetup.city,
+          })
+          @end
+        @end
+      </div>
+
+      {{--Details of the Meetup and buttons--}}
+      <div>
+
+        <div class="flex justify-between items-center w-full">
+          <h2 class="text-xl font-semibold text-emerald-700">
+            {{ meetup.title }}
+          </h2>
+          @if(meetup.globalRating !== null)
+          <span class="ml-4 flex items-center">
+            <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+            <span class="ml-1 text-amber-500">{{ meetup.globalRating }}/5</span>
+          </span>
+          @end
+        </div>
+
+        <div class="flex items">
+          <span class="inline-block w-40 h-0.5 bg-amber-400 rounded-full"></span>
+          <span class="inline-block w-3 h-0.5 mx-1 bg-amber-400 rounded-full"></span>
+          <span class="inline-block w-1 h-0.5 bg-amber-400 rounded-full"></span>
+        </div>
+
+        <div class="space-y-2 dark:text-gray-200 text-gray-600">
+          {{ meetup.description }}
+        </div>
+
+        <p class="mt-2 flex items-center">
+          <a href="{{ route('auth.display_user_profile', { id: meetup.userId }) }}">
+            <span
+              class="bg-amber-400 text-emerald-700 hover:bg-amber-500 hover:text-emerald-800 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+              <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M11 13v3q0 .425.288.713T12 17t.713-.288T13 16v-3h3q.425 0 .713-.288T17 12t-.288-.712T16 11h-3V8q0-.425-.288-.712T12 7t-.712.288T11 8v3H8q-.425 0-.712.288T7 12t.288.713T8 13zm1 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22" />
+              </svg>
+              by {{ auth.user && meetup.userId === auth.user.id ? 'Me' : meetup.organizer }}
+            </span>
+          </a>
+        </p>
+
+        <p class="mt-2 flex items-center">
+          <span class=" bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+            <svg class="mr-2 " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V2h2v2h8V2h2v2h1q.825 0 1.413.588T21 6v4.675q0 .425-.288.713t-.712.287t-.712-.288t-.288-.712V10H5v10h5.8q.425 0 .713.288T11.8 21t-.288.713T10.8 22zm13 1q-2.075 0-3.537-1.463T13 18t1.463-3.537T18 13t3.538 1.463T23 18t-1.463 3.538T18 23m1.675-2.625l.7-.7L18.5 17.8V15h-1v3.2z" />
+            </svg>
+            {{ formattedDate }}
+          </span>
+        </p>
+
+        <p class="mt-2 flex items-center">
+          <span class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm">
+            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M12 12q.825 0 1.413-.587T14 10t-.587-1.412T12 8t-1.412.588T10 10t.588 1.413T12 12m0 10q-4.025-3.425-6.012-6.362T4 10.2q0-3.75 2.413-5.975T12 2t5.588 2.225T20 10.2q0 2.5-1.987 5.438T12 22" />
+            </svg>
+            @if(meetup.adress)
+            {{ meetup.adress }}<br>
+            @end
+            @if(meetup.additionalAddress)
+            {{ meetup.additionalAddress }}<br>
+            @endif
+            {{ meetup.city }}
+          </span>
+        </p>
+
+        <p class="mt-2 flex items-center">
+          <span class="bg-amber-400 text-emerald-700 px-2 py-1 rounded-lg flex items-center mr-2 text-sm mb-4">
+            @if(meetup.type === 'Walk')
+            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="m10.9 14.9l-1.625 7.3q-.075.35-.363.575T8.25 23q-.5 0-.8-.375t-.2-.85L9.8 8.9L8 9.6V12q0 .425-.288.713T7 13t-.712-.288T6 12V8.95q0-.3.163-.537T6.6 8.05l4.45-1.9q.35-.15.738-.175t.737.1t.663.35T13.7 7l1 1.6q.325.5.763.95t.987.775q.35.2.775.363t.85.237q.4.075.663.363T19 12t-.3.7t-.725.225q-1.4-.2-2.513-.875t-1.937-1.625L12.9 13.5l1.8 1.7q.15.15.225.338t.075.387V22q0 .425-.288.713T14 23t-.712-.288T13 22v-5.5zm2.6-9.4q-.825 0-1.412-.587T11.5 3.5t.588-1.412T13.5 1.5t1.413.588T15.5 3.5t-.587 1.413T13.5 5.5" />
+            </svg>
+            {{ meetup.type }}
+            @else
+            <svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M4 20v-7zm16 0v-7zM19 8q.425 0 .713-.288T20 7t-.288-.712T19 6t-.712.288T18 7t.288.713T19 8m0 2q-1.275 0-2.137-.862T16 7q0-1.25.863-2.125T19 4q1.25 0 2.125.875T22 7q0 1.275-.875 2.138T19 10m-7-3q.625 0 1.063-.425T13.5 5.5q0-.625-.437-1.062T12 4q-.65 0-1.075.438T10.5 5.5q0 .65.425 1.075T12 7m0 2q-1.475 0-2.488-1.012T8.5 5.5q0-1.45 1.013-2.475T12 2q1.45 0 2.475 1.025T15.5 5.5q0 1.475-1.025 2.488T12 9m-4 4.375q0 .75.8 1.75T12 18.3q2.35-2.125 3.175-3.125t.825-1.8q0-.575-.375-.975T14.7 12q-.35 0-.663.15t-.512.425L12.325 14h-.675l-1.2-1.425q-.2-.275-.513-.425T9.3 12q-.575 0-.937.4T8 13.375m-2 0q0-1.325.9-2.35T9.3 10q.775 0 1.488.35T12 11.3q.5-.6 1.2-.95t1.5-.35q1.5 0 2.4 1.038t.9 2.337q0 1.325-.962 2.613T13.1 20L12 21l-1.1-1q-3.025-2.75-3.963-4.025T6 13.375M5 8q.425 0 .713-.288T6 7t-.288-.712T5 6t-.712.288T4 7t.288.713T5 8m7.075 14v-2H20v-7h-2.95v-2H20q.825 0 1.413.588T22 13v8q0 .425-.288.713T21 22zM4 20h8.075v2H3q-.425 0-.712-.288T2 21v-8q0-.825.575-1.412T4 11h2.95v2H4zm1-10q-1.275 0-2.138-.862T2 7q0-1.25.863-2.125T5 4q1.25 0 2.125.875T8 7q0 1.275-.875 2.138T5 10m14-3" />
+            </svg>
+            {{ meetup.type }}
+            @endif
+          </span>
+        </p>
+
+
+        <div class="flex mt-3 justify-left">
+          <div
+            class="inline-flex items-center rounded-lg text-gray-100 dark:text-gray-300 hover:text-white bg-emerald-700 focus:relative">
+            <div class="inline-flex">
+
+              @if(auth.user && meetup.userId === auth.user.id && new Date(meetup.date) >= new Date())
+              <a href="{{ route('updateMeetup', { id: meetup.id }) }}">
+                <button
+                  class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                  </svg>
+
+                  Edit
+                </button>
+              </a>
+              @end
+
+              @if(auth.user && meetup.userId === auth.user.id && new Date(meetup.date) >= new Date())
+              <a href="{{ route('deleteMeetupView', { id: meetup.id }) }}">
+                <button
+                  class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+
+                  Delete
+                </button>
+              </a>
+              @end
+
+              @if(new Date(meetup.date) >= new Date() && meetupUsers.some(user => user.id === auth.user.id))
+              <a href="{{ route('leaveMeetupView', { id: meetup.id }) }}">
+                <button
+                  class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="currentColor"
+                      d="M5 21q-.825 0-1.412-.587T3 19v-3q0-.425.288-.712T4 15t.713.288T5 16v3h14V5H5v3q0 .425-.288.713T4 9t-.712-.288T3 8V5q0-.825.588-1.412T5 3h14q.825 0 1.413.588T21 5v14q0 .825-.587 1.413T19 21zm6.65-8H4q-.425 0-.712-.288T3 12t.288-.712T4 11h7.65L9.8 9.15q-.3-.3-.288-.7t.288-.7q.3-.3.713-.312t.712.287L14.8 11.3q.15.15.213.325t.062.375t-.062.375t-.213.325l-3.575 3.575q-.3.3-.712.288T9.8 16.25q-.275-.3-.288-.7t.288-.7z" />
+                  </svg>
+                  Leave
+                </button>
+              </a>
+              @end
+
+              @if(new Date(meetup.date) < new Date() && meetupUsers.some(user=> user.id === auth.user.id) &&
+                !reviewMeetup.some(review => review.user.id === auth.user.id))
+                <a href="{{ route('showReviewForm', { id: meetup.id }) }}">
+                  <button
+                    class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="m12 12.475l1.9 1.15q.275.175.55-.012t.2-.513l-.5-2.175l1.7-1.475q.25-.225.15-.537t-.45-.338L13.325 8.4l-.875-2.05q-.125-.3-.45-.3t-.45.3l-.875 2.05l-2.225.175Q8.1 8.6 8 8.913t.15.537l1.7 1.475l-.5 2.175q-.075.325.2.513t.55.012zM6 18l-2.3 2.3q-.475.475-1.088.213T2 19.575V4q0-.825.588-1.412T4 2h16q.825 0 1.413.588T22 4v12q0 .825-.587 1.413T20 18zm-.85-2H20V4H4v13.125zM4 16V4z" />
+                    </svg> Review
+                  </button>
+                </a>
+                @end
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {{--Pets Participants--}}
+      <div>
+        @if(new Date(meetup.date) >= new Date() && auth.user && connectUserPet.some(pet => !meetupPets.some(mp => mp.id
+        === pet.id)))
+        <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="">
+          {{ csrfField() }}
+
+          <div class="mb-4">
+            <label class="block text-emerald-700">Add one or more of your pets:</label>
+            <div class="border py-2.5 px-4 rounded-lg">
+              @if(connectUserPet && connectUserPet.length > 0)
+              @if(connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)).length > 0)
+              @each(pet in connectUserPet.filter(p => !meetupPets.some(mp => mp.id === p.id)))
+              <div class="inline-flex items-center mr-4">
+                <input type="checkbox" id="pet-{{ pet.id }}" name="petIds[]" value="{{ pet.id }}"
+                  class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                <label for="pet-{{ pet.id }}" class="ml-2 text-gray-700 dark:text-gray-300">
+                  {{ pet.name }}
+                </label>
+              </div>
+              @end
+              @else
+              <p class="text-gray-500 italic">All your pets are already part of this meetup</p>
+              @end
+              @else
+              <p class="text-gray-500 italic">You have no pets to add</p>
+              @end
+            </div>
+            <div class="mt-2 flex justify-end">
+              @if(meetupUsers.some(user => user.id === auth.user.id))
+              @!component('components/button-simple/full', { text: 'Add', type: 'submit' })
+              @else
+              @!component('components/button-simple/full', { text: 'Join with', type: 'submit' })
+              @endif
+            </div>
+          </div>
+        </form>
+        @endif
+
+        <label class="block text-emerald-700">Pets Participants:</label>
+        <dl class="border py-2 px-2 rounded-lg mb-4 flex flex-wrap gap-2">
+          @each(pet in meetupPets)
+          <a href="{{ route('PetProfile', [pet.id]) }}">
+            <div
+              class="flex items-center bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg text-sm">
+              <svg class="text-emerald-700 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M4.5 12.125q-1.05 0-1.775-.725T2 9.625t.725-1.775T4.5 7.125t1.775.725T7 9.625T6.275 11.4t-1.775.725m4.5-4q-1.05 0-1.775-.725T6.5 5.625t.725-1.775T9 3.125t1.775.725t.725 1.775t-.725 1.775T9 8.125m6 0q-1.05 0-1.775-.725T12.5 5.625t.725-1.775T15 3.125t1.775.725t.725 1.775t-.725 1.775T15 8.125m4.5 4q-1.05 0-1.775-.725T17 9.625t.725-1.775t1.775-.725t1.775.725T22 9.625t-.725 1.775t-1.775.725m-12.85 10q-1.125 0-1.888-.862T4 19.225q0-1.3.888-2.275t1.762-1.925q.725-.775 1.25-1.687t1.25-1.713q.55-.65 1.275-1.075T12 10.125t1.575.4t1.275 1.05q.7.8 1.238 1.725t1.262 1.725q.875.95 1.762 1.925T20 19.225q0 1.175-.763 2.038t-1.887.862q-1.35 0-2.675-.225T12 21.675t-2.675.225t-2.675.225" />
+              </svg>
+              <dt>{{ pet.name }}</dt>
+              <input type="hidden" value="{{ pet.$extras.pivot_sort_order }}">
+              @if(connectUserPet.some(userPet => userPet.id === pet.id) && new Date(meetup.date) >= new Date())
+              <form action="{{ route('removePetFromMeetup', { id: meetup.id }) }}?_method=DELETE" method="POST">
+                {{ csrfField() }}
+                <input type="hidden" name="petId" value="{{ pet.id }}">
+                <button type="submit" class="text-red-500 ml-2">✖</button>
+              </form>
+              @endif
+            </div>
+          </a>
+          @end
+        </dl>
+      </div>
+
+      {{--Users Participants--}}
+      <div>
+        <label class="block text-emerald-700">Participants:</label>
+        <dl class="border py-2 px-2 rounded-lg mb-4 flex flex-wrap gap-2">
+          @each(user in meetupUsers)
+          <a href="{{ route('auth.display_user_profile', { id: meetup.userId }) }}">
+          <div
+            class="flex items-center gap-2 bg-amber-400 hover:bg-amber-500 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded-lg text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <path fill="currentColor"
+                d="M4.625 22q-.425 0-.737-.312t-.313-.738v-2.625q0-2.25 1.4-3.975t3.6-2.2q-1 .7-1.55 1.762t-.55 2.288v4.75q0 .275.075.55t.25.5zM8.3 22q-.425 0-.737-.312t-.313-.738V16.2q0-1.75 1.238-2.975T11.475 12H16.2q1.75 0 2.975 1.225T20.4 16.2v1.6q0 1.75-1.225 2.975T16.2 22zM12 9.9q-1.65 0-2.8-1.15t-1.15-2.8t1.15-2.8T12 2t2.8 1.15t1.15 2.8t-1.15 2.8T12 9.9" />
+            </svg>
+            <dt>{{ user.username }}</dt>
+            <input type="hidden" value="{{ user.$extras.pivot_sort_order }}">
+          </div>
+          </a>
+          @end
+        </dl>
+
+        @if(new Date(meetup.date) >= new Date() && auth.user && !meetupUsers.some(user => user.id === auth.user.id) &&
+        (!connectUserPet || connectUserPet.length === 0))
+        <form action="{{ route('joinMeetup', { id: meetup.id }) }}" method="POST" class="space-y-4">
+          {{ csrfField() }}
+
+          <div class="mb-4">
+            <div class="border py-2 px-4 rounded-lg">
+
+              <p class="text-gray-500 italic">You have no pets to add, but you can still join the meetup lonely. </p>
+
+            </div>
+            <div class="mt-2 flex justify-end">
+              @!component('components/button-simple/full', { text : 'Join Lonely', type: 'submit' })
+            </div>
+          </div>
+        </form>
+        @endif
+      </div>
+
+    </div>
+
+    <div class="mt-4">
+      @if(reviewMeetup && reviewMeetup.length > 0)
+      @each(review in reviewMeetup)
+      <div class="bg-gray-200 dark:bg-gray-800  shadow rounded-lg p-4 mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <div class="flex items-center">
+            <span class="font-semibold dark:text-gray-300">{{ review.user.username }}</span>
+            <span class="ml-4 flex items-center">
+              <svg class="text-amber-400" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.3l-3.7 2.825q-.275.225-.6.213t-.575-.188t-.387-.475t-.013-.65L8.15 13.4l-3.625-2.575q-.3-.2-.375-.525t.025-.6t.35-.488t.6-.212H9.6l1.45-4.8q.125-.35.388-.538T12 3.475t.563.188t.387.537L14.4 9h4.475q.35 0 .6.213t.35.487t.025.6t-.375.525L15.85 13.4l1.425 4.625q.125.35-.012.65t-.388.475t-.575.188t-.6-.213z"/></svg>
+              <span class="ml-1 text-amber-500">{{ review.rating }}/5</span>
+            </span>
+          </div>
+          <span class="text-sm text-gray-500 dark:text-gray-300">{{ review.createdAt.toFormat('dd/MM/yyyy HH:mm')
+            }}</span>
+        </div>
+        <div class="flex justify-between items-start">
+          <p class="text-gray-700 dark:text-gray-300">"{{ review.description }}"</p>
+
+          @if(review.user.id === auth.user.id)
+          <div
+            class="inline-flex items-center rounded-lg text-gray-100 dark:text-gray-300 hover:text-white bg-emerald-700 focus:relative ml-2">
+            <div class="inline-flex">
+              @if(review.user.id === auth.user.id)
+              <a href="{{ route('showEditReviewForm', { id: meetup.id }) }}">
+                <button
+                  class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                  </svg>
+                  Edit
+                </button>
+              </a>
+              @endif
+
+              @if(review.user.id === auth.user.id)
+              <form action="{{ route('deleteReviewMeetup', { id: review.id }) }}?_method=DELETE" method="POST">
+                {{ csrfField() }}
+                <button
+                  class="inline-flex items-center gap-2 rounded-lg px-4 py-2 text-gray-100 dark:text-gray-300 hover:text-white hover:bg-emerald-800 focus:relative">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+                  Delete
+                </button>
+              </form>
+              @endif
+            </div>
+          </div>
+          @endif
+        </div>
+      </div>
+      @end
+      @endif
+    </div>
+
+  </div>
+
+</section>
+@endslot
+@end

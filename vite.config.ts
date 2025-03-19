@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import adonisjs from '@adonisjs/vite/client'
-
+import autoprefixer from 'autoprefixer'
+import tailwindcss from 'tailwindcss'
 export default defineConfig({
   plugins: [
     adonisjs({
@@ -16,4 +17,16 @@ export default defineConfig({
       reload: ['resources/views/**/*.edge'],
     }),
   ],
+  css: {
+    postcss: {
+      plugins: [tailwindcss, autoprefixer],
+    },
+  },
+  build: {
+    manifest: true,
+    outDir: 'public/assets',
+    rollupOptions: {
+      input: 'resources/js/app.js',
+    },
+  },
 })

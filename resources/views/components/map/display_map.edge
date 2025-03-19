@@ -1,0 +1,14 @@
+@let(map = {
+center,
+zoom,
+markers: [],
+})
+
+{{-- Share map object with children --}}
+@inject({ map })
+
+{{-- Execute children, but do not render them --}}
+@eval(await $slots.main())
+
+{{-- Render a div and bind it to an Alpine component --}}
+<div style="{{ $props.get('style') }}" class="{{ $props.get('class') }}" x-data="map({{ js.stringify(map) }})" id="map"></div>
