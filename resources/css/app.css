@@ -3,34 +3,36 @@
 @tailwind utilities;
 
 .popup-content {
-    @apply font-sans text-sm leading-relaxed text-gray-700 dark:text-gray-500;
+  @apply font-sans text-sm leading-relaxed text-gray-700 dark:text-gray-500;
 }
 
 .popup-title {
-    @apply text-lg font-semibold text-emerald-700 dark:text-emerald-600 mb-1;
+  @apply text-lg font-semibold text-emerald-700 dark:text-emerald-600 mb-1;
 }
 
 .popup-date,
 .popup-address,
 .popup-description {
-   margin-bottom: 0;
-   line-height: 1.25;
+  margin-bottom: 0;
+  line-height: 1.25;
 }
 
 .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .no-scrollbar {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
-  
-  /* This is useless since i use component for display breed and species i let it here in case of */
-  select[multiple] option:checked {
-    @apply bg-amber-400 text-emerald-700;
-  }
-  
-  select[multiple] option:hover {
-    @apply bg-amber-400 text-emerald-700;
-  }
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+/* This is useless since i use component for display breed and species i let it here in case of */
+select[multiple] option:checked {
+  @apply bg-amber-400 text-emerald-700;
+}
+
+select[multiple] option:hover {
+  @apply bg-amber-400 text-emerald-700;
+}
