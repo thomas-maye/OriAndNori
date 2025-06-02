@@ -9,6 +9,8 @@ services:
       - ./docker/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./docker/traefik/acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - traefik.enable=true
     networks:
       - traefik
   node:
