@@ -34,6 +34,6 @@ node-update-dev:
 
 restart: down up
 
-upgrade-dev: copy-docker-compose-dev pull build up node-install-dev
+upgrade-dev: down copy-docker-compose-dev pull build up node-install-dev
 
-upgrade-prod: git-pull copy-docker-compose-prod pull build up
+upgrade-prod: down git-pull copy-docker-compose-prod pull build up
