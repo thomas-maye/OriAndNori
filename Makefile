@@ -1,21 +1,21 @@
-# Makefile for docker-compose
-# Or alias for docker-compose commands
+# Makefile for docker compose
+# Or alias for docker compose commands
 # Just type `make <command>` to run the command
 
 down:
-	docker-compose down --remove-orphans
+	docker compose down --remove-orphans
 
 up:
-	docker-compose up -d
+	docker compose up -d
 
 bash:
-	docker-compose run --rm node bash
+	docker compose run --rm node bash
 
 pull:
-	docker-compose pull
+	docker compose pull
 
 build:
-	docker-compose build
+	docker compose build
 
 copy-docker-compose-dev:
 	cp docker-compose.dev.yml docker-compose.yml
@@ -24,16 +24,16 @@ copy-docker-compose-prod:
 	cp docker-compose.prod.yml docker-compose.yml
 
 node-install-dev:
-	docker-compose run --rm node npm install
+	docker compose run --rm node npm install
 
 node-update-dev:
-	docker-compose run --rm node npm update
+	docker compose run --rm node npm update
 
 node-install-prod:
-	docker-compose run --rm node npm install --production
+	docker compose run --rm node npm install --production
 
 node-update-prod:
-	docker-compose run --rm node npm update --production
+	docker compose run --rm node npm update --production
 
 restart: down up
 
