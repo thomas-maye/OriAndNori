@@ -29,3 +29,6 @@ yarn-error.log
 
 # Photo uploads
 storage/uploads/
+
+# Ignore Docker compose files
+docker-compose.yml
