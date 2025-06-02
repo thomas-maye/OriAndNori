@@ -9,6 +9,8 @@ services:
       - ./docker/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
       - ./docker/traefik/acme.json:/acme.json
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik
   node:
     build:
       context: ./
@@ -21,6 +23,8 @@ services:
       - traefik.http.routers.node.entrypoints=websecure
       - traefik.http.routers.node.tls=true
       - traefik.http.routers.node.tls.certresolver=letsencrypt
+    networks:
+      - traefik
   pgsql:
     image: postgres:17
     restart: always

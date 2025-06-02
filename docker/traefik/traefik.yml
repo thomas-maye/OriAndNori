@@ -10,6 +10,7 @@ entryPoints:
     address: ":443"
 providers:
   docker:
+    network: traefik
     endpoint: "unix:///var/run/docker.sock"
     exposedByDefault: false
 certificatesResolvers:
