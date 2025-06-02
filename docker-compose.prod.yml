@@ -40,4 +40,4 @@ volumes:
     driver: local
 networks:
   traefik:
-    external: true
+    external: false
