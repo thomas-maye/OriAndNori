@@ -32,3 +32,6 @@ storage/uploads/
 
 # Ignore Docker compose files
 docker-compose.yml
+
+# Ignore lets encrypt files
+docker/traefik/acme.json
