@@ -38,3 +38,6 @@ volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql
     driver: local
+networks:
+  traefik:
+    external: true
