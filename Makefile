@@ -14,6 +14,9 @@ bash:
 pull:
 	docker compose pull
 
+git-pull:
+	git pull
+
 build:
 	docker compose build
 
@@ -33,4 +36,4 @@ restart: down up
 
 upgrade-dev: copy-docker-compose-dev pull build up node-install-dev
 
-upgrade-prod: copy-docker-compose-prod pull build up
+upgrade-prod: git-pull copy-docker-compose-prod pull build up
