@@ -1,4 +1,7 @@
 import { DateTime } from 'luxon'
+
+import.meta.glob(['../images/**'])
+
 document.addEventListener('alpine:init', () => {
   window.Alpine.data('map', function (data) {
     return {
