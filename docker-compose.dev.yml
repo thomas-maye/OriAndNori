@@ -1,16 +1,14 @@
-# Description: This file is used to define the services that will be used in the project.
-
 services:
   node:
-    image: node:23
+    image: node:24
     ports:
       - 3333:3333
     volumes:
       - ./:/app/
     working_dir: /app/
     command: npm run dev
-    # depends_on:
-    #   - pgsql
+    depends_on:
+     - pgsql
   pgsql:
     image: postgres:17
     ports:
@@ -26,7 +24,6 @@ services:
     ports:
     - 1025:1025
     - 8025:8025
-
 volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql

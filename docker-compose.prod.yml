@@ -1,0 +1,40 @@
+services:
+  traefik:
+    image: traefik:3
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./docker/traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./docker/traefik/acme.json:/acme.json
+      - /var/run/docker.sock:/var/run/docker.sock
+  node:
+    build:
+      context: ./docker/node/
+    restart: always
+    volumes:
+      - ./:/app/
+    depends_on:
+     - pgsql
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.node.rule=Host(`oriandnori.com`)
+      - traefik.http.routers.node.entrypoints=websecure
+      - traefik.http.routers.node.tls=true
+      - traefik.http.routers.node.tls.certresolver=letsencrypt
+  pgsql:
+    image: postgres:17
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - oriandnori-pgsql:/var/lib/postgresql/data
+volumes:
+  oriandnori-pgsql:
+    name: oriandnori-pgsql
+    driver: local
