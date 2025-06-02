@@ -13,6 +13,7 @@ services:
       - traefik.enable=true
     networks:
       - traefik
+      - internal
   node:
     build:
       context: ./
@@ -27,6 +28,7 @@ services:
       - traefik.http.routers.node.tls.certresolver=letsencrypt
     networks:
       - traefik
+      - internal
   pgsql:
     image: postgres:17
     restart: always
@@ -36,6 +38,8 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - oriandnori-pgsql:/var/lib/postgresql/data
+    networks:
+      - internal
 volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql
