@@ -29,14 +29,8 @@ node-install-dev:
 node-update-dev:
 	docker compose run --rm node npm update
 
-node-install-prod:
-	docker compose run --rm node npm install --production
-
-node-update-prod:
-	docker compose run --rm node npm update --production
-
 restart: down up
 
 upgrade-dev: copy-docker-compose-dev pull build up node-install-dev
 
-upgrade-prod: copy-docker-compose-prod pull build up node-install-prod
+upgrade-prod: copy-docker-compose-prod pull build up
