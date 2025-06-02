@@ -13,8 +13,6 @@ services:
     build:
       context: ./docker/node/
     restart: always
-    volumes:
-      - ./:/app/
     depends_on:
      - pgsql
     labels:
