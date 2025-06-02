@@ -1,6 +1,6 @@
 services:
   node:
-    image: node:23
+    image: node:24
     ports:
       - 3333:3333
     volumes:
