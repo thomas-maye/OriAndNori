@@ -6,9 +6,11 @@
 @slot('main')
 <div
   class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
-  <div class="hidden bg-cover lg:block lg:w-1/2"
-    style="background-image: url('/resources/images/kevin-turcios-rls2bfqYh8E-unsplash.jpg')">
-  </div>
+<div class="hidden lg:block lg:w-1/2">
+    <img class="w-full h-full object-cover" 
+         src="{{ asset('resources/images/RegisterBackground.png') }}"
+         alt="Registration background">
+</div>
 
   <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
