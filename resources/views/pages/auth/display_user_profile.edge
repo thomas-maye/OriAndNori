@@ -46,7 +46,7 @@
                 {{userProfile.last_name}}</p>
 
             <img class="dark:bg-gray-800 bg-white mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
-                src="{{ asset(userProfile.profile_picture ? `/storage${await driveUrl(userProfile.profile_picture)}` : 'resources/images/1077114.png') }}"
+                src="{{ user.profile_picture ? await driveUrl(user.profile_picture) : 'resources/images/1077114.png' }}"
                 alt="Photo of {{ userProfile.username }}">
 
 
