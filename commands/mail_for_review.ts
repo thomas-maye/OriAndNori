@@ -28,7 +28,7 @@ export default class MailForReview extends BaseCommand {
               await mail.send((message) => {
                 message
                   .to(user.email)
-                  .from('no-reply@oriandnori.org')
+                  .from('no-reply@oriandnori.com')
                   .subject('Review the meetup')
                   .htmlView('emails/review_reminder', { meetup, user, url })
               })

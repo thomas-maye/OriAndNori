@@ -346,7 +346,7 @@ export default class UsersController {
     await mail.send((message) => {
       message
         .to(owner.email)
-        .from('no-reply@oriandnori.org')
+        .from('no-reply@oriandnori.com')
         .subject('Proposition of Meetup')
         .htmlView('emails/propose_meetup_to_owner', { owner, user, profileUrl })
     })

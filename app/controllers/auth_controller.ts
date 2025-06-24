@@ -58,7 +58,7 @@ export default class AuthController {
       await mail.send((message) => {
         message
           .to(user.email)
-          .from('no-reply@oriandnori.org')
+          .from('no-reply@oriandnori.com')
           .subject('Registration Successful')
           .htmlView('emails/register', { user })
       })
@@ -181,7 +181,7 @@ export default class AuthController {
         await mail.send((message) => {
           message
             .to(user.email)
-            .from('no-reply@oriandnori.org')
+            .from('no-reply@oriandnori.com')
             .subject('Edit Profile Successful')
             .htmlView('emails/edit_myprofile', { user })
         })
@@ -239,7 +239,7 @@ export default class AuthController {
         await mail.send((message) => {
           message
             .to(user.email)
-            .from('no-reply@oriandnori.org')
+            .from('no-reply@oriandnori.com')
             .subject('Delete Profile Successful')
             .htmlView('emails/delete_myprofile', { user })
         })
@@ -317,7 +317,7 @@ export default class AuthController {
     await mail.send((message) => {
       message
         .to(userToMeet.email)
-        .from('no-reply@oriandnori.org')
+        .from('no-reply@oriandnori.com')
         .subject('Proposition of Meetup')
         .htmlView('emails/propose_meetup_to_user', { userToMeet, user, profileUrl })
     })

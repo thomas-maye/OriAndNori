@@ -42,7 +42,7 @@ export default class ResetPasswordController {
     await mail.send((message) => {
       message
         .to(user.email)
-        .from('no-reply@oriandnori.org')
+        .from('no-reply@oriandnori.com')
         .subject('Reset Password')
         .htmlView('emails/forgot_password', { user, url })
     })
@@ -103,7 +103,7 @@ export default class ResetPasswordController {
     await mail.send((message) => {
       message
         .to(user.email)
-        .from('no-reply@oriandnori.org')
+        .from('no-reply@oriandnori.com')
         .subject('Reset Password')
         .htmlView('emails/reset_password', { user })
     })
