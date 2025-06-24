@@ -155,7 +155,7 @@ export default class AuthController {
         }
       }
 
-      await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
+      await updateUser.profile_picture.move(app.makePath('/storage/uploads'), {
         name: `${cuid()}.${updateUser.profile_picture.extname}`,
       })
 
