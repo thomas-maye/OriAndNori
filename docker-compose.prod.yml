@@ -29,8 +29,6 @@ services:
     networks:
       - traefik
       - internal
-    volumes:
-      - oriandnori-uploads:/app/storage/uploads
   pgsql:
     image: postgres:17
     restart: always
@@ -47,9 +45,6 @@ services:
 volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql
-    driver: local
-  oriandnori-uploads:
-    name: oriandnori-uploads
     driver: local
 networks:
   traefik:
