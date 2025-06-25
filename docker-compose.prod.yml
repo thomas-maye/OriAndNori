@@ -29,6 +29,8 @@ services:
     networks:
       - traefik
       - internal
+    volumes:
+      - oriandnori-uploads:/app/storage/uploads
   pgsql:
     image: postgres:17
     restart: always
