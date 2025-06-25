@@ -149,6 +149,7 @@ export default class AuthController {
     console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
 
     if (updateUser.profile_picture) {
+      const generatedFileName = `${cuid()}.${updateUser.profile_picture.extname}`;
       if (auth.user.profile_picture) {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
@@ -161,15 +162,11 @@ export default class AuthController {
 
       try {
       await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
-        name: `${cuid()}.${updateUser.profile_picture.extname}`,
+        name: generatedFileName,
       })
 
-      if (!updateUser.profile_picture.fileName) {
-        session.flash('error', 'Error the filaname is not defined')
-        return response.redirect().back()
-      }
+      fileName = generatedFileName;
 
-      fileName = updateUser.profile_picture.fileName
     } catch (error) {
       console.error('Error to move profile picture', error)
       session.flash('error', 'Error uploading profile picture')
