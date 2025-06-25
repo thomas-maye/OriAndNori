@@ -138,50 +138,50 @@ export default class AuthController {
    */
   async updateMyProfile({ request, auth, session, response }: HttpContext) {
     if (!auth.user) {
-      session.flash('error', 'You must be logged in to view this page')
+      session.flash('error', 'Vous devez être connecté pour voir cette page')
       return response.redirect().toRoute('auth.login')
     }
 
     const updateUser = await request.validateUsing(updateUserValidator)
-    let fileName = ''
+    let fileName = auth.user.profile_picture || '' // Initialize with existing picture or empty
 
-    console.log('updateUser.profile_picture:', updateUser.profile_picture) // Ajoutez cette ligne
-    console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
+    console.log('updateUser.profile_picture (avant move):', updateUser.profile_picture)
+    console.log('Type of updateUser.profile_picture (avant move):', typeof updateUser.profile_picture)
 
     if (updateUser.profile_picture) {
       if (auth.user.profile_picture) {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
         } catch (error) {
-          console.error('Error deleting old photo:', error)
-          session.flash('error', 'Error deleting old photo')
+          console.error('Erreur lors de la suppression de l\'ancienne photo:', error) // Log de l'erreur
+          session.flash('error', 'Erreur lors de la suppression de l\'ancienne photo')
           return response.redirect().back()
         }
       }
 
       try {
-      await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
-        name: `${cuid()}.${updateUser.profile_picture.extname}`,
-      })
+        await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
+          name: `<span class="math-inline">\{cuid\(\)\}\.</span>{updateUser.profile_picture.extname}`,
+        })
 
-      if (!updateUser.profile_picture.fileName) {
-        session.flash('error', 'Error uploading profile picture')
+        if (!updateUser.profile_picture.fileName) {
+          session.flash('error', 'Erreur : le nom du fichier n\'a pas été généré après le téléchargement.')
+          return response.redirect().back()
+        }
+        fileName = updateUser.profile_picture.fileName
+      } catch (error) {
+        console.error('Erreur lors du déplacement de la nouvelle photo:', error) // Log de l'erreur spécifique
+        session.flash('error', 'Erreur lors du téléchargement de la photo de profil.')
         return response.redirect().back()
       }
-
-      fileName = updateUser.profile_picture.fileName
-    } catch (error) {
-      console.error('Error move profile picture:', error)
-      session.flash('error', 'Error uploading profile picture')
-      return response.redirect().back()
-    }
     } else {
-      fileName = auth.user.profile_picture || ''
+      // Si aucune nouvelle photo n'est téléchargée, conservez l'ancienne
+      fileName = auth.user.profile_picture
     }
 
     auth.user.merge({
       ...updateUser,
-      profile_picture: fileName || auth.user.profile_picture,
+      profile_picture: fileName, // Utilisez fileName directement ici
     })
 
     await auth.user.save()
@@ -194,16 +194,17 @@ export default class AuthController {
           message
             .to(user.email)
             .from('no-reply@oriandnori.com')
-            .subject('Edit Profile Successful')
+            .subject('Mise à jour du profil réussie')
             .htmlView('emails/edit_myprofile', { user })
         })
-        session.flash('success', 'Profile updated successfully')
+        session.flash('success', 'Profil mis à jour avec succès')
       } catch (error) {
-        session.flash('error', 'Error sending confirmation email')
+        console.error('Erreur lors de l\'envoi de l\'e-mail de confirmation:', error) // Log de l'erreur
+        session.flash('error', 'Erreur lors de l\'envoi de l\'e-mail de confirmation')
         return response.redirect().back()
       }
     } else {
-      session.flash('error', 'User update failed')
+      session.flash('error', 'La mise à jour de l\'utilisateur a échoué')
       return response.redirect().back()
     }
     return response.redirect().toRoute('auth.display_my_profile')
