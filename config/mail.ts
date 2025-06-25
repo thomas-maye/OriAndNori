@@ -10,7 +10,7 @@ const mailConfig = defineConfig({
       secure: false,
       auth: {
         type: 'login',
-        user: env.get('SMTP_USERNAME', ''),
+        user: env.get('SMTP_USER', ''),
         pass: env.get('SMTP_PASSWORD', ''),
       },
     }),
