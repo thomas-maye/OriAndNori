@@ -151,6 +151,7 @@ export default class AuthController {
       const generatedFileName = `uploads/${cuid()}.${updateUser.profile_picture.extname}`;
       if (auth.user.profile_picture) {
         try {
+          console.log('Deleting old profile picture:', auth.user.profile_picture)
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
           console.log('Old profile picture deleted successfully:', auth.user.profile_picture);
         } catch (error) {
