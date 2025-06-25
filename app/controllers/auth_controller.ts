@@ -145,6 +145,9 @@ export default class AuthController {
     const updateUser = await request.validateUsing(updateUserValidator)
     let fileName = ''
 
+    console.log('updateUser.profile_picture:', updateUser.profile_picture) // Ajoutez cette ligne
+    console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
+
     if (updateUser.profile_picture) {
       if (auth.user.profile_picture) {
         try {
