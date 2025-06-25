@@ -23,8 +23,8 @@ RUN node ace build
 FROM base
 ENV NODE_ENV=production
 WORKDIR /app
-USER node
 RUN mkdir -p storage/uploads && chown -R node:node storage/uploads
+USER node
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app
 COPY .env .env
