@@ -160,7 +160,7 @@ export default class AuthController {
       }
 
       try {
-      await updateUser.profile_picture.moveToDisk(generatedFileName), 
+      await updateUser.profile_picture.moveToDisk(generatedFileName); 
 
       fileName = generatedFileName;
       console.log('File moved successfully:', fileName)
