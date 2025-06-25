@@ -160,8 +160,8 @@ export default class AuthController {
       }
 
       try {
-        await updateUser.profile_picture.moveToDisk('', {
-          name: `uploads/${generatedFileName}`,
+        await updateUser.profile_picture.moveToDisk('uploads', {
+          name: generatedFileName,
           disk: 'local'
         });
 
