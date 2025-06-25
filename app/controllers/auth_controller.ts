@@ -148,7 +148,7 @@ export default class AuthController {
     console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
 
     if (updateUser.profile_picture) {
-      const generatedFileName = `uploads/${cuid()}.${updateUser.profile_picture.extname}`;
+      const generatedFileName = `${cuid()}.${updateUser.profile_picture.extname}`;
       if (auth.user.profile_picture) {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
