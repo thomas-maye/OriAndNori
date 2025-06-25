@@ -143,7 +143,7 @@ export default class AuthController {
     }
 
     const updateUser = await request.validateUsing(updateUserValidator)
-    let fileName = ''
+    let fileName = auth.user.profile_picture || ''
 
     console.log('updateUser.profile_picture:', updateUser.profile_picture) // Ajoutez cette ligne
     console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
@@ -153,7 +153,7 @@ export default class AuthController {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
         } catch (error) {
-          console.error('Error deleting old photo:', error)
+          console.error('Error deleting old photo', error)
           session.flash('error', 'Error deleting old photo')
           return response.redirect().back()
         }
@@ -165,23 +165,23 @@ export default class AuthController {
       })
 
       if (!updateUser.profile_picture.fileName) {
-        session.flash('error', 'Error uploading profile picture')
+        session.flash('error', 'Error the filaname is not defined')
         return response.redirect().back()
       }
 
       fileName = updateUser.profile_picture.fileName
     } catch (error) {
-      console.error('Error move profile picture:', error)
+      console.error('Error to move profile picture', error)
       session.flash('error', 'Error uploading profile picture')
       return response.redirect().back()
     }
     } else {
-      fileName = auth.user.profile_picture || ''
+      fileName = auth.user.profile_picture
     }
 
     auth.user.merge({
       ...updateUser,
-      profile_picture: fileName || auth.user.profile_picture,
+      profile_picture: fileName,
     })
 
     await auth.user.save()
@@ -199,6 +199,7 @@ export default class AuthController {
         })
         session.flash('success', 'Profile updated successfully')
       } catch (error) {
+        console.error('Error sending confirmation email', error)
         session.flash('error', 'Error sending confirmation email')
         return response.redirect().back()
       }
