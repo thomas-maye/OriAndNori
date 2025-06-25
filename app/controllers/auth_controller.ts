@@ -186,7 +186,6 @@ export default class AuthController {
             .htmlView('emails/edit_myprofile', { user })
         })
         session.flash('success', 'Profile updated successfully')
-        return response.redirect().toRoute('auth.display_my_profile')
       } catch (error) {
         session.flash('error', 'Error sending confirmation email')
         return response.redirect().back()
@@ -195,7 +194,6 @@ export default class AuthController {
       session.flash('error', 'User update failed')
       return response.redirect().back()
     }
-
     return response.redirect().toRoute('auth.display_my_profile')
   }
 
