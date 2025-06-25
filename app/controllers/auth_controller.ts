@@ -148,7 +148,7 @@ export default class AuthController {
     console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture)
 
     if (updateUser.profile_picture) {
-      const generatedFileName = `${cuid()}.${updateUser.profile_picture.extname}`;
+      const generatedFileName = `uploads/${cuid()}.${updateUser.profile_picture.extname}`;
       if (auth.user.profile_picture) {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
@@ -161,9 +161,7 @@ export default class AuthController {
       }
 
       try {
-        await updateUser.profile_picture.moveToDisk('uploads', {
-          name: generatedFileName
-        });
+        await updateUser.profile_picture.moveToDisk(generatedFileName);
 
         fileName = generatedFileName;
         console.log('File moved successfully:', fileName)
