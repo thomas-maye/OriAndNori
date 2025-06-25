@@ -148,7 +148,7 @@ export default class AuthController {
     if (updateUser.profile_picture) {
       if (auth.user.profile_picture) {
         try {
-          await drive.use().delete(auth.user.profile_picture)
+          await drive.use().delete(`uploads/${auth.user.profile_picture}`)
         } catch (error) {
           session.flash('error', 'Error deleting old photo')
           return response.redirect().back()
