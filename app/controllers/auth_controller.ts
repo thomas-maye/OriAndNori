@@ -152,7 +152,7 @@ export default class AuthController {
       if (auth.user.profile_picture) {
         try {
           console.log('Deleting old profile picture:', auth.user.profile_picture)
-          await drive.use().delete(`uploads/${auth.user.profile_picture}`)
+          await drive.use().delete(`${auth.user.profile_picture}`)
           console.log('Old profile picture deleted successfully:', auth.user.profile_picture);
         } catch (error) {
           console.error('Error deleting old photo', error)
