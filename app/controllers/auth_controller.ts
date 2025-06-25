@@ -152,6 +152,7 @@ export default class AuthController {
       if (auth.user.profile_picture) {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
+          console.log('Old profile picture deleted successfully:', auth.user.profile_picture);
         } catch (error) {
           console.error('Error deleting old photo', error)
           session.flash('error', 'Error deleting old photo')
@@ -161,8 +162,7 @@ export default class AuthController {
 
       try {
         await updateUser.profile_picture.moveToDisk('uploads', {
-          name: generatedFileName,
-          disk: 'local'
+          name: generatedFileName
         });
 
         fileName = generatedFileName;
