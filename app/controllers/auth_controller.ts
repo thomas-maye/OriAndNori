@@ -166,6 +166,7 @@ export default class AuthController {
       })
 
       fileName = generatedFileName;
+      console.log('File moved successfully:', fileName)
 
     } catch (error) {
       console.error('Error to move profile picture', error)
