@@ -48,6 +48,9 @@ volumes:
   oriandnori-pgsql:
     name: oriandnori-pgsql
     driver: local
+  oriandnori-uploads:
+    name: oriandnori-uploads
+    driver: local
 networks:
   traefik:
     external: false
