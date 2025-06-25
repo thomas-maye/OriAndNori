@@ -144,8 +144,8 @@ export default class AuthController {
     const updateUser = await request.validateUsing(updateUserValidator)
     let fileName = auth.user.profile_picture || ''
 
-    console.log('updateUser.profile_picture:', updateUser.profile_picture) // Ajoutez cette ligne
-    console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture) // Ajoutez cette ligne
+    console.log('updateUser.profile_picture:', updateUser.profile_picture)
+    console.log('Type of updateUser.profile_picture:', typeof updateUser.profile_picture)
 
     if (updateUser.profile_picture) {
       const generatedFileName = `${cuid()}.${updateUser.profile_picture.extname}`;
@@ -160,16 +160,19 @@ export default class AuthController {
       }
 
       try {
-      await updateUser.profile_picture.moveToDisk(generatedFileName); 
+        await updateUser.profile_picture.moveToDisk('uploads', {
+          name: generatedFileName,
+          disk: 'local'
+        });
 
-      fileName = generatedFileName;
-      console.log('File moved successfully:', fileName)
+        fileName = generatedFileName;
+        console.log('File moved successfully:', fileName)
 
-    } catch (error) {
-      console.error('Error to move profile picture', error)
-      session.flash('error', 'Error uploading profile picture')
-      return response.redirect().back()
-    }
+      } catch (error) {
+        console.error('Error to move profile picture', error)
+        session.flash('error', 'Error uploading profile picture')
+        return response.redirect().back()
+      }
     } else {
       fileName = auth.user.profile_picture
     }
