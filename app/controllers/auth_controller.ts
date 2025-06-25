@@ -3,7 +3,6 @@ import { loginUserValidator, registerUserValidator, updateUserValidator } from '
 import User from '#models/user'
 import drive from '@adonisjs/drive/services/main'
 import { cuid } from '@adonisjs/core/helpers'
-import app from '@adonisjs/core/services/app'
 import mail from '@adonisjs/mail/services/main'
 
 export default class AuthController {
