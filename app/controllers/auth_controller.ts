@@ -153,11 +153,13 @@ export default class AuthController {
         try {
           await drive.use().delete(`uploads/${auth.user.profile_picture}`)
         } catch (error) {
+          console.error('Error deleting old photo:', error)
           session.flash('error', 'Error deleting old photo')
           return response.redirect().back()
         }
       }
 
+      try {
       await updateUser.profile_picture.move(app.makePath('storage/uploads'), {
         name: `${cuid()}.${updateUser.profile_picture.extname}`,
       })
@@ -168,6 +170,13 @@ export default class AuthController {
       }
 
       fileName = updateUser.profile_picture.fileName
+    } catch (error) {
+      console.error('Error move profile picture:', error)
+      session.flash('error', 'Error uploading profile picture')
+      return response.redirect().back()
+    }
+    } else {
+      fileName = auth.user.profile_picture || ''
     }
 
     auth.user.merge({
