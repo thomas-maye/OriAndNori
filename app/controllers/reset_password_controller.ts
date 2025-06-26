@@ -31,7 +31,7 @@ export default class ResetPasswordController {
       return response.redirect().toRoute('auth.forgot_password')
     }
     const token = stringHelpers.generateRandom(64)
-    const url = `http://oriandnori.com/reset_password?token=${token}&email=${email}`
+    const url = `https://oriandnori.com/reset_password?token=${token}&email=${email}`
 
     await ResetPassword.create({
       token,
@@ -88,7 +88,7 @@ export default class ResetPasswordController {
       passwordResetToken.email !== email ||
       passwordResetToken.expiresAt < DateTime.now()
     ) {
-      session.flash('error', 'BlaBla')
+      session.flash('error', 'Link expired or invalid')
       return response.redirect().toRoute('auth.forgot_password')
     }
 
