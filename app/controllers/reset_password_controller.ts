@@ -31,7 +31,7 @@ export default class ResetPasswordController {
       return response.redirect().toRoute('auth.forgot_password')
     }
     const token = stringHelpers.generateRandom(64)
-    const url = `https://oriandnori.com/reset_password?token=${token}&email=${email}`
+    const url = `https://oriandnori.com/reset_password?token=${token}&email=${encodeURIComponent(email)}`
 
     await ResetPassword.create({
       token,
@@ -56,37 +56,37 @@ export default class ResetPasswordController {
    * Display the Reset Password Page
    * ------------------------------
    */
-async resetPassword({ request, session, response, view }: HttpContext) {
-  const token = request.input('token')
-  const email = request.input('email')
-  
-  console.log(`Reset attempt with token: ${token}, email: ${email}`)
-  
-  const passwordResetToken = await ResetPassword.findBy('token', token)
-  console.log('Found token:', !!passwordResetToken)
-  
-  if (!passwordResetToken) {
-    session.flash('error', 'Token not found')
-    return response.redirect().toRoute('auth.forgot_password')
+  async resetPassword({ request, session, response, view }: HttpContext) {
+    const token = request.input('token')
+    const email = request.input('email')
+
+    console.log(`Reset attempt with token: ${token}, email: ${email}`)
+
+    const passwordResetToken = await ResetPassword.findBy('token', token)
+    console.log('Found token:', !!passwordResetToken)
+
+    if (!passwordResetToken) {
+      session.flash('error', 'Token not found')
+      return response.redirect().toRoute('auth.forgot_password')
+    }
+
+    if (passwordResetToken.isUsed === true) {
+      session.flash('error', 'Token already used')
+      return response.redirect().toRoute('auth.forgot_password')
+    }
+
+    if (passwordResetToken.email !== email) {
+      session.flash('error', 'Email mismatch')
+      return response.redirect().toRoute('auth.forgot_password')
+    }
+
+    if (passwordResetToken.expiresAt < DateTime.now()) {
+      session.flash('error', 'Token expired')
+      return response.redirect().toRoute('auth.forgot_password')
+    }
+
+    return view.render('pages/auth/reset_password', { token, email })
   }
-  
-  if (passwordResetToken.isUsed === true) {
-    session.flash('error', 'Token already used')
-    return response.redirect().toRoute('auth.forgot_password')
-  }
-  
-  if (passwordResetToken.email !== email) {
-    session.flash('error', 'Email mismatch')
-    return response.redirect().toRoute('auth.forgot_password')
-  }
-  
-  if (passwordResetToken.expiresAt < DateTime.now()) {
-    session.flash('error', 'Token expired')
-    return response.redirect().toRoute('auth.forgot_password')
-  }
-  
-  return view.render('pages/auth/reset_password', { token, email })
-}
 
   /**
    * ------------------------------
