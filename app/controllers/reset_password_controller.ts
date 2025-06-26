@@ -31,7 +31,7 @@ export default class ResetPasswordController {
       return response.redirect().toRoute('auth.forgot_password')
     }
     const token = stringHelpers.generateRandom(64)
-    const url = `http://localhost:3333/reset_password?token=${token}&email=${email}`
+    const url = `http://oriandnori.com/reset_password?token=${token}&email=${email}`
 
     await ResetPassword.create({
       token,
