@@ -349,7 +349,7 @@ export default class UsersController {
       session.flash('error', 'User not authenticated')
       return response.redirect().back()
     }
-    const profileUrl = `http://localhost:3333/users/${user.id}`
+    const profileUrl = `http://oriandnori.com/users/${user.id}`
 
     await mail.send((message) => {
       message
