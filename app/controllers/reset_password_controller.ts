@@ -61,6 +61,7 @@ export default class ResetPasswordController {
     const email = request.input('email')
 
     console.log(DateTime.now().toISO(), 'Current Time')
+    console.log(DateTime.now().setZone('Europe/Paris').toISO(), 'Current Time Paris')
 
     const passwordResetToken = await ResetPassword.findBy('token', token)
     if (
