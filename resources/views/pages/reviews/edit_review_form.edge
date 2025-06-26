@@ -100,7 +100,9 @@
               </div>
 
               <img class="object-cover w-24 h-24 rounded-lg ml-4 mb-2 border-2 border-amber-400"
-              src="{{ asset(pet.photo ? `storage/${await driveUrl(pet.photo)}` : 'resources/images/1077114.png') }}"
+              src="{{ pet.photo ? `${await driveUrl(pet.photo)}` : asset('resources/images/Pet_default.png') }}"
+
+
               alt="Photo of {{ pet.name }}">
             </div>
 
