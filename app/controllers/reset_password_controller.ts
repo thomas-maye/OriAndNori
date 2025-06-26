@@ -60,15 +60,14 @@ export default class ResetPasswordController {
     const token = request.input('token')
     const email = request.input('email')
 
-    console.log(DateTime.now().toISO(), 'Current Time')
-    console.log(DateTime.now().setZone('Europe/Paris').toISO(), 'Current Time Paris')
+    console.log(DateTime.now(), 'Current Time')
 
     const passwordResetToken = await ResetPassword.findBy('token', token)
     if (
       !passwordResetToken ||
       !!passwordResetToken.isUsed === true ||
       passwordResetToken.email !== email ||
-      DateTime.fromISO(passwordResetToken.expiresAt.toString()) < DateTime.now()
+      passwordResetToken.expiresAt < DateTime.now()
     ) {
       session.flash('error', 'Link expired or invalid')
       return response.redirect().toRoute('auth.forgot_password')
