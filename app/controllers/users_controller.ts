@@ -310,7 +310,8 @@ export default class UsersController {
 
     if (pet.photo) {
       try {
-        await drive.use().delete(`uploads/${pet.photo}`)
+        console.log('Deleting pet photo:', pet.photo)
+        await drive.use().delete(`${pet.photo}`)
       } catch (error) {
         session.flash('error', 'Error deleting profile picture')
         return response.redirect().back()
