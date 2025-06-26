@@ -35,19 +35,19 @@
           </div>
 
           <div class="mb-4">
-            Is your pet vaccinated?
-            <div class="flex mt-2 space-x-2" x-data="{ isVaccinated: null }">
+            What is your pet's gender?
+            <div class="flex space-x-2 mt-2" x-data="{ selectedGender: '' }">
               <label
                 class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
-                :class="{'bg-emerald-700 text-white': isVaccinated === true}">
-                <input type="radio" name="vaccined" value=1 class="sr-only" required @change="isVaccinated = true">
-                <span>Yes</span>
+                :class="{'bg-emerald-700 text-white': selectedGender === 'male'}">
+                <input type="radio" name="gender" value="male" class="sr-only" required @change="selectedGender = 'male'">
+                <span>Male</span>
               </label>
               <label
                 class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
-                :class="{'bg-emerald-700 text-white': isVaccinated === false}">
-                <input type="radio" name="vaccined" value=0 class="sr-only" required @change="isVaccinated = false">
-                <span>No</span>
+                :class="{'bg-emerald-700 text-white': selectedGender === 'female'}">
+                <input type="radio" name="gender" value="female" class="sr-only" required @change="selectedGender = 'female'">
+                <span>Female</span>
               </label>
             </div>
           </div>
@@ -102,16 +102,18 @@
 
           <div class="mb-4">
             Is your pet vaccinated?
-            <div class="flex mt-2 space-x-2">
+            <div class="flex mt-2 space-x-2" x-data="{ isVaccinated: null }">
               <label
-                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
-                <input type="radio" name="vaccined" value=1 class="sr-only peer" required>
-                <span class="peer-checked:text-white">Yes</span>
+                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
+                :class="{'bg-emerald-700 text-white': isVaccinated === true}">
+                <input type="radio" name="vaccined" value=1 class="sr-only" required @change="isVaccinated = true">
+                <span>Yes</span>
               </label>
               <label
-                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
-                <input type="radio" name="vaccined" value=0 class="sr-only peer" required>
-                <span class="peer-checked:text-white">No</span>
+                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
+                :class="{'bg-emerald-700 text-white': isVaccinated === false}">
+                <input type="radio" name="vaccined" value=0 class="sr-only" required @change="isVaccinated = false">
+                <span>No</span>
               </label>
             </div>
           </div>
