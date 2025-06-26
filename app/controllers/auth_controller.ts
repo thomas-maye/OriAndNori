@@ -321,7 +321,7 @@ export default class AuthController {
       return response.redirect().back()
     }
 
-    const profileUrl = `https://oriandnori/users/${user.id}`
+    const profileUrl = `https://oriandnori.com/users/${user.id}`
 
     await mail.send((message) => {
       message
