@@ -90,8 +90,22 @@ export default class AuthController {
     const user = await User.verifyCredentials(email, password)
     await auth.use('web').login(user)
     session.flash('success', 'You have successfully logged in')
+
+    const intendedUrl = session.get('intended_url')
+
+    if (intendedUrl) {
+      session.forget('intended_url')
+      return response.redirect(intendedUrl)
+    }
+
     return response.redirect().toRoute('home')
   }
+
+  /**
+   * ---------------------------
+   * Handle the Logout User Page
+   * ---------------------------
+   */
 
   async logout({ auth, session, response }: HttpContext) {
     await auth.use('web').logout()
@@ -286,9 +300,10 @@ export default class AuthController {
    * Display User Profile by ID
    * ---------------------------
    */
-  async displayUserProfile({ view, auth, params, session }: HttpContext) {
+  async displayUserProfile({ view, auth, params, session, request }: HttpContext) {
     const user = auth.user
     if (!user) {
+      session.put('intended_url', request.url())
       session.flash('error', 'You must be logged in to view this page')
       return view.render('pages/auth/login')
     }
@@ -307,9 +322,10 @@ export default class AuthController {
    * Propose a Meetup to an User
    * ---------------------------
    */
-  async proposeMeetupUser({ session, response, auth, params }: HttpContext) {
+  async proposeMeetupUser({ session, response, auth, params, request }: HttpContext) {
     const user = auth.user
     if (!user) {
+      session.put('intended_url', request.url())
       session.flash('error', 'You must be logged in to view this page')
       return response.redirect().toRoute('auth.login')
     }
