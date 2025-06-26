@@ -118,7 +118,7 @@ export default class AuthController {
 
   /**
    * ------------------------
-   * Edit my user's profile
+   * Display the Edit My Profile Page
    * ------------------------
    */
   async editMyProfile({ view, auth, session }: HttpContext) {
