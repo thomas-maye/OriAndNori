@@ -37,16 +37,18 @@ export default class UsersController {
       }
 
       if (validatedData.photo) {
-        await validatedData.photo.move(app.makePath('storage/uploads'), {
-          name: `${cuid()}.${validatedData.photo.extname}`,
-        })
-
-        if (!validatedData.photo.fileName) {
-          session.flash('error', 'Error uploading profile picture')
+        try {
+          const generatedFileName = `uploads/${cuid()}.${validatedData.photo.extname}`;
+          
+          await validatedData.photo.moveToDisk(generatedFileName);
+          
+          fileName = generatedFileName;
+          console.log('Pet photo saved successfully:', fileName)
+        } catch (error) {
+          console.error('Error uploading pet photo:', error)
+          session.flash('error', 'Error uploading pet photo')
           return response.redirect().back()
         }
-
-        fileName = validatedData.photo.fileName
       }
 
       const vaccined = request.input('vaccined') === '1'
