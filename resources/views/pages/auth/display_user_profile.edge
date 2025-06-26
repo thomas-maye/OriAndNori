@@ -46,8 +46,8 @@
                 {{userProfile.last_name}}</p>
 
             <img class="dark:bg-gray-800 bg-white mb-2 object-cover w-full rounded-lg aspect-square border-amber-400 border-2"
-                    src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/1077114.png') }}"
-                    alt="Photo of {{auth.use('web').user.username}}">
+                    src="{{ user.profile_picture ? `${await driveUrl(user.profile_picture)}` : asset('resources/images/1077114.png') }}"
+                    alt="Photo of {{user.username}}">
 
 
             <div class="flex mt-2 text-gray-700 dark:text-gray-200">
