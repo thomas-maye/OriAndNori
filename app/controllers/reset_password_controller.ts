@@ -48,7 +48,7 @@ export default class ResetPasswordController {
     })
 
     session.flash('success', 'Password reset link sent to your email. Please check your inbox')
-    return response.redirect().toRoute('auth.forgot_password')
+    return response.redirect().toRoute('auth.login')
   }
 
   /**
