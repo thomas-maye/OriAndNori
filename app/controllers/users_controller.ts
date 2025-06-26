@@ -190,7 +190,7 @@ export default class UsersController {
     return view.render('pages/pet/update_pet', { pet, photo, breeds, species })
   }
 
-  /**
+/**
    * ------------------------------
    * Update Pet
    * ------------------------------
@@ -214,47 +214,53 @@ export default class UsersController {
       }
 
       const updatePetData = await request.validateUsing(createPetValidator)
-      let fileName = ''
+      let fileName = pet.photo || ''
 
+      console.log('updatePetData.photo:', updatePetData.photo)
+      
       if (updatePetData.photo) {
+        const generatedFileName = `uploads/${cuid()}.${updatePetData.photo.extname}`;
+        
         if (pet.photo) {
           try {
-            await drive.use().delete(`uploads/${pet.photo}`)
+            console.log('Deleting old pet photo:', pet.photo)
+            await drive.use().delete(`${pet.photo}`)
+            console.log('Old pet photo deleted successfully:', pet.photo)
           } catch (error) {
+            console.error('Error deleting old pet photo', error)
             session.flash('error', 'Error deleting old photo')
             return response.redirect().back()
           }
         }
 
-        await updatePetData.photo.move(app.makePath('storage/uploads'), {
-          name: `${cuid()}.${updatePetData.photo.extname}`,
-        })
-
-        if (!updatePetData.photo.fileName) {
-          session.flash('error', 'Error uploading profile picture')
+        try {
+          await updatePetData.photo.moveToDisk(generatedFileName);
+          fileName = generatedFileName;
+          console.log('Pet photo saved successfully:', fileName)
+        } catch (error) {
+          console.error('Error uploading pet photo:', error)
+          session.flash('error', 'Error uploading pet photo')
           return response.redirect().back()
         }
-
-        fileName = updatePetData.photo.fileName
       }
-      //console.log('vaccined', request.input('vaccined'))
+
       const vaccined = request.input('vaccined') === '1'
-      //console.log('vaccined', vaccined)
 
       pet.merge({
         ...updatePetData,
         userId: auth.user.id,
         vaccined: vaccined,
-        photo: fileName || pet.photo,
+        photo: fileName,
       })
 
       await pet.save()
       session.flash('success', 'Pet updated successfully!')
       return response.redirect().toRoute('MyPets')
     } catch (error) {
+      console.error('Failed to update pet:', error)
       return response.status(400).json({
-        message: 'Failed to create pet',
-        error: error.messages,
+        message: 'Failed to update pet',
+        error: error.messages || error.message,
       })
     }
   }
