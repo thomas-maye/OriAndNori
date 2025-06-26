@@ -67,7 +67,7 @@ export default class ResetPasswordController {
       !passwordResetToken ||
       !!passwordResetToken.isUsed === true ||
       passwordResetToken.email !== email ||
-      passwordResetToken.expiresAt < DateTime.now()
+      passwordResetToken.expiresAt > DateTime.now()
     ) {
       session.flash('error', 'Link expired or invalid')
       return response.redirect().toRoute('auth.forgot_password')
