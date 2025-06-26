@@ -36,16 +36,18 @@
 
           <div class="mb-4">
             What is your pet's gender?
-            <div class="flex space-x-2 mt-2">
+            <div class="flex space-x-2 mt-2" x-data="{ selectedGender: '' }">
               <label
-                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
-                <input type="radio" name="gender" value="male" class="sr-only peer" required>
-                <span class="peer-checked:text-white">Male</span>
+                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
+                :class="{'bg-emerald-700 text-white': selectedGender === 'male'}">
+                <input type="radio" name="gender" value="male" class="sr-only" required @change="selectedGender = 'male'">
+                <span>Male</span>
               </label>
               <label
-                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white has-checked:bg-emerald-700">
-                <input type="radio" name="gender" value="female" class="sr-only peer" required>
-                <span class="peer-checked:text-white">Female</span>
+                class="inline-flex items-center px-4 py-2 outline outline-1 outline-gray-300 rounded-lg text-sm font-medium text-gray-700 dark:text-white"
+                :class="{'bg-emerald-700 text-white': selectedGender === 'female'}">
+                <input type="radio" name="gender" value="female" class="sr-only" required @change="selectedGender = 'female'">
+                <span>Female</span>
               </label>
             </div>
           </div>
