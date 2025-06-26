@@ -65,11 +65,10 @@ export default class UsersController {
       session.flash('success', 'Pet created successfully!')
       return response.redirect().toRoute('MyPets')
     } catch (error) {
-      return response.status(400).json({
-        message: 'Failed to create pet',
-        error: error.messages || error.message,
-      })
-    }
+      console.error('Failed to create pet:', error)
+      session.flash('error', 'Failed to create pet')
+      return response.redirect().back()
+      }
   }
 
   /**
