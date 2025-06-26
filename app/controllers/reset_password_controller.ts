@@ -60,7 +60,7 @@ export default class ResetPasswordController {
     const token = request.input('token')
     const email = request.input('email')
 
-    console.log(`Reset attempt with token: ${token}, email: ${email}`)
+    console.log(`Reset attempt with token: ${token}, email: ${encodeURIComponent(email)}`)
 
     const passwordResetToken = await ResetPassword.findBy('token', token)
     console.log('Found token:', !!passwordResetToken)
@@ -75,7 +75,7 @@ export default class ResetPasswordController {
       return response.redirect().toRoute('auth.forgot_password')
     }
 
-    if (passwordResetToken.email !== email) {
+    if (passwordResetToken.email !== encodeURIComponent(email)) {
       session.flash('error', 'Email mismatch')
       return response.redirect().toRoute('auth.forgot_password')
     }
