@@ -337,6 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             @end
 
+          @if(auth.use('web').isAuthenticated)
+          <div class="hidden lg:flex mr-4 items-center gap-x-2">
+            <img class="dark:bg-gray-800 bg-white object-cover w-10 h-10 rounded-lg"
+            src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/imgProfileDefault.png') }}"
+            alt="Photo of {{auth.use('web').user.username}}">
+          </div>
+          @end
+
             <div class="hidden lg:flex justify-start items-center">
               <button id="dark-mode-button" onclick="toggleDarkMode()" type="button"
                 class="block lg:w-auto text-amber-400 rounded-lg bg-emerald-700 hover:bg-emerald-800 focus:outline-hidden focus:bg-gray-200 p-0.5">
