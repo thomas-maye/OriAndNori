@@ -51,8 +51,31 @@ document.addEventListener('DOMContentLoaded', () => {
             <img class="w-auto h-20 md:h-max" src="{{ asset('resources/images/OriandNori-Logo3.png') }}" alt='Ori&Nori'>
           </a>
 
+          @if(auth.use('web').isAuthenticated)
+          <div class="hidden lg:flex mr-4 items-center gap-x-2">
+            <div>
+              <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}</h1>
+            </div>
+            <img class="dark:bg-gray-800 bg-white object-cover w-10 h-10 rounded-lg"
+            src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/imgProfileDefault.png') }}"
+            alt="Photo of {{auth.use('web').user.username}}">
+          </div>
+          @end
+
           <!-- Mobile menu button -->
           <div class="lg:hidden flex justify-end">
+
+            @if(auth.use('web').isAuthenticated)
+            <div class="mr-4 flex items-center gap-x-2">
+              <div>
+                <h1 class="font-medium text-sm text-gray-500 dark:text-gray-200">{{auth.use('web').user.username}}
+                </h1>
+              </div>
+              <img class="object-cover w-10 h-10 rounded-lg"
+              src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/imgProfileDefault.png') }}"                
+              alt="Photo of {{auth.use('web').user.username}}">
+            </div>
+            @end
 
             <div class=" lg:flex justify-start items-center">
               <button id="dark-mode-button" onclick="toggleDarkMode()" type="button"
@@ -314,14 +337,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 </div>
               </div>
-            </div>
-            @end
-
-            @if(auth.use('web').isAuthenticated)
-            <div class="hidden lg:flex mr-4 items-center gap-x-2">
-              <img class="dark:bg-gray-800 bg-white object-cover w-10 h-10 rounded-lg"
-              src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/imgProfileDefault.png') }}"
-              alt="Photo of {{auth.use('web').user.username}}">
             </div>
             @end
 
