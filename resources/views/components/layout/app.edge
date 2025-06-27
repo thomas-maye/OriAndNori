@@ -51,14 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <img class="w-auto h-20 md:h-max" src="{{ asset('resources/images/OriandNori-Logo3.png') }}" alt='Ori&Nori'>
           </a>
 
-          @if(auth.use('web').isAuthenticated)
-          <div class="hidden lg:flex mr-4 items-center gap-x-2">
-            <img class="dark:bg-gray-800 bg-white object-cover w-10 h-10 rounded-lg"
-            src="{{ auth.use('web').user.profile_picture ? `${await driveUrl(auth.use('web').user.profile_picture)}` : asset('resources/images/imgProfileDefault.png') }}"
-            alt="Photo of {{auth.use('web').user.username}}">
-          </div>
-          @end
-
           <!-- Mobile menu button -->
           <div class="lg:hidden flex justify-end">
 
